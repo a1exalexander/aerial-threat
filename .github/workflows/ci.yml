@@ -45,3 +45,4 @@ jobs:
       - run: pnpm turbo run lint typecheck test:unit
       - run: pnpm turbo run build
       - run: pnpm turbo run test:integration
+      - run: node scripts/check-bundle-secrets.mjs apps/web/dist

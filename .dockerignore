@@ -1,0 +1,18 @@
+# Build context for Dockerfile.api / Dockerfile.worker / the web image. Keep secrets and data out of every layer.
+.git
+.github
+.claude
+Plans
+docs
+**/node_modules
+**/dist
+**/.turbo
+**/coverage
+**/.env
+**/.env.*
+**/result.json
+*.session
+**/*.session
+Dockerfile.*
+docker-compose*.yml
+.DS_Store
