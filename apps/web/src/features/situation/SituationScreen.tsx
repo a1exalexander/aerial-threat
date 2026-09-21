@@ -184,10 +184,10 @@ function Statuses({ s, stale: failing }: { s: SituationDto; stale: boolean }) {
                     →
                   </span>
                 ) : null}
-                <span className={`chip${isWater(stop) ? ' chip--water' : inRaion(stop.placeId) ? ' chip--raion' : ''}`}>
+                <span className={`chip${isWater(stop) ? ' chip--water' : inRaion(stop) ? ' chip--raion' : ''}`}>
                   {isWater(stop) ? <Icon name="water" /> : null}
                   {stop.name}
-                  {inRaion(stop.placeId) ? <span className="sr-only"> (Кременчуцький район)</span> : null}
+                  {inRaion(stop) ? <span className="sr-only"> (Кременчуцький район)</span> : null}
                 </span>
               </li>
             ))}

@@ -17,3 +17,7 @@ Operators review claims, merge and split incidents, reprocess messages and pause
 
 - We store no passwords or sessions. MFA and account lifecycle belong to the chosen IdP, which is still open (0007). Until one is configured, admin routes return 401 in production.
 - Audit rows are immutable until retention deletes them after 180 days.
+
+## Update (web)
+
+The web operator screens (`/review`, `/ops`, OIDC login) were removed when the web became a single public Kremenchuk screen. The operator API (`/v1/admin/*`) and its bearer-token auth described here remain.

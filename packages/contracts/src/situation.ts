@@ -46,7 +46,8 @@ export const SituationStatuses = z.object({
 export type SituationStatuses = z.infer<typeof SituationStatuses>;
 
 /** A stop of a route list from the channels; placeId is null for a name the dictionary does not know. */
-export const RouteStop = z.object({ name: z.string(), placeId: z.string().nullable() });
+/** inRaion: set by the API (the stop lies in Кременчуцький район), so the web needs no place dictionary. */
+export const RouteStop = z.object({ name: z.string(), placeId: z.string().nullable(), inRaion: z.boolean().optional() });
 export type RouteStop = z.infer<typeof RouteStop>;
 
 export const SituationTile = z.enum(['alert', 'threat', 'clear', 'unknown']);

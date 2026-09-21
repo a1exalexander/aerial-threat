@@ -60,7 +60,7 @@ This was checked on `postgres:17`: the app role can read and write rows, but can
    dc logs --since 5m worker | grep -E '"level":(50|60)' || echo 'no worker errors'
    dsql -c "select kind, status, count(*) from jobs group by 1, 2"
    ```
-   Also sign in as a read-only operator (viewer) and open `/ops`. Watch ingestion lag and the error rate for about 30 minutes.
+   Also call `GET /v1/admin/ops` with a viewer token. Watch ingestion lag and the error rate for about 30 minutes.
 
 **Schema changes are expand → migrate → contract, spread over releases.** A release adds only what the previous code tolerates: new tables, nullable columns, new indexes. Code that stops using a column ships first. A later release drops that column. Never edit an applied migration; add `packages/db/migrations/NNNN_<slug>.sql` and update `schema.ts`.
 
@@ -98,7 +98,7 @@ Each pass logs `retention pass done` with counts. A failing step is logged as `r
 
 ## Telegram authorization lost
 
-**Symptoms:** the telegram loop logs an auth error, `source_health.error_kind` is set, and `/ops` shows the connector unavailable. The API and NEPTUN keep working.
+**Symptoms:** the telegram loop logs an auth error, `source_health.error_kind` is set, and `GET /v1/admin/ops` shows the connector unavailable. The API and NEPTUN keep working.
 
 1. Confirm: `dsql -c "select s.username, h.error_kind, h.last_success_at from source_health h join sources s on s.id = h.source_id"`.
 2. Do not restart the worker in a loop. The collector stops only itself and does not retry the login.
@@ -107,7 +107,7 @@ Each pass logs `retention pass done` with counts. A failing step is logged as `r
 
 ## Gateway outage or budget exhausted
 
-**Symptoms:** AI failures or the circuit breaker in `/ops`, `process_revision` jobs piling up, and budget warnings at 50, 80 and 100 %.
+**Symptoms:** AI failures or the circuit breaker in `GET /v1/admin/ops`, `process_revision` jobs piling up, and budget warnings at 50, 80 and 100 %.
 
 1. NEPTUN alerts and ingestion keep running. The UI shows claims as unevaluated rather than hiding the gap.
 2. Check the Vercel AI Gateway status and usage. With a 401 or 403, rotate `AI_GATEWAY_API_KEY` in `.env.prod`, then `dc up -d worker`.

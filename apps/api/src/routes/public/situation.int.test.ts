@@ -43,7 +43,7 @@ describe('GET /v1/situation', () => {
     const { body } = await situation('threat');
     expect(body.data).toMatchObject({ tile: 'threat', tileStale: false });
     expect(body.data.statuses?.threatType).toEqual({ value: 'shahed', confidence: 'high', evidenceMessageIds: [seed.posts.threat.revisions[0]] });
-    expect(body.data.route).toEqual([{ name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk' }]);
+    expect(body.data.route).toEqual([{ name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk', inRaion: true }]);
   });
 
   it('an expired evaluation never keeps the tile amber; a stale one still does', async () => {

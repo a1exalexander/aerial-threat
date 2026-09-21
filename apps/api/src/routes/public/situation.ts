@@ -4,6 +4,7 @@ import { KREMENCHUK, type SituationDto, SituationResponse, situationTile } from 
 import { listSources, readSnapshot, worstFreshness } from '@aerial/db/repos/read';
 import { evaluationFreshness, kremenchukAlert, latestSnapshot, situationFeed, situationSourceIds } from '@aerial/db/repos/situation';
 import { isNoise } from '@aerial/domain/situation';
+import { isInKremenchukRaion } from '@aerial/geo';
 import type { FastifyPluginAsync } from 'fastify';
 import { send } from './respond';
 
@@ -37,7 +38,7 @@ export const situationRoutes: FastifyPluginAsync = async (app) => {
         tile,
         tileStale,
         statuses: snap?.statuses ?? null,
-        route: snap?.route ?? null,
+        route: snap?.route?.map((s) => ({ ...s, inRaion: s.placeId !== null && isInKremenchukRaion(s.placeId) })) ?? null,
         evaluation,
         feed,
         sources: (await listSources(tx, now)).filter((s) => sourceIds.includes(s.id)),

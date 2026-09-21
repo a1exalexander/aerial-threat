@@ -72,9 +72,6 @@ importers:
       '@aerial/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@aerial/geo':
-        specifier: workspace:*
-        version: link:../../packages/geo
       react:
         specifier: 19.3.0
         version: 19.3.0

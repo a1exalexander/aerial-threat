@@ -128,7 +128,7 @@ export function buildSituation(scenario: Scenario, now = Date.now()): SituationR
         },
         route: [
           { name: 'Козельщина', placeId: null },
-          { name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk' },
+          { name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk', inRaion: true },
           { name: 'Градизьк', placeId: null },
           { name: 'на воду', placeId: null },
         ],
@@ -195,8 +195,8 @@ export function buildSituation(scenario: Scenario, now = Date.now()): SituationR
         },
         route: [
           { name: 'Омельник', placeId: null },
-          { name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk' },
-          { name: 'Горішні Плавні', placeId: 'ua-pl-c-horishni-plavni' },
+          { name: 'Кременчук', placeId: 'ua-pl-c-kremenchuk', inRaion: true },
+          { name: 'Горішні Плавні', placeId: 'ua-pl-c-horishni-plavni', inRaion: true },
           { name: 'на воду', placeId: null },
         ],
         evaluation: { mode: 'ai', evaluatedAt: at(evalAge), freshness: evalFreshness },

@@ -1,5 +1,4 @@
 import {
-  KREMENCHUK,
   type Confidence,
   type RouteStop,
   type SituationDirection,
@@ -9,9 +8,6 @@ import {
   type SituationThreatType,
   type SituationTile,
 } from '@aerial/contracts';
-// The place dictionary is static public data like the geometry (no Node, no secrets): needed for "stop is in the raion".
-// eslint-disable-next-line no-restricted-imports
-import { ancestors } from '@aerial/geo';
 import type { IconName } from './icons';
 
 // Presentation rules: Ukrainian labels, Europe/Kyiv display, missing data is "unknown", never "safe".
@@ -102,8 +98,7 @@ const WATER = /^на\s+воду$/i;
 export const isWater = (stop: RouteStop) => WATER.test(stop.name.trim());
 /** «на воду» (out over the Dnipro) always closes the route. */
 export const orderRoute = (route: RouteStop[]) => [...route.filter((s) => !isWater(s)), ...route.filter(isWater)];
-export const inRaion = (placeId: string | null) =>
-  placeId !== null && (placeId === KREMENCHUK.raionId || ancestors(placeId).some((p) => p.id === KREMENCHUK.raionId));
+export const inRaion = (stop: RouteStop) => stop.inRaion === true;
 
 /** Only real t.me post links become anchors; anything else from the server is dropped. */
 export const telegramLink = (link: string | null) => (link?.startsWith('https://t.me/') ? link : null);
