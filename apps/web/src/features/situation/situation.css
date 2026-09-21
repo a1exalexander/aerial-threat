@@ -493,6 +493,11 @@ time {
 .sit-foot strong {
   color: var(--ink);
 }
+/* Data-source note, last line of the page. */
+.sit-foot-note {
+  margin-top: 16px;
+  font-size: 0.8125rem;
+}
 
 @media (min-width: 1024px) {
   .sit {

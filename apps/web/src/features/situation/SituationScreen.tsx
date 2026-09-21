@@ -61,15 +61,16 @@ export default function SituationScreen() {
       </main>
 
       <footer className="sit-foot">
+        <p>Статуси та повідомлення — з Telegram-каналів, автоматичний розбір може помилятися.</p>
         <p>
-          Стан тривоги — за даними{' '}
+          <strong>Агрегатор не замінює офіційне оповіщення.</strong> Під час тривоги прямуйте в укриття.
+        </p>
+        <p className="sit-foot-note">
+          Стан тривоги отримується через API{' '}
           <a href={NEPTUN_URL} target="_blank" rel="noopener noreferrer">
             NEPTUN
           </a>
-          . Статуси та повідомлення — з Telegram-каналів, автоматичний розбір може помилятися.
-        </p>
-        <p>
-          <strong>Агрегатор не замінює офіційне оповіщення.</strong> Під час тривоги прямуйте в укриття.
+          .
         </p>
       </footer>
     </div>
@@ -119,15 +120,15 @@ function AlertTile({ tile, alert, stale }: { tile: SituationTile | null; alert: 
       </div>
       <h2 className="tile-label">{t.label}</h2>
       <p className="tile-note">{t.note}</p>
-      {alert ? (
+      {since || (tile === 'alert' && alert?.level) ? (
         <p className="tile-meta">
           {since ? (
             <>
-              з <time dateTime={since}>{kyivShort(since)}</time> ·{' '}
+              з <time dateTime={since}>{kyivShort(since)}</time>
             </>
           ) : null}
-          {tile === 'alert' && alert.level ? `${levelLabel(alert.level)} · ` : null}
-          за даними NEPTUN
+          {since && tile === 'alert' && alert?.level ? ' · ' : null}
+          {tile === 'alert' && alert?.level ? levelLabel(alert.level) : null}
         </p>
       ) : null}
     </section>

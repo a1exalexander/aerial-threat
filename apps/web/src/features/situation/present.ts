@@ -35,7 +35,7 @@ export const TILE: Record<SituationTile, { label: string; icon: IconName; note: 
   alert: { label: 'ТРИВОГА', icon: 'siren', note: 'Офіційна тривога в Кременчуцькому районі' },
   threat: { label: 'ЗАГРОЗА', icon: 'warning', note: 'за даними каналів, офіційної тривоги немає' },
   clear: { label: 'ВІДБІЙ', icon: 'shield', note: 'Офіційної тривоги в Кременчуцькому районі немає' },
-  unknown: { label: 'НЕВІДОМО', icon: 'question', note: 'немає свіжих даних NEPTUN' },
+  unknown: { label: 'НЕВІДОМО', icon: 'question', note: 'немає свіжих даних про тривогу' },
 };
 
 /** NEPTUN alert level as text, so it never depends on colour alone. */

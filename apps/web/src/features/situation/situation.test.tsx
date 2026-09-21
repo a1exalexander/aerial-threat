@@ -62,7 +62,7 @@ describe('alert tile', () => {
   it('unknown never shows green, even when the channels report a threat', async () => {
     const { container } = open('unknown');
     const t = await tile();
-    expect(within(t).getByText('немає свіжих даних NEPTUN')).toBeTruthy();
+    expect(within(t).getByText('немає свіжих даних про тривогу')).toBeTruthy();
     expect(container.querySelector('.tile--clear, .tile--threat')).toBeNull();
     expect(screen.queryByText('ВІДБІЙ')).toBeNull();
   });
@@ -189,10 +189,13 @@ describe('feed', () => {
   });
 });
 
-it('footer carries NEPTUN attribution and the disclaimer; header shows the update time', async () => {
+it('NEPTUN is named only in the footer note; footer has the disclaimer; header shows the update time', async () => {
   open('clear');
-  await tile();
-  expect(screen.getByRole('link', { name: 'NEPTUN' }).getAttribute('href')).toBe('https://neptun.in.ua/');
+  const t = await tile();
+  expect(t.textContent).not.toMatch(/NEPTUN/);
+  const link = screen.getByRole('link', { name: 'NEPTUN' });
+  expect(link.getAttribute('href')).toBe('https://neptun.in.ua/');
+  expect(link.closest('footer')?.lastElementChild?.textContent).toMatch(/^Стан тривоги отримується через API NEPTUN\.$/);
   expect(screen.getByText('Агрегатор не замінює офіційне оповіщення.')).toBeTruthy();
   expect(screen.getByText(/^Оновлено о/).textContent).toMatch(/^Оновлено о \d{2}:\d{2}:\d{2}$/);
 });
