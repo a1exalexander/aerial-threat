@@ -13,6 +13,7 @@
     "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\""
   },
   "dependencies": {
-    "@aerial/contracts": "workspace:*"
+    "@aerial/contracts": "workspace:*",
+    "@aerial/geo": "workspace:*"
   }
 }

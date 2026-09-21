@@ -209,6 +209,9 @@ importers:
       '@aerial/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerial/geo':
+        specifier: workspace:*
+        version: link:../geo
 
   packages/geo:
     dependencies:
