@@ -296,6 +296,15 @@ export const sourceHealth = pgTable('source_health', {
   updatedAt: updatedAt(),
 });
 
+/** Live Telegram collector cursor (pts); advances only in the transaction that stores the updates. */
+export const telegramCheckpoints = pgTable('telegram_checkpoints', {
+  sourceId: uuid('source_id')
+    .primaryKey()
+    .references(() => sources.id),
+  pts: integer('pts').notNull(),
+  updatedAt: updatedAt(),
+});
+
 /** Append-only operator audit. idempotency_key makes command retries return the first result. */
 export const auditLog = pgTable(
   'audit_log',
