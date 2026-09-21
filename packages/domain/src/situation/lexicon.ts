@@ -24,11 +24,11 @@ export const THREATS: [KnownThreat, RegExp][] = [
   ['jet_shahed', re(`реактивн${L}`)],
   ['ballistic', re(`бал+істи${L}|бублик${L}|бублістик${L}|іскандер${L}`)],
   ['kab', re(`каб(?:и|ів|ами|ах)?${END}|керован${L}\\s+авіа${L}\\s+бомб${L}`)],
-  ['missile', re(`ракет${L}|крилат${L}|калібр${L}|[хx]-?(?:101|555|22|59)${END}|кинд?жал${L}`)],
+  // «бандероль» is the channels' name for the S8000 «Бандероль» small cruise missile.
+  ['missile', re(`ракет${L}|крилат${L}|калібр${L}|бандерол${L}|[хx]-?(?:101|555|22|59)${END}|кинд?жал${L}`)],
   // «міг» alone is the verb «could»: only with a number (МіГ-31); «дибіл-31» is the channels' nickname for it.
   ['aviation', re(`авіаці${L}|(?:міг|дибіл)[\\s-]*\\d+|су-?34|ту-?95|ту-?22|тактичн${L}|літак${L}|самол[еі]т${L}`)],
-  // Assumption to calibrate: «бандероль» is counted as a strike drone, though Х Кременчук once called it a small cruise missile.
-  ['shahed', re(`шахед${L}|шахід${L}|мопед${L}|геран${L}|гербер${L}|дрон${L}|бпла${END}|бе[зс]пілотн${L}|бандерол${L}`)],
+  ['shahed', re(`шахед${L}|шахід${L}|мопед${L}|геран${L}|гербер${L}|дрон${L}|бпла${END}|бе[зс]пілотн${L}`)],
 ];
 
 /** Something is in the air and moving now: flight verbs, a course, circling, turning. */

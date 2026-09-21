@@ -95,9 +95,11 @@ describe('GET /v1/situation', () => {
     expect(fundraiser!.text).toMatch(/^Збір на дрони: картка •+, тел\. •+$/);
     expect(threat!.replyToText).toBeNull();
 
-    // Without a snapshot nothing is marked irrelevant; the noise rule alone decides.
+    // Without a snapshot nothing is marked irrelevant; the noise rule alone decides — and it hides the ad.
     const none = await situation('unknown');
-    expect(none.body.data.feed.map((f) => f.id)).toContain(posts.ad.revisions[0]);
+    const noneIds = none.body.data.feed.map((f) => f.id);
+    expect(noneIds).not.toContain(posts.ad.revisions[0]);
+    expect(noneIds).toContain(posts.threat.revisions[0]);
   });
 
   it('sources: only the Kremenchuk channels', async () => {
