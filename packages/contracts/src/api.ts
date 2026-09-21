@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   AlertState,
+  Claim,
   ClaimKind,
   DecimalId,
   EvidenceRelation,
@@ -97,6 +98,21 @@ export const EvidenceItemDto = z.object({
   relation: EvidenceRelation,
   originGroup: z.string().nullable(),
   active: z.boolean(),
+  // Read API additions, optional so earlier producers stay valid: the exact revision and its times, what the
+  // claim states and why it is uncertain. Conflicting variants are listed side by side, never averaged.
+  revisionId: Id.optional(),
+  receivedAt: Timestamp.optional(),
+  editedAt: Timestamp.nullable().optional(),
+  ...Claim.pick({
+    kind: true,
+    threatType: true,
+    temporalScope: true,
+    quantity: true,
+    quantityText: true,
+    placeId: true,
+    movementMention: true,
+    uncertainty: true,
+  }).partial().shape,
 });
 export type EvidenceItemDto = z.infer<typeof EvidenceItemDto>;
 
@@ -106,12 +122,32 @@ export type IncidentDetail = z.infer<typeof IncidentDetail>;
 /** One logically consistent snapshot for the dashboard. */
 export const Overview = z.object({
   asOf: Timestamp,
+  /**
+   * `archive` = a history view at `asOf`, not the live state: incidents first seen by then in their latest recorded
+   * state, alerts unknown. Optional only for backward compatibility.
+   */
+  mode: MessageMode.optional(),
   areaId: z.string().nullable(),
   alerts: z.array(AlertStateDto),
   incidents: z.array(IncidentListItem),
   sources: z.array(SourceDto),
 });
 export type Overview = z.infer<typeof Overview>;
+
+// GET query strings (every value arrives as a string). Range and cursor rules are enforced by the API.
+const AreaIdParam = z.string().min(1).max(64);
+export const OverviewQuery = z.object({ areaId: AreaIdParam.optional(), asOf: Timestamp.optional() });
+export const IncidentsQuery = z.object({
+  areaId: AreaIdParam.optional(),
+  kind: ClaimKind.optional(),
+  lifecycle: IncidentLifecycle.optional(),
+  from: Timestamp.optional(),
+  to: Timestamp.optional(),
+  cursor: z.string().max(512).optional(),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+export const AlertsQuery = z.object({ areaId: AreaIdParam.optional(), freshness: Freshness.optional() });
+export const AreasQuery = z.object({ parentId: AreaIdParam.optional(), query: z.string().trim().min(1).max(100).optional() });
 
 // Operator commands: optimistic concurrency + idempotency + a mandatory reason for the audit log.
 const Command = z.object({
