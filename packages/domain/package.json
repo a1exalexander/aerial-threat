@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     "./claims": "./src/claims/index.ts",
-    "./aggregation": "./src/aggregation/index.ts"
+    "./aggregation": "./src/aggregation/index.ts",
+    "./situation": "./src/situation/index.ts"
   },
   "scripts": {
     "lint": "eslint .",

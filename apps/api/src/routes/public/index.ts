@@ -30,6 +30,7 @@ import {
 } from '@aerial/db/repos/read';
 import { PLACES, byId } from '@aerial/geo';
 import type { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
+import { situationRoutes } from './situation';
 
 /** Longest from..to window of one /v1/incidents query. */
 export const MAX_RANGE_MS = 31 * 24 * 3600_000;
@@ -104,6 +105,7 @@ function send<T>(
 /** Mounted at /v1. Public read API: every response is an envelope; an empty list is never "all clear". */
 export const publicRoutes: FastifyPluginAsync = async (app) => {
   const snapshot = <T>(fn: Parameters<typeof readSnapshot<T>>[1]) => readSnapshot(app.db.db, fn);
+  await app.register(situationRoutes);
 
   app.get('/overview', async (req, reply) => {
     const q = parseQuery(OverviewQuery, req.query);

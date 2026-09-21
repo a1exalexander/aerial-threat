@@ -1,6 +1,8 @@
 import type { PlaceLevel } from '@aerial/contracts';
 import { AMBIGUOUS_NAMES, PLACES, SUB_AREAS } from '../dictionary';
 
+export { extractRoute } from './route';
+
 /** How the text relates the threat to the place. Only the literal wording, never a computed position. */
 export type PlaceRelation = 'in' | 'towards' | 'over' | 'near' | 'past' | 'region_of' | 'unknown';
 

@@ -33,9 +33,6 @@ import {
 } from '@aerial/telegram/live';
 import type { Loop, LoopContext } from './index';
 
-/** Versioned source allowlist (doc 08 keeps non-secret source config in code). Identity is the resolved channel ID. */
-export const TELEGRAM_CHANNELS = ['ppo_energy_poltava', 'h_kremenchug'];
-
 const LEASE_KEY = 'aerial:telegram-collector';
 /** Buffered updates beyond this are dropped in favour of a resync from the checkpoint. */
 const MAX_QUEUE = 10_000;
@@ -44,6 +41,7 @@ const INT4_MAX = 2_147_483_647;
 export type TelegramLoopOptions = {
   /** Returns undefined when Telegram is not configured. */
   createSource: (env: WorkerEnv) => TelegramSource | undefined;
+  /** Source allowlist; defaults to TELEGRAM_CHANNELS (@aerial/config). Identity is the resolved channel ID. */
   channels: string[];
   /** First-start history window. */
   backfillMs: number;
@@ -56,14 +54,13 @@ export type TelegramLoopOptions = {
   random: () => number;
 };
 
-const defaults: TelegramLoopOptions = {
+const defaults: Omit<TelegramLoopOptions, 'channels'> = {
   createSource: (env) => {
     const apiId = Number(env.TELEGRAM_API_ID);
     return Number.isSafeInteger(apiId) && apiId > 0 && env.TELEGRAM_API_HASH && env.TELEGRAM_SESSION_SECRET_REF
       ? new GramJsSource({ apiId, apiHash: env.TELEGRAM_API_HASH, sessionRef: env.TELEGRAM_SESSION_SECRET_REF })
       : undefined;
   },
-  channels: TELEGRAM_CHANNELS,
   backfillMs: 24 * 3_600_000,
   recheckMs: 3_600_000,
   syncIntervalMs: 30_000,
@@ -73,10 +70,10 @@ const defaults: TelegramLoopOptions = {
 };
 
 export function createTelegramLoop(overrides: Partial<TelegramLoopOptions> = {}): Loop {
-  const opts = { ...defaults, ...overrides };
   return {
     name: 'telegram',
     async start(ctx) {
+      const opts: TelegramLoopOptions = { ...defaults, channels: ctx.env.TELEGRAM_CHANNELS, ...overrides };
       const log = ctx.logger.child({ loop: 'telegram' });
       const source = opts.createSource(ctx.env);
       if (!source) {

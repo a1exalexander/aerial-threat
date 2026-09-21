@@ -170,6 +170,9 @@ importers:
       '@aerial/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerial/domain':
+        specifier: workspace:*
+        version: link:../domain
       '@ai-sdk/gateway':
         specifier: 4.0.87
         version: 4.0.87(zod@4.6.5)

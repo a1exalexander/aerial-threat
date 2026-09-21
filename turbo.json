@@ -27,7 +27,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL", "API_PORT", "CORS_ORIGINS", "OIDC_*", "AI_*", "TELEGRAM_*", "NEPTUN_BASE_URL", "VITE_*"]
+      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL", "API_PORT", "CORS_ORIGINS", "OIDC_*", "AI_*", "TELEGRAM_*", "NEPTUN_BASE_URL", "KREMENCHUK_SOURCES", "SITUATION_*", "VITE_*"]
     },
     "db:migrate": {
       "cache": false,

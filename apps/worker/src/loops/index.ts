@@ -3,6 +3,7 @@ import type { Database } from '@aerial/db';
 import type { Logger } from '@aerial/observability';
 import { neptunLoop } from './neptun';
 import { retentionLoop } from './retention';
+import { situationLoop } from './situation';
 import { telegramLoop } from './telegram';
 
 export type LoopContext = {
@@ -23,4 +24,4 @@ export interface Loop {
 }
 
 // Each unit implements its own loop file; this list changes only when a new loop file is added.
-export const loops: Loop[] = [neptunLoop, telegramLoop, retentionLoop];
+export const loops: Loop[] = [neptunLoop, telegramLoop, retentionLoop, situationLoop];

@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./situation": "./src/situation/index.ts"
   },
   "scripts": {
     "lint": "eslint .",
@@ -14,6 +15,7 @@
   "dependencies": {
     "@ai-sdk/gateway": "4.0.87",
     "@aerial/contracts": "workspace:*",
+    "@aerial/domain": "workspace:*",
     "ai": "7.0.107",
     "zod": "4.6.5"
   }

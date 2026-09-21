@@ -25,6 +25,12 @@ pnpm dev                          # api (tsx watch), worker (tsx watch), web (vi
 | `pnpm db:migrate` | Applies pending SQL migrations to `DATABASE_URL`. A rerun is a no-op. |
 | `pnpm --filter @aerial/worker cli <import\|replay\|eval-live\|mint-dev-token>` | Runs admin/dev commands. |
 
+## Kremenchuk situation screen
+
+`GET /v1/situation` returns a `SituationResponse` (`@aerial/contracts`): the NEPTUN state of Кременчуцький район, the alert tile (`situationTile`: alert / threat / clear / unknown), statuses aggregated from the `KREMENCHUK_SOURCES` channels, and a feed of their relevant posts. The worker's `situation` loop writes the statuses to `situation_snapshots`: a free rules snapshot every `SITUATION_RULES_INTERVAL_S`, and AI (`AI_EVALUATOR=fake|gateway`) only on new posts, at most every `SITUATION_ALERT_INTERVAL_S` during an alert and every `SITUATION_QUIET_AI_INTERVAL_S` without one. Every variable, with its default, is in `.env.example`.
+
+To run the web without a backend, use the msw mocks: `VITE_MOCKS=1 pnpm --filter @aerial/web dev`.
+
 ## Layout and boundaries
 
 - `apps/api`: Fastify 5 read and operator API. `apps/worker`: connectors, job loops, CLI. `apps/web`: React 19 + Vite.

@@ -10,3 +10,6 @@ coverage/
 *.session
 .DS_Store
 .dev-jwt-key.json
+
+# Claude Code agent worktrees
+.claude/

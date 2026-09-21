@@ -1,7 +1,7 @@
 // Drizzle mirror of migrations/*.sql (the SQL files are the source of truth; schema.int.test.ts checks parity).
 // There is no `places` table: the place dictionary is versioned code in @aerial/geo (DICTIONARY_VERSION),
 // so place_id/area_id columns hold stable geo IDs validated at write time, not FKs.
-import type { Assessment, EvidenceSpan, Uncertainty } from '@aerial/contracts';
+import type { Assessment, EvidenceSpan, RouteStop, SituationMode, SituationStatuses, Uncertainty } from '@aerial/contracts';
 import { sql } from 'drizzle-orm';
 import {
   type AnyPgColumn,
@@ -329,4 +329,30 @@ export const auditLog = pgTable(
     uniqueIndex('audit_log_idempotency_key').on(t.idempotencyKey),
     index('audit_log_entity_idx').on(t.entityType, t.entityId),
   ],
+);
+
+/** 0003: one evaluation of the Kremenchuk window (AI or rules) with provenance; the API reads the latest. */
+export const situationSnapshots = pgTable(
+  'situation_snapshots',
+  {
+    id: id(),
+    areaId: text('area_id').notNull(),
+    evaluatedAt: tstz('evaluated_at').notNull(),
+    windowFrom: tstz('window_from'),
+    windowTo: tstz('window_to'),
+    revisionIds: uuid('revision_ids').array().notNull().default(sql`'{}'::uuid[]`),
+    relevantRevisionIds: uuid('relevant_revision_ids').array().notNull().default(sql`'{}'::uuid[]`),
+    statuses: jsonb('statuses').$type<SituationStatuses>().notNull(),
+    route: jsonb('route').$type<RouteStop[]>(),
+    mode: text('mode').$type<SituationMode>().notNull(),
+    model: text('model'),
+    questionsVersion: text('questions_version'),
+    rulesVersion: text('rules_version'),
+    usage: jsonb('usage').$type<Record<string, unknown>>(),
+    providerRequestId: text('provider_request_id'),
+    latencyMs: integer('latency_ms'),
+    status: text('status').$type<'ok' | 'failed' | 'skipped'>().notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index('situation_snapshots_area_evaluated_idx').on(t.areaId, t.evaluatedAt.desc())],
 );

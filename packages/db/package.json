@@ -11,7 +11,8 @@
     "./testing": "./src/testing.ts",
     "./repos/alerts": "./src/repos/alerts.ts",
     "./repos/read": "./src/repos/read/index.ts",
-    "./repos/admin": "./src/repos/admin/index.ts"
+    "./repos/admin": "./src/repos/admin/index.ts",
+    "./repos/situation": "./src/repos/situation.ts"
   },
   "scripts": {
     "lint": "eslint .",
