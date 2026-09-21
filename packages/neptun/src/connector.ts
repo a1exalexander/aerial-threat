@@ -206,6 +206,11 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
         clearTimeout(grace);
         ws.onopen = ws.onmessage = ws.onclose = ws.onerror = null;
         signal.removeEventListener('abort', shut);
+        try {
+          ws.close();
+        } catch {
+          // already closed
+        }
         resolve(openedAt === null ? 0 : now() - openedAt);
       };
       // A close handshake on a dead network can hang: give it 5 s, then drop the socket regardless.
@@ -236,7 +241,7 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
         bump();
         onFrame(String(e.data));
       };
-      ws.onerror = () => {}; // a close event follows
+      ws.onerror = finish; // Node's WebSocket fires only `error` (no `close`) on a refused connection
       ws.onclose = finish;
     });
   }

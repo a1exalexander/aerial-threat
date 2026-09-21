@@ -199,6 +199,15 @@ describe('runNeptunConnector', () => {
     expect(starts.map((s) => s - t0)).toEqual([0, step, 2 * step, 3 * step, 4 * step]);
   });
 
+  it('retries promptly when the stream errors without a close event (refused connection)', async () => {
+    const h = harness(hangingFetch);
+    await vi.advanceTimersByTimeAsync(0);
+    lastWs().onerror?.();
+    await vi.advanceTimersByTimeAsync(3_000); // first backoff is 1-3 s
+    await h.stop();
+    expect(FakeWs.all.length).toBe(2);
+  });
+
   it('reconnects a silent stream and takes a fresh REST snapshot on reconnect', async () => {
     const h = harness(async () => json(payload('2026-09-21T08:00:00Z', [])));
     await vi.advanceTimersByTimeAsync(0);
