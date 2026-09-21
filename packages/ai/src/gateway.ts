@@ -8,13 +8,15 @@ export const DEFAULT_MODEL = 'typesafe-ai/jev';
 export const HTTP_EVALUATE_URL = 'https://ai-gateway.vercel.sh/v1/evaluate';
 
 type Fetch = typeof globalThis.fetch;
+/** Any JSON state the Evaluation API takes: the per-post object or a situation window. */
+export type GatewayState = Parameters<typeof experimental_evaluate>[0]['state'];
 
 const Metadata = z.object({ gateway: z.object({ generationId: z.string() }) });
 const requestId = (metadata: unknown, headers?: Record<string, string>) =>
   Metadata.safeParse(metadata).data?.gateway.generationId ?? headers?.['x-vercel-id'] ?? null;
 
 /** AI SDK `experimental_evaluate` through `gateway.evaluationModel()`. Retries are ours, so the SDK's are off. */
-export function sdkTransport({ apiKey, fetch }: { apiKey: string; fetch?: Fetch }): Transport {
+export function sdkTransport({ apiKey, fetch }: { apiKey: string; fetch?: Fetch }): Transport<GatewayState> {
   const gateway = createGateway({ apiKey, ...(fetch && { fetch }) });
   return async ({ model, state, questions, signal }) => {
     const result = await experimental_evaluate({
@@ -42,7 +44,7 @@ const HttpBody = z.object({
 });
 
 /** Plain `POST /v1/evaluate` (same model/state/questions fields). Not the TypeSafe-compatible API. */
-export function httpTransport({ apiKey, fetch = globalThis.fetch, url = HTTP_EVALUATE_URL }: { apiKey: string; fetch?: Fetch; url?: string }): Transport {
+export function httpTransport({ apiKey, fetch = globalThis.fetch, url = HTTP_EVALUATE_URL }: { apiKey: string; fetch?: Fetch; url?: string }): Transport<GatewayState> {
   return async ({ model, state, questions, signal }) => {
     const res = await fetch(url, {
       method: 'POST',
@@ -78,9 +80,12 @@ export type GatewayEvaluatorOptions = Omit<EvaluatorOptions, 'transport' | 'mode
   fetch?: Fetch;
 };
 
-export function createGatewayEvaluator({ apiKey, model = DEFAULT_MODEL, transport = 'sdk', fetch, ...rest }: GatewayEvaluatorOptions) {
+export function gatewayTransport({ apiKey, transport = 'sdk', fetch }: Pick<GatewayEvaluatorOptions, 'apiKey' | 'transport' | 'fetch'>) {
   // Refuse early: without a key the SDK would silently try Vercel OIDC instead.
   if (!apiKey) throw new EvaluationError('credentials', 'AI_GATEWAY_API_KEY required');
-  const send = transport === 'http' ? httpTransport({ apiKey, fetch }) : sdkTransport({ apiKey, fetch });
-  return createEvaluator({ ...rest, model, transport: send });
+  return transport === 'http' ? httpTransport({ apiKey, fetch }) : sdkTransport({ apiKey, fetch });
+}
+
+export function createGatewayEvaluator({ apiKey, model = DEFAULT_MODEL, transport, fetch, ...rest }: GatewayEvaluatorOptions) {
+  return createEvaluator({ ...rest, model, transport: gatewayTransport({ apiKey, transport, fetch }) });
 }
