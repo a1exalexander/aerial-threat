@@ -1,0 +1,378 @@
+{
+  "version": 1,
+  "origin": "Redacted subset of two Telegram Desktop channel exports dated 2026-09-20 (full exports are never committed). IDs, timestamps, reply links, media metadata and reactions are unchanged.",
+  "redaction": [
+    "bank_card / phone / email entities -> [КАРТКА] / [ТЕЛЕФОН] / [EMAIL]",
+    "16-digit card numbers and phone numbers in plain text -> [КАРТКА] / [ТЕЛЕФОН]",
+    "payment links (privat24, monobank) -> https://pay.example.invalid/redacted",
+    "private persons (donor names) -> [ІМЕНА]; public officials quoted in news are kept"
+  ],
+  "hash": "sha256 of JSON.stringify(record) as stored in the fixture file",
+  "files": {
+    "energy": {
+      "path": "telegram/energy.json",
+      "channel": "ППО - Energy Полтава⚡️",
+      "username": "ppo_energy_poltava",
+      "sourceExternalId": "1706408894",
+      "selection": "every export record with 13745 <= id <= 13810; each reply parent is inside the range unless the export itself lacks it",
+      "records": [
+        {
+          "id": "13745",
+          "sha256": "8c49042a84a11a88f27d3702552c73472d1644b53140b5e190b1ce17c14fa5b5",
+          "case": "direction ambiguous: city is not a precise position"
+        },
+        {
+          "id": "13746",
+          "sha256": "609a9ecd196fc67f84cd0967ac0891367c59a3a49734b03b96804174aa47d28f",
+          "case": "geography only from channel/previous context, not explicit"
+        },
+        {
+          "id": "13747",
+          "sha256": "6db141894f365c96d6ccc9e7f40ff0e833819f60d0e9a1195aaf0ae2ec91a51f",
+          "case": "channel all-clear claim is not an official alert close"
+        },
+        {
+          "id": "13748",
+          "sha256": "92e8735b9907de1314047977e18285dc2f74f94d2399ceac5c2962ffc8ab3b73",
+          "case": "fundraising (redacted payment details)"
+        },
+        {
+          "id": "13749",
+          "sha256": "b1b7ff0e87fbcb5885acf752540475253710bdb1c5188e554c40fda8d079e1c9",
+          "replyTo": "13748"
+        },
+        {
+          "id": "13750",
+          "sha256": "799db46113f2f2fb45ab6881d45bda66430173ef6558339256c17f6a8c573368"
+        },
+        {
+          "id": "13751",
+          "sha256": "cbf8ff2983842d5e7abe639167f1b06bd863f67c507d9c8d570c79b6d916abc3"
+        },
+        {
+          "id": "13752",
+          "sha256": "85ad395d391ac2daf3f1348709c391e220ec775ea06d907a8a8560e7594a005c"
+        },
+        {
+          "id": "13753",
+          "sha256": "0c00a0bc76b5d0954e392fd052be75dac132a5fc33c45f9eadeb89772b281e19"
+        },
+        {
+          "id": "13754",
+          "sha256": "6b8d9a94389729f9f92dae45e374ec9b2de8b8386b13f67d8ae41ae05fc4bcad"
+        },
+        {
+          "id": "13755",
+          "sha256": "8c3454218eea5caad12d0d567a499c3d8f3ead5f9ba5aef5c588442a765a56b0",
+          "case": "threat start; closed by reply 13756"
+        },
+        {
+          "id": "13756",
+          "sha256": "fc5a623f0cda18a77a8a50418010d95131afbe1fbc248e1921aaf159191662b7",
+          "replyTo": "13755",
+          "case": "reply closing 13755 (same threat type)"
+        },
+        {
+          "id": "13757",
+          "sha256": "da324e337f744648f6c38e854771c21f5595c9332544b3004c985ce61636dec9",
+          "replyTo": "13748"
+        },
+        {
+          "id": "13758",
+          "sha256": "0029765e50d81bd2958bb7c1a94b1f161fe7ed02bd481181eefec9c598a51bbe",
+          "replyTo": "13757"
+        },
+        {
+          "id": "13759",
+          "sha256": "3385db06e53c8ad0df3912818af2ffd44628163dbd026dcc21d53dd58d878723"
+        },
+        {
+          "id": "13760",
+          "sha256": "a2fb0248d56625cf93b348007c8c95e225534a5dd54c7c025719ae4706149e83"
+        },
+        {
+          "id": "13761",
+          "sha256": "e1cde09b1ea5e89953db5a7f3e4996a43e4a5a3b3028777b1fc7f5648c08f122"
+        },
+        {
+          "id": "13762",
+          "sha256": "f41f383871b6c50e3023fde0e6b1a92561f8edbacc2cbfbc6fb64880988f5121"
+        },
+        {
+          "id": "13763",
+          "sha256": "1ff92f688cff884b52fdd7802f2a5db208f5cd22b7b582d45ebf6a7617a3ad49"
+        },
+        {
+          "id": "13764",
+          "sha256": "e121760d75ae4056ace80cc86d000b49033277b25f5d60e80d3c70754cbaf6cf"
+        },
+        {
+          "id": "13765",
+          "sha256": "f3b8cfb841ad46d6fd0d70adb8934b22af1995e639a1419a86d67d5c73e7dfb4"
+        },
+        {
+          "id": "13766",
+          "sha256": "3bb64a12d99cba1a29d43b7d94c1b3df8322936450cc84172ebfe595b84a9b0c",
+          "case": "quantity 7, threat type must not be guessed"
+        },
+        {
+          "id": "13767",
+          "sha256": "d01684dcae0fbbd335296c7af914148e8773c306d221472fe442980df133c7ce"
+        },
+        {
+          "id": "13768",
+          "sha256": "1b215af7579bcf0862f8307e94bd31be1613e2d1343e07c7c2bf106979e9dd03"
+        },
+        {
+          "id": "13769",
+          "sha256": "3f0a30cdd53931e1ca1b0cde3c0ede1b977750075c45b664ef19a694297e3b60"
+        },
+        {
+          "id": "13770",
+          "sha256": "2c9c6887ff20f99b9689bedc8760813dbe1ee2f0f27c40607ed09eb133bb7d51",
+          "case": "fundraising with air-defence keywords is not a current threat"
+        },
+        {
+          "id": "13771",
+          "sha256": "bf0e568f8342f2d853d5c1876fee9fed04cce84b72871e9f3c76221bec7be10c",
+          "replyTo": "13770"
+        },
+        {
+          "id": "13772",
+          "sha256": "86093011f49a2901a7d82814bf0e3e40c4b652f652f09d7d6dc334be20dfd36c"
+        },
+        {
+          "id": "13773",
+          "sha256": "6c47b9ba1a4fc2379d59fa5535034e09ce8ac61ff0f5bf33d997e4685cdf89a7",
+          "case": "several directions in one post: multiple claims or review"
+        },
+        {
+          "id": "13774",
+          "sha256": "8f647a89bb7912740ef144b709fa6e4d2572f692244f48c02df26a31d2a5ccd1"
+        },
+        {
+          "id": "13775",
+          "sha256": "9b30c57bd782ae8f3d554a0fbbb9a36951b920ec8d6fbc279379e674094fb7e5",
+          "replyTo": "13770"
+        },
+        {
+          "id": "13776",
+          "sha256": "cde345ceecea227527ef1ac5ab7bf7cdef2d87034750f8b518f97b943a3003eb",
+          "replyTo": "13775"
+        },
+        {
+          "id": "13777",
+          "sha256": "f42fa6594408bb690ffe6ac702de37e1d99cf786547d4d2c1adbc7bcfbfc7c96"
+        },
+        {
+          "id": "13778",
+          "sha256": "075f5a2982ae882d142e98f579214135220c7eb4b1e97e0e60592514caae5c86"
+        },
+        {
+          "id": "13779",
+          "sha256": "47cc370ee4b5f3b7f2eb7085b97d4106008e7b0a783623901af5a9b082de10e6"
+        },
+        {
+          "id": "13780",
+          "sha256": "3d5c07035588500b01eca366096fd8190c31987947f3aec1e6d886c2b586b7cb"
+        },
+        {
+          "id": "13781",
+          "sha256": "f9381d47bcba5a6a454b7f111d67d2fb3771bc7c763c81ccb38023bf9f6a7fc4"
+        },
+        {
+          "id": "13782",
+          "sha256": "d8292c2d230b32a6ae438b1cd3c2e7fd91fc2d0c0eca75f4c2895bba5b7cda1f",
+          "replyTo": "13781"
+        },
+        {
+          "id": "13783",
+          "sha256": "b885d35b352e1fe3f49f8f66037bdc69ba6a1a69be8b41959855052b16d667e0"
+        },
+        {
+          "id": "13784",
+          "sha256": "a616cf6e606920b2502cc4caacd0e40ef702f9c059b3a8ec4e73c81faa0a5538"
+        },
+        {
+          "id": "13785",
+          "sha256": "5741e371020fd3ed4cdb816620e2eccc9db531903216b7a55620f1600e2b746d"
+        },
+        {
+          "id": "13786",
+          "sha256": "60ce2138fa60f7799d5c93645cc71f58c23fff630b849c3e3c7141f4080e52b7"
+        },
+        {
+          "id": "13787",
+          "sha256": "0b3757bbfabb0849a5ac9613d9fb873689f0b470ca88824a5740f7089861d705"
+        },
+        {
+          "id": "13788",
+          "sha256": "87faf683056fd6aca69dec4cec200331115873f992a3e974145b55c8b097267c"
+        },
+        {
+          "id": "13790",
+          "sha256": "7b89cd924e3fc81ef01b5deeb5ceaee35c88789826ec44dc81160bb8b3075268",
+          "replyTo": "13789",
+          "case": "reply to 13789 which is absent from the export: missing_context"
+        },
+        {
+          "id": "13791",
+          "sha256": "0ac8fd36a831b0f1a49ae9e9adaf5e6db7e6dc9a41fdffbf0df67998f92015dc"
+        },
+        {
+          "id": "13792",
+          "sha256": "b495975af253cb82a1ba72c7e631a150acd83f14d30fac108d05eaae4649af95"
+        },
+        {
+          "id": "13793",
+          "sha256": "4446a7907577cd8439e85395148828cf2eee89ba8805b87ced40b1345cb796a6",
+          "replyTo": "13781"
+        },
+        {
+          "id": "13794",
+          "sha256": "9ea37d2a370ec5686bc741639cb7145103e1d40c893f198b3b23dc5925d4d760",
+          "replyTo": "13793"
+        },
+        {
+          "id": "13795",
+          "sha256": "33ba77949a03bb7a9468ceb0a341a8980f009cf417d21beee1e93e54579347d3"
+        },
+        {
+          "id": "13796",
+          "sha256": "0fee3c245b24a31400583328f495e3712cceac911c303578e69bc48bfcd45b9b"
+        },
+        {
+          "id": "13797",
+          "sha256": "b1e769fac2bce36f1b2068316ec76e6e87d58f708b215c9535a9b4d6ccd63f70"
+        },
+        {
+          "id": "13798",
+          "sha256": "c6797538220ecbc8904ed48469d65df8af82748922889c918ad61a274a5029c3",
+          "replyTo": "13797"
+        },
+        {
+          "id": "13799",
+          "sha256": "d04ea6ecc3fb1de4cc5deb24b06e9ef3d80963e6d39a149bd7b0e78d7dff236a"
+        },
+        {
+          "id": "13800",
+          "sha256": "3a2fe33aa52a77a16c6a23758401773079e190d9d6c98ee1c4196a098d9473a7"
+        },
+        {
+          "id": "13801",
+          "sha256": "3d125f3838c605b6c6edbcb620c7e9e25681c22702194510591eb7ed38639fcd",
+          "replyTo": "13797"
+        },
+        {
+          "id": "13802",
+          "sha256": "83eb5d8f8da63d13d4412f455f47ef423ba4293f103651082b933286da0c1a1e",
+          "replyTo": "13801"
+        },
+        {
+          "id": "13804",
+          "sha256": "84e9285bbd3f3d1a3467dac5c122435942026d5582f1f4d71ffcf402ad371f56"
+        },
+        {
+          "id": "13805",
+          "sha256": "4d752a5852de7eaf3965d9cc9240c14e17c74331d4117f95ea51f09cd49e1635"
+        },
+        {
+          "id": "13806",
+          "sha256": "e88f12370abc114e0caf7d0d444667b838d9e45ccd42678c7608f18a669bbe42",
+          "replyTo": "13805"
+        },
+        {
+          "id": "13807",
+          "sha256": "77a32655db67a24db536c71af561cb6a5482c8bfc777017cb9118649fe2fada6"
+        },
+        {
+          "id": "13808",
+          "sha256": "d623ad18afc03c6aa3959a080574c9b211b60a596bddfe793f4fbbef275dca1b"
+        },
+        {
+          "id": "13809",
+          "sha256": "f382cd7cccddaedd41a3567266ea1d1e7c7b2aa99ed7f1a64163de00cbf568ba"
+        },
+        {
+          "id": "13810",
+          "sha256": "10717c21c7e0f3fd810ab76e85eea7e98c8234a86a9cd8ddbb5298d032f48555",
+          "case": "same OVA report as kremenchuk 101889: shared origin, not independent"
+        }
+      ]
+    },
+    "kremenchuk": {
+      "path": "telegram/kremenchuk.json",
+      "channel": "Х Кременчук",
+      "username": "h_kremenchug",
+      "sourceExternalId": "1483795331",
+      "selection": "every export record with 101889 <= id <= 101903; each reply parent is inside the range unless the export itself lacks it",
+      "records": [
+        {
+          "id": "101889",
+          "sha256": "4e5a0710057babd2b0ccc274be248356fe849ad54dd0c0380e96b4d67b037014",
+          "case": "same OVA report as energy 13810: shared origin, not independent"
+        },
+        {
+          "id": "101890",
+          "sha256": "47cf642111212c0b16ed868795fcf9d07ec68a63465444ccf2e50b1e4fd42260"
+        },
+        {
+          "id": "101891",
+          "sha256": "d1cdb708bafefe1319b77b797d6973bf89de2bf43a68a99a3214e47bc900a95e",
+          "case": "explosions heard: no munition type, impact place or coordinates"
+        },
+        {
+          "id": "101892",
+          "sha256": "df3e99a292526518afeb1671b4e070d0d20f97b2488a7b037c21fad063d9d33a"
+        },
+        {
+          "id": "101893",
+          "sha256": "d8e281b18702c8bf83f26bcbb860795326e88e5e45e9339aaba245f866ded905"
+        },
+        {
+          "id": "101894",
+          "sha256": "194447bf46f63a59ec4d5a837d722934b42ecf52ce446198a75ba56203638d76"
+        },
+        {
+          "id": "101895",
+          "sha256": "d7cf499c87033080154ca5d70eee40d49be5c82fcf49df6226a7d90ebd4d6c60"
+        },
+        {
+          "id": "101896",
+          "sha256": "46e0e60a4db7155692c89b18c27173d319eb0b59f5450321984a5472e617bf21"
+        },
+        {
+          "id": "101897",
+          "sha256": "07e1f55f40a33877180990fee3f62654196d9d1ebc78297c7dbaa8a872b2c069"
+        },
+        {
+          "id": "101898",
+          "sha256": "148dc81f4f8d7beca4a9422cbefd5c1e4dc7da149f1b8049e2e9b607f6803bc2"
+        },
+        {
+          "id": "101899",
+          "sha256": "b82f89e620d6613071a830926d3aa320cd19a38ab2f5dfa8cac91b82e5744827"
+        },
+        {
+          "id": "101900",
+          "sha256": "aef760dc8f3ec26597127baf16a955e28ca9ba28ff11e675630d3e407d48b905"
+        },
+        {
+          "id": "101901",
+          "sha256": "bbbf799baa0f218ea9228e90cd2f3cc8e9accdc0adcd4c43f9ce46fc2faa9c10",
+          "case": "alert red; sequence 101901 -> 101902 -> 101903"
+        },
+        {
+          "id": "101902",
+          "sha256": "ee95b70fd76c757fccb964be0fe410f67d43d807529090cff6068faa51166e55",
+          "case": "level lowered to yellow; sequence step"
+        },
+        {
+          "id": "101903",
+          "sha256": "a4ddb8027a080eb5d4dc982984d4a80390d5475714f7b0de3eb5eba8276f5420",
+          "case": "all-clear; end of sequence"
+        }
+      ]
+    }
+  }
+}

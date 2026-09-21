@@ -1,0 +1,1148 @@
+{
+ "name": "Х Кременчук",
+ "type": "public_channel",
+ "id": 1483795331,
+ "messages": [
+  {
+   "id": 101889,
+   "type": "message",
+   "date": "2026-09-19T19:00:01",
+   "date_unixtime": "1789833601",
+   "edited": "2026-09-19T19:00:04",
+   "edited_unixtime": "1789833604",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "photo": "(File not included. Change data exporting settings to download.)",
+   "photo_file_size": 66263,
+   "width": 1320,
+   "height": 484,
+   "text": [
+    "Зафіксовано падіння ворожого БпЛА на відкритій території у Кременчуцькому районі. Виникло загоряння сухої рослинності. Люди не постраждали.\n\nПовідомляє Полтавська ОВА\n\n",
+    {
+     "type": "text_link",
+     "text": "Підписатися",
+     "href": "https://t.me/+Hvr5JaRbgqpkMzcy"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "Надіслати новину",
+     "href": "https://t.me/h_kremenchugbot"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "TT",
+     "href": "https://tiktok.com/@h.kremenchug"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "IG",
+     "href": "https://instagram.com/h.kremenchuk"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "X",
+     "href": "https://x.com/h_kremenchug"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "FB",
+     "href": "https://facebook.com/h.kremenchugg"
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Зафіксовано падіння ворожого БпЛА на відкритій території у Кременчуцькому районі. Виникло загоряння сухої рослинності. Люди не постраждали.\n\nПовідомляє Полтавська ОВА\n\n"
+    },
+    {
+     "type": "text_link",
+     "text": "Підписатися",
+     "href": "https://t.me/+Hvr5JaRbgqpkMzcy"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "Надіслати новину",
+     "href": "https://t.me/h_kremenchugbot"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "TT",
+     "href": "https://tiktok.com/@h.kremenchug"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "IG",
+     "href": "https://instagram.com/h.kremenchuk"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "X",
+     "href": "https://x.com/h_kremenchug"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "FB",
+     "href": "https://facebook.com/h.kremenchugg"
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 282,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 33,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 23,
+     "emoji": "🤯"
+    },
+    {
+     "type": "emoji",
+     "count": 19,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "😁"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🎄"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "👎"
+    }
+   ]
+  },
+  {
+   "id": 101890,
+   "type": "message",
+   "date": "2026-09-19T20:57:56",
+   "date_unixtime": "1789840676",
+   "edited": "2026-09-19T22:31:20",
+   "edited_unixtime": "1789846280",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🟡 Жовтий рівень · Дронова загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🟡 Жовтий рівень · Дронова загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "paid",
+     "count": 1
+    },
+    {
+     "type": "emoji",
+     "count": 189,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 92,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 14,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "🤯"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "😁"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "👌"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "😍"
+    }
+   ]
+  },
+  {
+   "id": 101891,
+   "type": "message",
+   "date": "2026-09-19T21:25:21",
+   "date_unixtime": "1789842321",
+   "edited": "2026-09-19T21:25:57",
+   "edited_unixtime": "1789842357",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "Чутно вибухи \n\n",
+    {
+     "type": "text_link",
+     "text": "Підписатися",
+     "href": "https://t.me/+Hvr5JaRbgqpkMzcy"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "Надіслати новину",
+     "href": "https://t.me/h_kremenchugbot"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "TT",
+     "href": "https://tiktok.com/@h.kremenchug"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "IG",
+     "href": "https://instagram.com/h.kremenchuk"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "X",
+     "href": "https://x.com/h_kremenchug"
+    },
+    " • ",
+    {
+     "type": "text_link",
+     "text": "FB",
+     "href": "https://facebook.com/h.kremenchugg"
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Чутно вибухи \n\n"
+    },
+    {
+     "type": "text_link",
+     "text": "Підписатися",
+     "href": "https://t.me/+Hvr5JaRbgqpkMzcy"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "Надіслати новину",
+     "href": "https://t.me/h_kremenchugbot"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "TT",
+     "href": "https://tiktok.com/@h.kremenchug"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "IG",
+     "href": "https://instagram.com/h.kremenchuk"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "X",
+     "href": "https://x.com/h_kremenchug"
+    },
+    {
+     "type": "plain",
+     "text": " • "
+    },
+    {
+     "type": "text_link",
+     "text": "FB",
+     "href": "https://facebook.com/h.kremenchugg"
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "paid",
+     "count": 1
+    },
+    {
+     "type": "emoji",
+     "count": 381,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 205,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 22,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 20,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "💯"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "🤣"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "💋"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🥴"
+    }
+   ]
+  },
+  {
+   "id": 101892,
+   "type": "message",
+   "date": "2026-09-19T21:47:57",
+   "date_unixtime": "1789843677",
+   "edited": "2026-09-19T21:48:03",
+   "edited_unixtime": "1789843683",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 154,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 44,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 19,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🤮"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👎"
+    }
+   ]
+  },
+  {
+   "id": 101893,
+   "type": "message",
+   "date": "2026-09-19T22:20:53",
+   "date_unixtime": "1789845653",
+   "edited": "2026-09-19T22:21:05",
+   "edited_unixtime": "1789845665",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🟡 Жовтий рівень · Дронова загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🟡 Жовтий рівень · Дронова загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 173,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 92,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "👌"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🤝"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤯"
+    }
+   ]
+  },
+  {
+   "id": 101894,
+   "type": "message",
+   "date": "2026-09-20T00:06:19",
+   "date_unixtime": "1789851979",
+   "edited": "2026-09-20T00:06:30",
+   "edited_unixtime": "1789851990",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 87,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 23,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🥴"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 101895,
+   "type": "message",
+   "date": "2026-09-20T00:12:17",
+   "date_unixtime": "1789852337",
+   "edited": "2026-09-20T00:12:25",
+   "edited_unixtime": "1789852345",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🔴 Червоний рівень · Ракетна загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🔴 Червоний рівень · Ракетна загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 125,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 55,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤯"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👌"
+    }
+   ]
+  },
+  {
+   "id": 101896,
+   "type": "message",
+   "date": "2026-09-20T00:24:26",
+   "date_unixtime": "1789853066",
+   "edited": "2026-09-20T00:24:31",
+   "edited_unixtime": "1789853071",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 88,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 29,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🤯"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 101897,
+   "type": "message",
+   "date": "2026-09-20T01:12:33",
+   "date_unixtime": "1789855953",
+   "edited": "2026-09-20T01:13:12",
+   "edited_unixtime": "1789855992",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🟡 Жовтий рівень · Дронова загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🟡 Жовтий рівень · Дронова загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 83,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 51,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😭"
+    }
+   ]
+  },
+  {
+   "id": 101898,
+   "type": "message",
+   "date": "2026-09-20T01:42:20",
+   "date_unixtime": "1789857740",
+   "edited": "2026-09-20T01:42:30",
+   "edited_unixtime": "1789857750",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 85,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 19,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🤡"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥴"
+    }
+   ]
+  },
+  {
+   "id": 101899,
+   "type": "message",
+   "date": "2026-09-20T02:48:10",
+   "date_unixtime": "1789861690",
+   "edited": "2026-09-20T02:48:18",
+   "edited_unixtime": "1789861698",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🟡 Жовтий рівень · Дронова загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🟡 Жовтий рівень · Дронова загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 71,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 38,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "😁"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🤣"
+    }
+   ]
+  },
+  {
+   "id": 101900,
+   "type": "message",
+   "date": "2026-09-20T03:13:36",
+   "date_unixtime": "1789863216",
+   "edited": "2026-09-20T03:16:29",
+   "edited_unixtime": "1789863389",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 71,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 18,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🤡"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥴"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🖕"
+    }
+   ]
+  },
+  {
+   "id": 101901,
+   "type": "message",
+   "date": "2026-09-20T04:58:24",
+   "date_unixtime": "1789869504",
+   "edited": "2026-09-20T04:58:53",
+   "edited_unixtime": "1789869533",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🔴",
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    "\n🔴 Червоний рівень"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🔴"
+    },
+    {
+     "type": "bold",
+     "text": "Повітряна тривога!"
+    },
+    {
+     "type": "plain",
+     "text": "\n🔴 Червоний рівень"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 89,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 45,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🍾"
+    }
+   ]
+  },
+  {
+   "id": 101902,
+   "type": "message",
+   "date": "2026-09-20T05:06:02",
+   "date_unixtime": "1789869962",
+   "edited": "2026-09-20T05:06:15",
+   "edited_unixtime": "1789869975",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": [
+    "🟡 ",
+    {
+     "type": "bold",
+     "text": "Кременчуцький р-н"
+    },
+    "\nРівень знижено до жовтого\nДронова загроза"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟡 "
+    },
+    {
+     "type": "bold",
+     "text": "Кременчуцький р-н"
+    },
+    {
+     "type": "plain",
+     "text": "\nРівень знижено до жовтого\nДронова загроза"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 152,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 15,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🤣"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🤬"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🤡"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🎄"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🤯"
+    }
+   ]
+  },
+  {
+   "id": 101903,
+   "type": "message",
+   "date": "2026-09-20T05:53:10",
+   "date_unixtime": "1789872790",
+   "edited": "2026-09-20T05:53:35",
+   "edited_unixtime": "1789872815",
+   "from": "Х Кременчук",
+   "from_id": "channel1483795331",
+   "text": "🟢 Відбій повітряної тривоги!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "🟢 Відбій повітряної тривоги!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 85,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 26,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🤮"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🍌"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "👎"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥴"
+    }
+   ]
+  }
+ ]
+}

@@ -158,6 +158,9 @@ importers:
         specifier: 4.23.15
         version: 4.23.15
     devDependencies:
+      '@aerial/test-fixtures':
+        specifier: workspace:*
+        version: link:../../packages/test-fixtures
       tsup:
         specifier: 8.5.1
         version: 8.5.1(postcss@8.5.28)(tsx@4.23.15)(typescript@6.0.3)
@@ -245,6 +248,13 @@ importers:
       telegram:
         specifier: 2.26.22
         version: 2.26.22
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+    devDependencies:
+      '@aerial/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
 
   packages/test-fixtures: {}
 

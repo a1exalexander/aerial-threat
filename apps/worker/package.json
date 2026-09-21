@@ -33,6 +33,7 @@
     "tsx": "4.23.15"
   },
   "devDependencies": {
+    "@aerial/test-fixtures": "workspace:*",
     "tsup": "8.5.1"
   }
 }
