@@ -1,7 +1,7 @@
 import type { PlaceLevel } from '@aerial/contracts';
 
-/** Bump on any change to PLACES; stored alongside results that reference place IDs. */
-export const DICTIONARY_VERSION = 'geo-v1';
+/** Bump on any change to PLACES, SUB_AREAS or AMBIGUOUS_NAMES; stored alongside results that reference place IDs. */
+export const DICTIONARY_VERSION = 'geo-v2';
 
 export type Place = {
   /** Stable ID, never reused: ua-pl, ua-pl-r-<raion>, ua-pl-c-<city>, ua-pl-v-<village>. */
@@ -80,6 +80,8 @@ export const PLACES: readonly Place[] = [
   village('ua-pl-v-machukhy', 'Мачухи', R_POLTAVA),
   village('ua-pl-v-rozsoshentsi', 'Розсошенці', R_POLTAVA),
   village('ua-pl-v-brailky', 'Браїлки', R_POLTAVA),
+  village('ua-pl-v-ustymivka', 'Устимівка', R_KREMENCHUK),
+  village('ua-pl-v-kamiani-potoky', "Кам'яні Потоки", R_KREMENCHUK),
 
   // Neighbouring oblasts: stored as context, outside the MVP area.
   oblast('ua-kh', 'Харківська область', 'харківська', ['Харківщина']),
@@ -89,4 +91,27 @@ export const PLACES: readonly Place[] = [
   oblast('ua-ck', 'Черкаська область', 'черкаська', ['Черкащина']),
   oblast('ua-kv', 'Київська область', 'київська', ['Київщина']),
   oblast('ua-cn', 'Чернігівська область', 'чернігівська', ['Чернігівщина']),
+];
+
+/**
+ * City districts and micro-districts. They are not places of their own: `match` resolves them
+ * to the city and keeps the district name as `subArea`.
+ */
+export const SUB_AREAS: Readonly<Record<string, readonly string[]>> = {
+  'ua-pl-c-poltava': ['Половки', 'Рибці', 'Авіамістечко'],
+  'ua-pl-c-kremenchuk': ['Крюків', 'Крюківський район', 'Автозаводський район'],
+};
+
+/**
+ * Names shared by several villages of the oblast that are not in PLACES. `match` marks them
+ * ambiguous and never resolves them to a place.
+ */
+export const AMBIGUOUS_NAMES: readonly string[] = [
+  'Петрівка',
+  'Михайлівка',
+  'Миколаївка',
+  'Олександрівка',
+  'Василівка',
+  'Іванівка',
+  'Новоселівка',
 ];
