@@ -43,8 +43,8 @@ describe('parseAlerts', () => {
     if (!r.ok) throw new Error(r.error);
     expect(r.snapshot.providerTime).toBeNull();
     expect(r.snapshot.areas).toEqual([
-      { key: 'полтавський', kind: 'raion', level: 'unknown', since: null },
-      { key: 'харківська', kind: 'oblast', level: 'unknown', since: null },
+      { key: 'полтавський', kind: 'raion', level: 'unknown', since: null, oblast: null },
+      { key: 'харківська', kind: 'oblast', level: 'unknown', since: null, oblast: null },
     ]);
     expect(r.snapshot.diagnostics).toEqual([
       'unexpected field "partial" in payload',
@@ -54,6 +54,13 @@ describe('parseAlerts', () => {
       'invalid since for "полтавський"',
       'unknown level undefined for "харківська"',
     ]);
+  });
+
+  it('normalises key spelling so a format change cannot miss the dictionary (a miss would read as "no alert")', () => {
+    const nfd = 'полтавський'.normalize('NFD'); // decomposed й
+    const r = parseAlerts({ raions: [{ key: nfd }, { key: ' Кременчуцький ' }, { key: 'Куп’янський' }], oblasts: [] });
+    if (!r.ok) throw new Error(r.error);
+    expect(r.snapshot.areas.map((a) => a.key)).toEqual(['полтавський', 'кременчуцький', "куп'янський"]);
   });
 });
 

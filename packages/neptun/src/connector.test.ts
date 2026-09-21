@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import frames from '../fixtures/stream-frames.json';
-import { type NeptunEvent, PROVIDER_CLOCK_RESET_MS, REST_MIN_INTERVAL_MS, isOutOfOrder, runNeptunConnector } from './connector';
+import { type NeptunEvent, POLL_INTERVAL_MS, POLL_JITTER_MS, REST_MIN_INTERVAL_MS, isOutOfOrder, runNeptunConnector } from './connector';
 
 class FakeWs {
   static all: FakeWs[] = [];
@@ -34,7 +34,7 @@ const payload = (updatedAt: string | undefined, raionKeys: string[]) => ({
 });
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status });
 
-function harness(fetchImpl: (url: URL, init?: RequestInit) => Promise<Response>) {
+function harness(fetchImpl: (url: URL, init?: RequestInit) => Promise<Response>, random = () => 0.5 /* no jitter */) {
   const events: NeptunEvent[] = [];
   const logs: string[] = [];
   const push = (_: object, msg: string) => void logs.push(msg);
@@ -47,7 +47,7 @@ function harness(fetchImpl: (url: URL, init?: RequestInit) => Promise<Response>)
     log: { debug: push, info: push, warn: push, error: push },
     fetch: fetchMock as unknown as typeof fetch,
     WebSocket: FakeWs as unknown as typeof WebSocket,
-    random: () => 0.5, // no jitter
+    random,
   });
   const snapshots = () =>
     events.flatMap((e) => (e.type === 'snapshot' ? [{ channel: e.channel, keys: e.snapshot.areas.map((a) => a.key) }] : []));
@@ -68,13 +68,12 @@ describe('isOutOfOrder', () => {
     expect(isOutOfOrder(at(1_000, 300), at(2_000, 200))).toBe(false); // slow REST, newer state
     expect(isOutOfOrder(at(3_000, 100), at(2_000, 200))).toBe(true); // lagging frame
     expect(isOutOfOrder(at(3_000, 200), at(2_000, 200))).toBe(false); // same state again: a confirmation
+    expect(isOutOfOrder(at(1_000, 200), at(2_000, 200))).toBe(true); // same state, observed earlier: nothing new
+    expect(isOutOfOrder(at(600_000, 100), at(2_000, 200))).toBe(true); // however late: never roll back
   });
   it('falls back to observation order without provider time', () => {
     expect(isOutOfOrder(at(1_000), at(2_000, 200))).toBe(true);
     expect(isOutOfOrder(at(3_000, 100), at(2_000))).toBe(false);
-  });
-  it('accepts an older provider time observed long after the last snapshot (provider clock reset)', () => {
-    expect(isOutOfOrder(at(2_000 + PROVIDER_CLOCK_RESET_MS, 100), at(2_000, 200))).toBe(false);
   });
 });
 
@@ -152,21 +151,52 @@ describe('runNeptunConnector', () => {
     for (const f of frames) ws.frame(f); // snapshot, alerts, upsert, remove, heartbeat
     ws.frame({ type: 'mystery', ts: '2026-09-21T08:00:00Z' });
     ws.frame({ type: 'mystery' });
-    ws.frame('{not json');
-    ws.frame({ type: 'alerts', ts: '2026-09-21T08:00:00Z', data: { raions: [] } });
-    ws.frame({ type: 'alerts', ts: '2026-09-21T08:00:00Z', data: payload('2026-09-21T08:40:00Z', ['полтавський']) });
+    ws.frame('{not json'); // unclassifiable frames are logged only: they may be threat tracks
+    ws.frame([1, 2]);
+    ws.frame({ type: 'alerts', ts: '2026-09-21T08:00:00Z', data: { raions: [] } }); // an alerts payload that fails the contract
+    ws.frame({ type: 'alerts', ts: '2026-09-21T08:00:00Z', data: payload('2026-09-21T08:40:00Z', ['Полтавський']) });
     await vi.advanceTimersByTimeAsync(0);
     await h.stop();
 
     expect(h.events.map((e) => (e.type === 'failure' ? `failure:${e.kind}` : e.type))).toEqual([
       'snapshot',
       'heartbeat',
-      'failure:invalid_json',
       'failure:schema',
       'snapshot',
     ]);
     expect(h.snapshots()[1]).toEqual({ channel: 'ws', keys: ['полтавський'] });
+    expect(h.logs).toEqual(
+      expect.arrayContaining([
+        'neptun: unknown stream event type ignored',
+        'neptun: stream frame is not JSON (ignored)',
+        'neptun: stream frame without an envelope (ignored)',
+      ]),
+    );
     expect(h.logs.filter((m) => m === 'neptun: unknown stream event type ignored')).toHaveLength(1);
+  });
+
+  it('drops a REST failure whose request started before the applied set', async () => {
+    let fail!: (e: Error) => void;
+    const h = harness(() => new Promise((_, reject) => (fail = reject)));
+    await vi.advanceTimersByTimeAsync(0);
+    lastWs().open();
+    await vi.advanceTimersByTimeAsync(1_000);
+    lastWs().frame({ type: 'alerts', ts: '2026-09-21T08:00:01Z', data: payload('2026-09-21T08:00:00Z', []) });
+    await vi.advanceTimersByTimeAsync(1_000);
+    fail(new DOMException('timeout', 'TimeoutError'));
+    await vi.advanceTimersByTimeAsync(0);
+    await h.stop();
+    expect(h.events.map((e) => e.type)).toEqual(['snapshot']);
+  });
+
+  it('polls REST every 10 s ± jitter even at the shortest jitter (its own confirmation never skips a cycle)', async () => {
+    const starts: number[] = [];
+    const h = harness(async () => (starts.push(Date.now()), json(payload('2026-09-21T08:00:00Z', []))), () => 0);
+    await vi.advanceTimersByTimeAsync(39_000);
+    await h.stop();
+    const t0 = Date.parse('2026-09-21T08:00:00Z');
+    const step = POLL_INTERVAL_MS - POLL_JITTER_MS;
+    expect(starts.map((s) => s - t0)).toEqual([0, step, 2 * step, 3 * step, 4 * step]);
   });
 
   it('reconnects a silent stream and takes a fresh REST snapshot on reconnect', async () => {

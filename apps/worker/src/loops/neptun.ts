@@ -26,7 +26,7 @@ export function createNeptunHandler(db: Db, sourceId: string, log: Logger) {
 
   return async (e: NeptunEvent): Promise<void> => {
     const at = e.observedAt;
-    if (e.type === 'heartbeat') return recordNeptunHealth(db, sourceId, at, { lastMessageAt: at });
+    if (e.type === 'heartbeat') return recordNeptunHealth(db, sourceId, new Date(), { lastMessageAt: at });
 
     const transport = e.channel === 'ws' ? { lastMessageAt: at } : {};
     if (e.type === 'failure') {
@@ -34,7 +34,7 @@ export function createNeptunHandler(db: Db, sourceId: string, log: Logger) {
       return db.transaction(async (tx) => {
         if (e.raw !== undefined)
           await recordAlertSnapshot(tx, { fetchedAt: at, providerTime: null, raw: e.raw, valid: false, error: `${e.kind}: ${e.error}` });
-        await recordNeptunHealth(tx, sourceId, at, { ...transport, errorKind: e.kind });
+        await recordNeptunHealth(tx, sourceId, new Date(), { ...transport, errorKind: e.kind });
       });
     }
 
@@ -43,7 +43,7 @@ export function createNeptunHandler(db: Db, sourceId: string, log: Logger) {
     const { unknownKeys, changedKeys } = await db.transaction(async (tx) => {
       const { id } = await recordAlertSnapshot(tx, { fetchedAt: at, providerTime: snapshot.providerTime, raw: e.raw, valid: true });
       const applied = await applyAlertSnapshot(tx, { snapshotId: id, at, providerTime: snapshot.providerTime, areas: snapshot.areas });
-      await recordNeptunHealth(tx, sourceId, at, { ...transport, lastSuccessAt: at, errorKind: null });
+      await recordNeptunHealth(tx, sourceId, new Date(), { ...transport, lastSuccessAt: at, errorKind: null });
       return applied;
     });
     reportOnce(unknownKeys, 'neptun: area keys outside the geo dictionary (kept with place_id null)');

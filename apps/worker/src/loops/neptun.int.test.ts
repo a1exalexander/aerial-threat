@@ -21,7 +21,7 @@ const snapshot = (s: number, keys: string[]): NeptunEvent => ({
   raw: { raions: keys, oblasts: [] },
   snapshot: {
     providerTime: at(s),
-    areas: keys.map((key) => ({ key, kind: 'raion', level: 'red', since: at(0) })),
+    areas: keys.map((key) => ({ key, kind: 'raion', level: 'red', since: at(0), oblast: null })),
     diagnostics: [],
   },
 });

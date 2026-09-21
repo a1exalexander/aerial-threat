@@ -14,10 +14,46 @@ export const ALERT_STALE_AFTER_MS = 30_000;
 export const ALERT_UNKNOWN_AFTER_MS = 120_000;
 
 /** One area of a valid, complete alert set (structurally the `@aerial/neptun` ActiveArea). */
-export type ActiveAlertArea = { key: string; kind: 'raion' | 'oblast'; level: string; since: Date | null };
+export type ActiveAlertArea = { key: string; kind: 'raion' | 'oblast'; level: string; since: Date | null; oblast: string | null };
 
 /** Areas projected even while no alert names them: every dictionary place with a NEPTUN key. */
 const TRACKED = PLACES.flatMap((p) => p.neptunKeys.map((key) => [key, p.level] as const));
+const OBLAST_BY_NAME = new Map(PLACES.filter((p) => p.level === 'oblast').map((p) => [p.name, p]));
+
+/** Unrecognised levels rank between yellow and red: never below a known alert. */
+const LEVEL_RANK: Record<string, number> = { yellow: 1, red: 3 };
+const rank = (level: string) => LEVEL_RANK[level] ?? 2;
+
+/** Two alerts over one area: the higher level and the earlier start win. */
+function merge(into: ActiveAlertArea | undefined, from: ActiveAlertArea): ActiveAlertArea {
+  if (!into) return from;
+  const since = into.since && from.since ? (into.since < from.since ? into.since : from.since) : (into.since ?? from.since);
+  return { ...into, level: rank(from.level) > rank(into.level) ? from.level : into.level, since };
+}
+
+/**
+ * Listed areas plus territorial spill-over for dictionary places: an oblast-wide alert covers its raions, and a
+ * dictionary oblast with any raion under alert is active too (partial), so an oblast row never reads "no alert"
+ * while part of it is alerted. Derived states never propagate further.
+ */
+function withTerritory(areas: ActiveAlertArea[]): Map<string, ActiveAlertArea> {
+  const listed = new Map(areas.map((a) => [a.key, a]));
+  const active = new Map(listed);
+  for (const p of PLACES) {
+    const oblastWide = p.level === 'raion' && p.parentId ? listed.get(byId(p.parentId)?.neptunKeys[0] ?? '') : undefined;
+    if (oblastWide) for (const key of p.neptunKeys) active.set(key, merge(active.get(key), { ...oblastWide, key, kind: 'raion' }));
+  }
+  for (const a of listed.values()) {
+    if (a.kind !== 'raion') continue;
+    const oblast = OBLAST_BY_NAME.get(a.oblast ?? '') ?? byId(byNeptunKey(a.key)?.parentId ?? '');
+    for (const key of oblast?.neptunKeys ?? []) active.set(key, merge(active.get(key), { ...a, key, kind: 'oblast' }));
+  }
+  return active;
+}
+
+/** jsonb rejects NUL and lone surrogates (JSON.stringify emits both as \u escapes): store U+FFFD instead of failing the apply. */
+const toJsonb = (raw: unknown): unknown =>
+  JSON.parse((JSON.stringify(raw) ?? 'null').replace(/(?<!\\)((?:\\\\)*)\\u(?:0000|d[89a-f][0-9a-f]{2})/gi, '$1\\ufffd'));
 
 /** The alerts feed as a `sources` row so source_health can describe it. Returns its ID. */
 export async function ensureNeptunSource(db: Executor): Promise<string> {
@@ -50,7 +86,7 @@ export async function recordAlertSnapshot(
       fetchedAt: s.fetchedAt,
       providerTime: s.providerTime,
       payloadHash,
-      rawPayload: s.raw,
+      rawPayload: toJsonb(s.raw),
       valid: s.valid,
       error: s.error ?? null,
     })
@@ -64,18 +100,13 @@ const fromExcluded = Object.fromEntries(Object.entries(updatable).map(([k, c]) =
 /**
  * Projects a valid, complete alert set: listed areas are active, every other known area is inactive, all fresh.
  * Only this path writes `inactive`, so failures can never clear an alert. Unknown keys are kept (place_id null).
+ * `changedKeys` lists areas whose provider state, level or start changed (new alerts included).
  */
 export async function applyAlertSnapshot(
   tx: Executor,
   s: { snapshotId: string; at: Date; providerTime: Date | null; areas: ActiveAlertArea[] },
 ): Promise<{ unknownKeys: string[]; changedKeys: string[] }> {
-  const active = new Map(s.areas.map((a) => [a.key, a]));
-  // An oblast-wide alert (occupied oblasts are listed whole) covers each raion of that oblast.
-  for (const p of PLACES) {
-    const parent = p.level === 'raion' && p.parentId ? active.get(byId(p.parentId)?.neptunKeys[0] ?? '') : undefined;
-    if (parent) for (const key of p.neptunKeys) if (!active.has(key)) active.set(key, { ...parent, key, kind: 'raion' });
-  }
-
+  const active = withTerritory(s.areas);
   const existing = new Map((await tx.select().from(alertStates).for('update')).map((r) => [r.areaKey, r]));
   const kinds = new Map<string, string>([
     ...TRACKED,
@@ -88,20 +119,26 @@ export async function applyAlertSnapshot(
     const a = active.get(areaKey);
     const old = existing.get(areaKey);
     const state = a ? 'active' : 'inactive';
+    const level = a?.level ?? null;
     const since = a?.since ?? null;
-    const changed = old?.state !== state || old?.since?.getTime() !== since?.getTime();
-    if (changed && old) changedKeys.push(areaKey);
-    const changeAt = a ? (since ?? s.providerTime ?? s.at) : old ? (s.providerTime ?? s.at) : null;
+    // `unknown` is our own aging mark, not provider data; it keeps level, so the last provider state is recoverable.
+    const prev = old?.state === 'unknown' ? (old.level === null ? 'inactive' : 'active') : old?.state;
+    const changed = (old || a) && (prev !== state || old?.level !== level || old?.since?.getTime() !== since?.getTime());
+    let lastProviderChangeAt = old?.lastProviderChangeAt ?? null;
+    if (changed) {
+      changedKeys.push(areaKey);
+      lastProviderChangeAt = a && prev !== 'active' ? (since ?? s.providerTime ?? s.at) : (s.providerTime ?? s.at);
+    }
     return {
       areaKey,
       areaKind,
       placeId: byNeptunKey(areaKey)?.id ?? null,
       state,
-      level: a?.level ?? null,
+      level,
       since,
       freshness: 'fresh',
       lastSuccessAt: s.at,
-      lastProviderChangeAt: changed ? changeAt : (old?.lastProviderChangeAt ?? null),
+      lastProviderChangeAt,
       snapshotId: s.snapshotId,
       updatedAt: s.at,
     };

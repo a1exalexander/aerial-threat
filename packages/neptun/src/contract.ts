@@ -3,8 +3,21 @@ import { z } from 'zod';
 
 const Instant = z.iso.datetime({ offset: true });
 
+/** Keys are matched exactly against the geo dictionary: fold Unicode form, case and apostrophe variants first. */
+const normalizeKey = (k: string) =>
+  k
+    .normalize('NFC')
+    .trim()
+    .toLowerCase()
+    .replace(/[’ʼ`´]/g, "'");
+
 /** One raions[]/oblasts[] entry. Only `key` identifies the area, so only `key` is strict; drift elsewhere is a diagnostic. */
-const AreaEntry = z.looseObject({ key: z.string().trim().min(1), since: z.unknown().optional(), level: z.unknown().optional() });
+const AreaEntry = z.looseObject({
+  key: z.string().transform(normalizeKey).pipe(z.string().min(1)),
+  oblast: z.unknown().optional(),
+  since: z.unknown().optional(),
+  level: z.unknown().optional(),
+});
 
 /** The list of areas under alert. Both arrays are required: without them the set is incomplete and nothing may be cleared. */
 export const AlertsPayload = z.looseObject({ updatedAt: z.unknown().optional(), raions: z.array(AreaEntry), oblasts: z.array(AreaEntry) });
@@ -15,7 +28,8 @@ export type StreamEnvelope = z.infer<typeof StreamEnvelope>;
 export const ALERT_LEVELS = ['red', 'yellow'] as const;
 export type AlertLevel = (typeof ALERT_LEVELS)[number] | 'unknown';
 
-export type ActiveArea = { key: string; kind: 'raion' | 'oblast'; level: AlertLevel; since: Date | null };
+/** `oblast` is the entry's provider oblast name (e.g. "Полтавська область"), when given. */
+export type ActiveArea = { key: string; kind: 'raion' | 'oblast'; level: AlertLevel; since: Date | null; oblast: string | null };
 
 /** A complete set: every area listed is under alert, every other area is not. */
 export type AlertsSnapshot = {
@@ -56,7 +70,7 @@ export function parseAlerts(json: unknown): ParseResult {
     if (level === 'unknown') diagnostics.push(`unknown level ${JSON.stringify(e.level)} for "${e.key}"`);
     const since = instant(e.since);
     if (e.since !== undefined && !since) diagnostics.push(`invalid since for "${e.key}"`);
-    return { key: e.key, kind, level, since };
+    return { key: e.key, kind, level, since, oblast: typeof e.oblast === 'string' && e.oblast ? e.oblast : null };
   });
   return { ok: true, snapshot: { providerTime, areas, diagnostics } };
 }

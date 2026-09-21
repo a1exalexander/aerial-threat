@@ -4,15 +4,14 @@ import { type AlertsSnapshot, StreamEnvelope, parseAlerts } from './contract';
 
 /** NEPTUN terms: REST no more often than once per 5 s. */
 export const REST_MIN_INTERVAL_MS = 5_000;
-export const REST_TIMEOUT_MS = 8_000;
-/** Control REST snapshot when nothing confirmed the alert set for this long (the stream is silent about unchanged state). */
+/** Short enough that poll + timeout + poll stays under the 30 s stale threshold. */
+export const REST_TIMEOUT_MS = 5_000;
+/** Control REST snapshot every 10 s ± jitter unless something confirmed the alert set meanwhile (the stream is silent about unchanged state). */
 export const POLL_INTERVAL_MS = 10_000;
 export const POLL_JITTER_MS = 2_000;
 /** Heartbeats arrive every 15 s; three missed ones mean a dead socket. */
 export const WS_IDLE_MS = 45_000;
 export const WS_BACKOFF_MAX_MS = 60_000;
-/** Observed this much later than the last applied snapshot, an older provider time means a provider clock reset, not a race. */
-export const PROVIDER_CLOCK_RESET_MS = 60_000;
 const MAX_RAW_TEXT = 10_000;
 
 export type Channel = 'rest' | 'ws';
@@ -29,12 +28,14 @@ export type NeptunEvent =
 type Ordered = { observedAt: number; providerTime: number | null };
 
 /**
- * Serial-apply guard: true when `next` must not overwrite the already applied `last`. Provider timestamps decide
- * when both have one (a slow REST response loses to a newer WS frame, a newer REST wins over a lagging frame);
- * otherwise observation order does (REST is observed at request start).
+ * Serial-apply guard: true when `next` must not overwrite the already applied `last`. Differing provider timestamps
+ * decide (a slow REST response loses to a newer WS frame, a slow REST that saw a newer change wins); otherwise
+ * observation order does (REST is observed at request start).
+ * ponytail: no escape hatch for a provider clock that goes backwards: states go stale/unknown (never a false clear)
+ * until a newer updatedAt arrives or the worker restarts.
  */
 export function isOutOfOrder(next: Ordered, last: Ordered): boolean {
-  if (next.providerTime !== null && last.providerTime !== null && next.observedAt - last.observedAt < PROVIDER_CLOCK_RESET_MS)
+  if (next.providerTime !== null && last.providerTime !== null && next.providerTime !== last.providerTime)
     return next.providerTime < last.providerTime;
   return next.observedAt < last.observedAt;
 }
@@ -54,7 +55,7 @@ export type ConnectorOptions = {
   random?: () => number;
 };
 
-/** Resolves after ms, or early (without throwing) once the signal aborts. */
+/** Resolves after ms, or early (without throwing) once the signal aborts. Global timers, so tests can fake them. */
 function sleep(ms: number, signal: AbortSignal): Promise<void> {
   return new Promise((resolve) => {
     if (signal.aborted) return resolve();
@@ -101,6 +102,9 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
         order = { observedAt: +e.observedAt, providerTime: e.snapshot.providerTime?.getTime() ?? null };
         if (last && isOutOfOrder(order, last)) return log.info({ channel: e.channel }, 'neptun: dropped out-of-order snapshot');
       }
+      // A failure of a request that started before the applied set says nothing about it; don't let it mark health.
+      if (e.type === 'failure' && last && +e.observedAt < last.observedAt)
+        return log.info({ channel: e.channel, kind: e.kind }, 'neptun: dropped failure older than the applied set');
       try {
         await onEvent(e);
       } catch (err) {
@@ -155,13 +159,18 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
       if (!signal.aborted) await emit(event); // a request cut by shutdown is not a provider failure
     })().finally(() => (inflight = null)));
 
-  const unknownTypes = new Set<string>();
+  const warned = new Set<string>();
+  const warnOnce = (key: string, obj: object, msg: string) => {
+    if (!warned.has(key)) log.warn(obj, msg);
+    warned.add(key);
+  };
+  // A frame we cannot even classify may be a threat track, so it is logged, not counted as an alerts failure.
   function onFrame(text: string) {
     const observedAt = new Date(now());
     const json = parseJson(text);
-    if (!json.ok) return void emit({ type: 'failure', channel: 'ws', observedAt, kind: 'invalid_json', error: 'frame is not JSON' });
+    if (!json.ok) return warnOnce('invalid_json', {}, 'neptun: stream frame is not JSON (ignored)');
     const env = StreamEnvelope.safeParse(json.value);
-    if (!env.success) return void emit({ type: 'failure', channel: 'ws', observedAt, kind: 'schema', error: z.prettifyError(env.error) });
+    if (!env.success) return warnOnce('envelope', { error: z.prettifyError(env.error) }, 'neptun: stream frame without an envelope (ignored)');
     switch (env.data.type) {
       case 'alerts':
         return void emit(alertsEvent(env.data.data, 'ws', observedAt));
@@ -172,9 +181,7 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
       case 'remove':
         return; // threat tracks: not part of the alert projection (post-MVP layer)
       default:
-        if (unknownTypes.has(env.data.type)) return;
-        unknownTypes.add(env.data.type);
-        log.warn({ type: env.data.type }, 'neptun: unknown stream event type ignored');
+        warnOnce(`type:${env.data.type}`, { type: env.data.type }, 'neptun: unknown stream event type ignored');
     }
   }
 
@@ -240,7 +247,7 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
       const openMs = await connectOnce();
       if (signal.aborted) break;
       failures = openMs >= 60_000 ? 0 : failures + 1;
-      const delayMs = Math.round(Math.min(WS_BACKOFF_MAX_MS, 1_000 * 2 ** failures) * (0.5 + random()));
+      const delayMs = Math.round(Math.min(WS_BACKOFF_MAX_MS, 1_000 * 2 ** failures * (0.5 + random())));
       log.warn({ failures, delayMs }, 'neptun: stream closed; reconnecting');
       await sleep(delayMs, signal);
     }
@@ -249,7 +256,8 @@ export async function runNeptunConnector(o: ConnectorOptions): Promise<void> {
   async function runPoll() {
     while (!signal.aborted) {
       await sleep(POLL_INTERVAL_MS + (random() * 2 - 1) * POLL_JITTER_MS, signal);
-      if (!signal.aborted && now() - lastConfirmedAt >= POLL_INTERVAL_MS) await refresh('poll');
+      // The threshold is the shortest sleep, so the poll's own previous confirmation never skips a cycle.
+      if (!signal.aborted && now() - lastConfirmedAt >= POLL_INTERVAL_MS - POLL_JITTER_MS) await refresh('poll');
     }
   }
 
