@@ -105,7 +105,12 @@ function AlertTile({ tile, alert, stale }: { tile: SituationTile | null; alert: 
   const t = TILE[tile];
   const since = (tile === 'alert' || tile === 'clear') && alert?.since ? alert.since : null;
   return (
-    <section className={`tile tile--${tile}`} aria-live="polite" aria-atomic="true" aria-label="Стан тривоги">
+    <section
+      className={`tile tile--${tile}${tile === 'alert' && alert?.level === 'yellow' ? ' tile--yellow' : ''}`}
+      aria-live="polite"
+      aria-atomic="true"
+      aria-label="Стан тривоги"
+    >
       <div className="tile-top">
         <span className="tile-icon">
           <Icon name={t.icon} />

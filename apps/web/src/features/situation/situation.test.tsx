@@ -40,6 +40,15 @@ describe('alert tile', () => {
     const t = await tile();
     expect(within(t).getByText(/червоний рівень/)).toBeTruthy();
     expect(t.querySelector('time')).not.toBeNull();
+    expect(t.classList.contains('tile--yellow')).toBe(false);
+  });
+
+  it('a yellow-level alert gets the yellow card, still labelled ТРИВОГА', async () => {
+    open('alert-yellow');
+    const t = await tile();
+    expect(t.classList.contains('tile--yellow')).toBe(true);
+    expect(within(t).getByRole('heading', { name: 'ТРИВОГА' })).toBeTruthy();
+    expect(within(t).getByText(/жовтий рівень/)).toBeTruthy();
   });
 
   it('threat without an alert is attributed to the channels', async () => {

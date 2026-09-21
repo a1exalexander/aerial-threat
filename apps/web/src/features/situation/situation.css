@@ -10,6 +10,7 @@
   --focus: #8cb8ff;
   --red: #ff5257;
   --amber: #ffb224;
+  --yellow: #ffd60a;
   --green: #3ddc84;
   --grey: #a1a1aa;
   --water: #6cc4ff;
@@ -139,6 +140,10 @@ time {
 }
 .tile--alert {
   --c: var(--red);
+}
+/* NEPTUN yellow level: the alert card follows the level colour. */
+.tile--alert.tile--yellow {
+  --c: var(--yellow);
 }
 .tile--threat {
   --c: var(--amber);

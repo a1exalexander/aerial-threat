@@ -13,6 +13,7 @@ import { http, HttpResponse, type RequestHandler } from 'msw';
 
 export const SCENARIOS = [
   'alert-shahed',
+  'alert-yellow',
   'alert-ballistic',
   'threat-no-alert',
   'clear',
@@ -101,6 +102,7 @@ export function buildSituation(scenario: Scenario, now = Date.now()): SituationR
   let freshness: 'fresh' | 'stale' = 'fresh';
   switch (scenario) {
     case 'alert-shahed':
+    case 'alert-yellow':
     case 'stale':
     case 'ai-off': {
       const feed = [
@@ -241,6 +243,8 @@ export function buildSituation(scenario: Scenario, now = Date.now()): SituationR
       };
       break;
   }
+  // Same picture under a yellow-level NEPTUN alert.
+  if (scenario === 'alert-yellow') d = { ...d, alert: { ...d.alert, level: 'yellow' } };
 
   return SituationResponse.parse({
     data: { area: { id: 'ua-pl-c-kremenchuk', name: 'Кременчук' }, sources, ...d },
