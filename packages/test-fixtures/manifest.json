@@ -1,11 +1,12 @@
 {
   "version": 1,
-  "origin": "Redacted subset of two Telegram Desktop channel exports dated 2026-09-20 (full exports are never committed). IDs, timestamps, reply links, media metadata and reactions are unchanged.",
+  "origin": "Redacted subsets of Telegram Desktop channel exports dated 2026-09-20 (energy, kremenchuk) and 2026-09-21 (kremenchuk-mykolai); full exports are never committed. IDs, timestamps, reply links, media metadata and reactions are unchanged.",
   "redaction": [
     "bank_card / phone / email entities -> [КАРТКА] / [ТЕЛЕФОН] / [EMAIL]",
     "16-digit card numbers and phone numbers in plain text -> [КАРТКА] / [ТЕЛЕФОН]",
     "payment links (privat24, monobank) -> https://pay.example.invalid/redacted",
-    "private persons (donor names) -> [ІМЕНА]; public officials quoted in news are kept"
+    "private persons (donor names) -> [ІМЕНА]; public officials quoted in news are kept",
+    "kremenchuk-mykolai uses look-alike placeholders instead: card numbers -> 0000 0000 0000 0001 (Luhn-invalid), monobank jar links -> https://send.monobank.ua/jar/REDACTED, phones -> +380 00 000 00 00, emails -> [EMAIL], a forward sender -> [ІМ'Я], contact names removed, profanity-heavy personal complaints -> neutral paraphrase"
   ],
   "hash": "sha256 of JSON.stringify(record) as stored in the fixture file",
   "files": {
@@ -371,6 +372,208 @@
           "id": "101903",
           "sha256": "a4ddb8027a080eb5d4dc982984d4a80390d5475714f7b0de3eb5eba8276f5420",
           "case": "all-clear; end of sequence"
+        }
+      ]
+    },
+    "kremenchuk-mykolai": {
+      "path": "telegram/kremenchuk-mykolai.json",
+      "channel": "Кременчуцький Миколай",
+      "username": null,
+      "sourceExternalId": "2432204405",
+      "selection": "every export record with an id in 23997-23999, 24065-24075, 24086-24099, 24110-24118 or 24130-24135; each reply parent is inside the subset unless the export itself lacks it",
+      "records": [
+        {
+          "id": "23997",
+          "sha256": "8244f71fc456f3db8215545ba990617fdcda01ab01c0be1a20bffedc38f68f7d",
+          "case": "joke / rhetorical «Тривогу замовляли ?»: no threat facts"
+        },
+        {
+          "id": "23998",
+          "sha256": "9d34a2b3c0af71406189f011e2ef02503682d084bec1609dd94e9e8ba003ac2b",
+          "replyTo": "23997",
+          "case": "sticker reply with empty text"
+        },
+        {
+          "id": "23999",
+          "sha256": "799d7c9d243477bad9b413c3eb60687ffeba77d2e8412ceb202863d36f3509d1",
+          "case": "personal complaint (paraphrased): no threat facts"
+        },
+        {
+          "id": "24065",
+          "sha256": "97611e11c3276ad8456c1fc7b8f534f3564c958846df339583fbbe6d0cea38c7",
+          "case": "route list in Ukrainian: «1 реактивний» = jet Shahed passing the district"
+        },
+        {
+          "id": "24066",
+          "sha256": "31fc147eb6a1f15f5b4e64fd7d2a3b15547add6a5b962be260c1fc4a8d035171",
+          "replyTo": "24065",
+          "case": "correction of the parent route («Не вгадав»)"
+        },
+        {
+          "id": "24067",
+          "sha256": "7e9f60883682b5d54150f873618240df618526ca93d4974a5152fa1c4c681aa5",
+          "case": "slang «бандероли» = Shahed, count 2, towards Poltava not Kremenchuk"
+        },
+        {
+          "id": "24068",
+          "sha256": "287876cac280473ab4238ca535e32b55d7b2fc9e93e6a72e0e0ea158d8caa880",
+          "replyTo": "24067",
+          "case": "voice message with caption: conditional forecast for us"
+        },
+        {
+          "id": "24069",
+          "sha256": "0a80e610c59b76fc18e127454338cf33efad17655abd9e216f5656bbd7a6bd1d",
+          "replyTo": "24068",
+          "case": "slang: explosion expected in another city (Poltava)"
+        },
+        {
+          "id": "24071",
+          "sha256": "6d37799dad34dcd3a744246cc4b9c6b666774eee312cab5da8b246ad2ddbeaf7"
+        },
+        {
+          "id": "24073",
+          "sha256": "e125401e315a2a644eb22efb634dc4e53081d3f3685ee410ae026481f961bef8",
+          "replyTo": "24071",
+          "case": "forecast of a downing near another town"
+        },
+        {
+          "id": "24074",
+          "sha256": "a911c6b3c13df1a6471774f44777fdd014c88982c8c9e51af9a28355ff09e490",
+          "replyTo": "24073",
+          "case": "«Упав» reply chain: downed, context only from parents"
+        },
+        {
+          "id": "24075",
+          "sha256": "e14694416d735fb3d0f20bbbb2c983581ae2506e839926f3900c5d1206baac04",
+          "case": "forecast «буде відбій»: channel claim, not an official all-clear"
+        },
+        {
+          "id": "24086",
+          "sha256": "d8ebed7ad70f4c27e9dc0e209da7452817d07ac68ac73ad8283c16dc7cf2e27a"
+        },
+        {
+          "id": "24087",
+          "sha256": "c37573b4376fc9ac38935e4ba9fff5087e29f2fe36000b7782e67a31efda9469",
+          "case": "forwarded route list from a person (name redacted)"
+        },
+        {
+          "id": "24088",
+          "sha256": "4a1eca257e98c789595eca812bc9f12d735e4df83e612fcc89dfda0710a2079d"
+        },
+        {
+          "id": "24089",
+          "sha256": "8b4bc405e0ebfdb4111d468382f55afe327489085d96898dc620181b28b8584e",
+          "case": "slang «Бублистика» = ballistic, far away (Kursk)"
+        },
+        {
+          "id": "24090",
+          "sha256": "3735fc273dae574180c24edd017b901e1c6af33e3c2d95d15fb9f433ca89d187",
+          "replyTo": "24089",
+          "case": "«В режиме ПЕВЕО» reply: status of the parent"
+        },
+        {
+          "id": "24091",
+          "sha256": "db873bb53ae9d131df7e7e4386ae09dd10b6e28038434fbf0f8efafdf4bc1f84",
+          "case": "missile and Shahed on Dnipro: another oblast"
+        },
+        {
+          "id": "24092",
+          "sha256": "7f7bd44588eb0f1c7341dca3d6595c72d446fe6297a31a0bf4e55bc8aa7cfeb4"
+        },
+        {
+          "id": "24093",
+          "sha256": "429a299b5fc1551d0f47ea6a4afc4081b6e76561c2ab3a8e5cea3eeb4e80c9f8"
+        },
+        {
+          "id": "24094",
+          "sha256": "9e007a52480e923f368bba452ebe160393c4a4d060fd2882652d893c188cd536"
+        },
+        {
+          "id": "24095",
+          "sha256": "6002bb7612f4b801d4312cb4556fb99ea34b259c8e6d6ad64c133fe2aadc467d",
+          "replyTo": "24093"
+        },
+        {
+          "id": "24096",
+          "sha256": "32ec600448e6c04662adbb47bf828065aff5b6529b1ddeab59372df21eeb7561",
+          "replyTo": "23886",
+          "case": "reply to a post missing from the export: missing_context"
+        },
+        {
+          "id": "24097",
+          "sha256": "e04e63a3a3342d99b50d4ad64cdcf74f0d0f8182c2fd91407218d2fa6dacbd62",
+          "case": "complaint about other cities (paraphrased)"
+        },
+        {
+          "id": "24098",
+          "sha256": "41cbdf8a5b2d515b92ae15b159cfaee59abff475c6880b439c219f53971c6941"
+        },
+        {
+          "id": "24099",
+          "sha256": "a26e5f3fdac666b60488c645d306c0dfe5159875dda8a40922686223fce0b9b8",
+          "case": "donation request with jar link and two cards (redacted)"
+        },
+        {
+          "id": "24110",
+          "sha256": "f690a0556273b3b587832bd48220304432ed7f5f925558b68f8968c0a4a85694",
+          "case": "route in Russian spelling + «работа» = air defense engaging"
+        },
+        {
+          "id": "24114",
+          "sha256": "312cfd1dfd0b06f75c4c968c5ea56a42b757c8502b2bbc4db465d3da77cdd212"
+        },
+        {
+          "id": "24115",
+          "sha256": "7c1819dbf5e0abc072c54bf2e3469a02170a0e13f12624c4813d4abf9e067154",
+          "replyTo": "24110",
+          "case": "forecast «Щас будет тревога» in Russian"
+        },
+        {
+          "id": "24116",
+          "sha256": "2d7d7bc2dc130d9b5bb0959c169c403a571812f0a12fa29f3be1aaaf490fc0f7",
+          "case": "«Ничего не меняется»: no new facts"
+        },
+        {
+          "id": "24117",
+          "sha256": "4f5e192f1cf637985db2aba77aca73941f61dcac0d3058357e085f2ea64afa47",
+          "case": "advertisement tagged #реклама"
+        },
+        {
+          "id": "24118",
+          "sha256": "0cfaa9999f75e3d84c19eb12556a0294bf239b3c997ac726ed222395a7d96eab",
+          "case": "job post (phone, email and name redacted)"
+        },
+        {
+          "id": "24130",
+          "sha256": "20c5e7ec2c79cd2d926172b688430426bd1395bb9b565977c3a62e76a3286812",
+          "case": "slang «бандероли» towards Poltava, Russian spelling"
+        },
+        {
+          "id": "24131",
+          "sha256": "f9b657c978fc93f923d2bebfe3e6b945189139b3e988a6f6ccdc1bf435203b4b",
+          "replyTo": "24130"
+        },
+        {
+          "id": "24132",
+          "sha256": "a9f4bd71e9721c5483a910985ebe3e1e9c48c406f8851498757f05216fbd1b0c",
+          "replyTo": "24131",
+          "case": "slang: explosion expected in another city (Poltava)"
+        },
+        {
+          "id": "24133",
+          "sha256": "78f96dee3a0ec004a681dc361b219c07bed8b9489a09636d08dff7c8a0afc063",
+          "replyTo": "24132"
+        },
+        {
+          "id": "24134",
+          "sha256": "01622b03b299b9af85751cec6c8ac36e387a9e039f7868b588b65e604e062233",
+          "replyTo": "24133"
+        },
+        {
+          "id": "24135",
+          "sha256": "142eb413f0fb5319e85f7b6e6f382a113630c1d2e7dbbf9f84dee3b10e70be42",
+          "replyTo": "24134",
+          "case": "«По ним минус» at the end of a reply chain: downed, target only from parents"
         }
       ]
     }

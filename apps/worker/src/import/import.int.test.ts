@@ -129,4 +129,18 @@ describe('importTelegramExport', { timeout: 60_000 }, () => {
     expect(older.counters).toMatchObject({ imported: 0, unchanged: 1, skippedOlder: 1 });
     expect(await totals()).toEqual({ ...before, revisions: before.revisions + 1, jobs: before.jobs + 1 });
   });
+
+  it('imports the kremenchuk-mykolai fixture under its bare channel id and the export name', async () => {
+    const bytes = readFileSync(telegramExportPath('kremenchuk-mykolai'));
+    const n = manifest.files['kremenchuk-mykolai'].records.length;
+    const first = await importTelegramExport(t.db, { bytes });
+    expect(first.counters).toMatchObject({ total: n, imported: n, invalid: 0, unsupported: 0, mediaOnly: 1, missingContext: 1 });
+    expect(first.report.missingContext).toEqual([{ id: '24096', replyTo: '23886' }]);
+    const [source] = await t.db.select().from(sources).where(eq(sources.id, first.source.id));
+    // No username in the export: the live collector fills it when it resolves the channel by username.
+    expect(source).toMatchObject({ externalId: '2432204405', username: null, displayName: 'Кременчуцький Миколай' });
+    const before = await totals();
+    expect((await importTelegramExport(t.db, { bytes })).counters).toMatchObject({ imported: 0, unchanged: n });
+    expect(await totals()).toEqual(before);
+  });
 });
