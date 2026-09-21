@@ -1,0 +1,159 @@
+/* Operator screens only (scoped to .admin). Mobile first: no fixed widths, no horizontal scroll at 320–375 px. */
+.admin {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+  line-height: 1.45;
+  overflow-wrap: break-word;
+}
+.admin :focus-visible {
+  outline: 3px solid #1a5fb4;
+  outline-offset: 2px;
+}
+.admin button,
+.admin select,
+.admin textarea {
+  font: inherit;
+  min-height: 2.75rem; /* 44 px touch target */
+}
+.admin button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.admin textarea,
+.admin select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.25rem 0 0.75rem;
+}
+.admin fieldset {
+  margin: 0 0 0.75rem;
+  border: 1px solid #bbb;
+}
+.admin .choice {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-height: 2.25rem;
+}
+.admin .hint {
+  color: #444;
+  font-size: 0.925rem;
+}
+.admin .operator-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+.admin .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.admin .card {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+  background: #fff;
+}
+.admin .stack,
+.admin .grid {
+  list-style: none;
+  padding: 0;
+}
+.admin .grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+.admin .grid .card {
+  margin: 0;
+}
+.admin .post {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 4px solid #999;
+  background: #f5f5f5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere; /* long URLs in posts */
+}
+.admin .facts {
+  display: grid;
+  grid-template-columns: fit-content(45%) minmax(0, 1fr);
+  gap: 0.25rem 0.75rem;
+}
+.admin .facts dt {
+  font-weight: 600;
+}
+.admin .facts dd {
+  margin: 0;
+}
+.admin table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin th,
+.admin td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+.admin .banner {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 2px solid;
+  margin: 0.75rem 0;
+}
+.admin .banner.warn {
+  border-color: #9c6500;
+  background: #fff4dc;
+}
+.admin .banner.error {
+  border-color: #b3261e;
+  background: #fdecea;
+}
+.admin .status:not(:empty) {
+  padding: 0.5rem 0.75rem;
+  border-left: 4px solid #1f7a3a;
+  background: #e8f5ec;
+}
+.admin .empty {
+  padding: 1rem;
+  border: 1px dashed #999;
+}
+/* Status always carries a text label; colour only reinforces it. */
+.admin .pill {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid;
+  font-weight: 600;
+}
+.admin .pill.ok {
+  color: #1f5f32;
+  background: #e8f5ec;
+}
+.admin .pill.warn,
+.admin .warn {
+  color: #7a4d00;
+}
+.admin .pill.warn {
+  background: #fff4dc;
+}
+.admin .pill.error {
+  color: #9b1c14;
+  background: #fdecea;
+}
+.admin .pill.muted {
+  color: #444;
+  background: #eee;
+}

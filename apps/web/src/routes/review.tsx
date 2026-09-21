@@ -1,8 +1,11 @@
+import { RequireOperator } from '../auth/RequireOperator';
+import '../features/admin/admin.css';
+import { ReviewScreen } from '../features/admin/ReviewScreen';
+
 export default function Review() {
   return (
-    <section>
-      <h1>Перевірка</h1>
-      <p>Екран у розробці.</p>
-    </section>
+    <RequireOperator title="Перевірка">
+      <ReviewScreen />
+    </RequireOperator>
   );
 }
