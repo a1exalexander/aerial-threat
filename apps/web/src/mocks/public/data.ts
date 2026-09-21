@@ -45,18 +45,20 @@ export function buildOverview(scenario: Scenario, areaId: string | null, asOfPar
   const neptunDown = scenario === 'neptun-down';
   const alertFreshness: Freshness = neptunDown ? 'unknown' : scenario === 'stale' ? 'stale' : 'fresh';
 
+  // `level` is the NEPTUN alert level (red/yellow/unknown), not the area level.
   const alert = (placeId: string, areaKey: string, state: AlertState, sinceMin: number): AlertStateDto => ({
     areaKey,
     placeId,
     state: neptunDown ? 'unknown' : state,
-    level: placeId === 'ua-pl' ? 'oblast' : 'raion',
+    level: neptunDown ? 'unknown' : state === 'active' ? 'red' : null,
     since: neptunDown ? null : at(sinceMin),
     freshness: alertFreshness,
     lastSuccessfulFetchAt: at(neptunDown ? 14 : scenario === 'stale' ? 1.5 : 0.1),
     lastProviderChangeAt: neptunDown ? null : at(sinceMin),
   });
+  // The oblast row is active while any raion is ("an alert somewhere in the oblast").
   const alerts = [
-    alert('ua-pl', 'полтавська', 'inactive', 95),
+    alert('ua-pl', 'полтавська', 'active', archive ? 20 : 12),
     alert('ua-pl-r-poltavskyi', 'полтавський', archive ? 'active' : 'inactive', archive ? 20 : 95),
     alert('ua-pl-r-kremenchutskyi', 'кременчуцький', archive ? 'inactive' : 'active', 12),
     alert('ua-pl-r-myrhorodskyi', 'миргородський', 'inactive', 95),

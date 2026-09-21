@@ -1,6 +1,14 @@
 import type { AlertStateDto, AreaDto } from '@aerial/contracts';
 import { describe, expect, it } from 'vitest';
-import { alertDisplayState, areaAlertState, kyivLocalToIso, nearestArea, telegramUrl, toKyivLocal } from './present';
+import {
+  alertDisplayState,
+  areaAlertState,
+  kyivLocalToIso,
+  nearestArea,
+  oblastActiveLabel,
+  telegramUrl,
+  toKyivLocal,
+} from './present';
 
 const alert = (placeId: string, state: AlertStateDto['state'], freshness: AlertStateDto['freshness'] = 'fresh'): AlertStateDto => ({
   areaKey: placeId,
@@ -45,13 +53,24 @@ describe('alert display', () => {
     expect(alertDisplayState(alert('a', 'active', 'stale'))).toBe('active');
   });
 
-  it('derives the map state of an area from itself and an oblast-wide alert', () => {
-    expect(areaAlertState([alert('r', 'inactive'), alert('o', 'active')], 'r', 'o')).toBe('active');
-    expect(areaAlertState([alert('r', 'inactive'), alert('o', 'inactive')], 'r', 'o')).toBe('inactive');
-    expect(areaAlertState([alert('r', 'inactive'), alert('o', 'unknown')], 'r', 'o')).toBe('unknown');
-    expect(areaAlertState([], 'r', 'o')).toBe('unknown');
-    // A parent's "no alert" never stands in for a missing reading of the area itself.
-    expect(areaAlertState([alert('o', 'inactive')], 'r', 'o')).toBe('unknown');
+  it('an active oblast row does not paint its other raions as alerted', () => {
+    // NEPTUN: oblast active because one raion is; the others stay as their own rows say.
+    const rows = [alert('o', 'active'), alert('r1', 'active'), alert('r2', 'inactive')];
+    expect(areaAlertState(rows, 'r1', 'o')).toBe('active');
+    expect(areaAlertState(rows, 'r2', 'o')).toBe('inactive');
+  });
+
+  it('missing or unknown readings are unknown, never "no alert"', () => {
+    expect(areaAlertState([alert('r', 'unknown')], 'r', 'o')).toBe('unknown');
+    expect(areaAlertState([alert('o', 'inactive')], 'r', 'o')).toBe('unknown'); // no own row
+    expect(areaAlertState([alert('r', 'inactive'), alert('o', 'unknown')], 'r', 'o')).toBe('unknown'); // unknown parent degrades
+    expect(areaAlertState([alert('r', 'inactive', 'unknown')], 'r', 'o')).toBe('unknown');
+  });
+
+  it('labels an active oblast row as partial unless every raion row is active', () => {
+    expect(oblastActiveLabel([alert('r1', 'active'), alert('r2', 'inactive')])).toBe('Тривога в частині області');
+    expect(oblastActiveLabel([alert('r1', 'active'), alert('r2', 'active')])).toBe('Тривога в усій області');
+    expect(oblastActiveLabel([])).toBe('Тривога в частині області');
   });
 });
 

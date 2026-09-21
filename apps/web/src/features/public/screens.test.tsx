@@ -21,7 +21,8 @@ describe('overview', () => {
   it('shows NEPTUN state with attribution, and a channel all-clear next to the still-active alert', async () => {
     open('/');
     const alerts = await screen.findByRole('region', { name: 'Стан тривоги за даними NEPTUN' });
-    expect(within(alerts).getByText('Тривога')).toBeTruthy();
+    expect(within(alerts).getByText('Тривога')).toBeTruthy(); // Кременчуцький район
+    expect(within(alerts).getAllByText('червоний рівень').length).toBe(2); // level as text, not colour only
     expect(within(alerts).getByRole('link', { name: /NEPTUN/ }).getAttribute('href')).toBe('https://neptun.in.ua/');
     expect(within(alerts).getByText(/не замінює офіційне оповіщення/)).toBeTruthy();
 
@@ -30,6 +31,19 @@ describe('overview', () => {
     expect(within(feed).getAllByText(/Оцінка автоматичного розбору/).length).toBeGreaterThan(0);
     // Unresolved geography is a text card, not a guessed place.
     expect(within(feed).getAllByText('Місце не визначено').length).toBe(1);
+  });
+
+  it('oblast active with one raion active: oblast reads «в частині області», other raions are not «Тривога»', async () => {
+    open('/');
+    const alerts = await screen.findByRole('region', { name: 'Стан тривоги за даними NEPTUN' });
+    const row = (name: string) => within(alerts).getByText(name).closest('li')!;
+    expect(within(row('Полтавська область')).getByText('Тривога в частині області')).toBeTruthy();
+    expect(within(row('Полтавська область')).getByText(/районів із тривогою: 1 з 4/)).toBeTruthy();
+    expect(within(row('Кременчуцький район')).getByText('Тривога')).toBeTruthy();
+    for (const raion of ['Полтавський район', 'Миргородський район', 'Лубенський район']) {
+      expect(within(row(raion)).getByText('Тривоги немає')).toBeTruthy();
+      expect(within(row(raion)).queryByText('Тривога')).toBeNull();
+    }
   });
 
   it('empty feed is neutral and never reads as safe', async () => {
@@ -84,7 +98,8 @@ describe('incident details', () => {
     server.use(http.get('*/v1/alerts', () => HttpResponse.json({ code: 'x', requestId: 'r', message: 'm' }, { status: 503 })));
     act(() => document.dispatchEvent(new Event('visibilitychange'))); // visible tab -> immediate poll
     expect(await within(alerts).findByText(/Оновлення стану тривоги не вдалося/)).toBeTruthy();
-    expect(within(alerts).getByText('Тривога')).toBeTruthy();
+    expect(within(alerts).getByText('Тривога')).toBeTruthy(); // Кременчуцький район
+    expect(within(alerts).getAllByText('червоний рівень').length).toBe(2); // level as text, not colour only
   });
 
   it('shows conflicts without averaging', async () => {

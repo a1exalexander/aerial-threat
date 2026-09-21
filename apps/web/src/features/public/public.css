@@ -338,3 +338,7 @@
   background: #fff;
   border: 3px solid #1d4ed8;
 }
+.pub-breakdown {
+  font-size: 0.875rem;
+  color: var(--muted);
+}

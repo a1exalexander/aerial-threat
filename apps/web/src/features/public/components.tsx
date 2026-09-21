@@ -19,9 +19,11 @@ import {
   FRESHNESS_LABEL,
   GEO_BASIS_LABEL,
   KIND_LABEL,
+  levelLabel,
   LIFECYCLE_LABEL,
   MAP_UNAVAILABLE,
   NEPTUN_URL,
+  oblastActiveLabel,
   THREAT_LABEL,
 } from './present';
 import './public.css';
@@ -138,9 +140,20 @@ export function NeptunAttribution() {
   );
 }
 
-export function AlertStateBadge({ alert }: { alert: AlertStateDto }) {
+/** `activeLabel` overrides «Тривога», e.g. «Тривога в частині області» for an oblast row. */
+export function AlertStateBadge({ alert, activeLabel }: { alert: AlertStateDto; activeLabel?: string }) {
   const state = alertDisplayState(alert);
-  return <span className={`badge state-${state}`}>{ALERT_LABEL[state]}</span>;
+  return (
+    <>
+      <span className={`badge state-${state}`}>{state === 'active' && activeLabel ? activeLabel : ALERT_LABEL[state]}</span>
+      {alert.level && state !== 'unknown' ? (
+        <>
+          {' '}
+          <span className="badge badge-muted">{levelLabel(alert.level)}</span>
+        </>
+      ) : null}
+    </>
+  );
 }
 
 export function AlertList({ alerts, areas }: { alerts: readonly AlertStateDto[]; areas: Areas }) {
@@ -151,30 +164,49 @@ export function AlertList({ alerts, areas }: { alerts: readonly AlertStateDto[];
       </p>
     );
   }
-  const order = (a: AlertStateDto) => (a.level === 'oblast' ? 0 : 1);
+  const isOblast = (a: AlertStateDto) => areas.get(a.placeId ?? '')?.level === 'oblast';
+  const raionRows = (a: AlertStateDto) =>
+    isOblast(a) ? alerts.filter((r) => r.placeId && areas.get(r.placeId)?.parentId === a.placeId) : null;
   return (
     <ul className="pub-alerts">
-      {[...alerts].sort((a, b) => order(a) - order(b)).map((a) => (
-        <li key={a.areaKey} className={`pub-alert pub-alert--${alertDisplayState(a)}`}>
-          <span className="pub-alert-name">{areaName(areas, a.placeId) ?? a.areaKey}</span> <AlertStateBadge alert={a} />{' '}
-          {a.freshness !== 'fresh' ? <span className={`badge fresh-${a.freshness}`}>{FRESHNESS_LABEL[a.freshness]}</span> : null}
-          <dl className="pub-meta">
-            {a.since && alertDisplayState(a) !== 'unknown' ? (
-              <div>
-                <dt>Стан з</dt>
-                <dd>
-                  <Time iso={a.since} />
-                </dd>
-              </div>
-            ) : null}
-            <div>
-              <dt>Остання успішна перевірка NEPTUN</dt>
-              <dd>{a.lastSuccessfulFetchAt ? <Time iso={a.lastSuccessfulFetchAt} /> : 'немає'}</dd>
-            </div>
-          </dl>
-        </li>
-      ))}
+      {[...alerts]
+        .sort((a, b) => Number(isOblast(b)) - Number(isOblast(a)))
+        .map((a) => (
+          <AlertRow key={a.areaKey} alert={a} areas={areas} raions={raionRows(a)} />
+        ))}
     </ul>
+  );
+}
+
+/** `raions` is set for an oblast row: its state is worded as partial/whole and the breakdown is shown. */
+function AlertRow({ alert: a, areas, raions }: { alert: AlertStateDto; areas: Areas; raions: readonly AlertStateDto[] | null }) {
+  const state = alertDisplayState(a);
+  const activeRaions = raions?.filter((r) => alertDisplayState(r) === 'active').length ?? 0;
+  return (
+    <li className={`pub-alert pub-alert--${state}`}>
+      <span className="pub-alert-name">{areaName(areas, a.placeId) ?? a.areaKey}</span>{' '}
+      <AlertStateBadge alert={a} activeLabel={raions ? oblastActiveLabel(raions) : undefined} />{' '}
+      {raions && raions.length > 0 && state === 'active' ? (
+        <span className="pub-breakdown">
+          (районів із тривогою: {activeRaions} з {raions.length}, див. нижче)
+        </span>
+      ) : null}{' '}
+      {a.freshness !== 'fresh' ? <span className={`badge fresh-${a.freshness}`}>{FRESHNESS_LABEL[a.freshness]}</span> : null}
+      <dl className="pub-meta">
+        {a.since && state !== 'unknown' ? (
+          <div>
+            <dt>Стан з</dt>
+            <dd>
+              <Time iso={a.since} />
+            </dd>
+          </div>
+        ) : null}
+        <div>
+          <dt>Остання успішна перевірка NEPTUN</dt>
+          <dd>{a.lastSuccessfulFetchAt ? <Time iso={a.lastSuccessfulFetchAt} /> : 'немає'}</dd>
+        </div>
+      </dl>
+    </li>
   );
 }
 

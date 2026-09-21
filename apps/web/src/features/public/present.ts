@@ -64,15 +64,21 @@ export const alertDisplayState = (a: AlertStateDto): AlertState =>
   a.freshness === 'unknown' || a.state === 'unknown' ? 'unknown' : a.state;
 
 /**
- * Map state of an area. Only its own reading can say "no alert"; the parent (oblast-wide alert) can only
- * raise it to active or degrade it to unknown. No own reading = unknown.
+ * Map/list state of an area from its own row. A NEPTUN oblast row is active when ANY raion is (whole-oblast
+ * alerts are already expanded into every raion row), so it never raises a raion to active. No own row = unknown;
+ * an unknown parent still degrades "no alert" to unknown.
  */
-export function areaAlertState(alerts: readonly AlertStateDto[], id: string, parentId: string | null): AlertState {
+export function areaAlertState(alerts: readonly AlertStateDto[], id: string, parentId: string | null = null): AlertState {
   const own = alerts.filter((a) => a.placeId === id).map(alertDisplayState);
-  const parent = parentId === null ? [] : alerts.filter((a) => a.placeId === parentId).map(alertDisplayState);
-  if (own.includes('active') || parent.includes('active')) return 'active';
-  if (own.length === 0 || own.includes('unknown') || parent.includes('unknown')) return 'unknown';
-  return 'inactive';
+  if (own.includes('active')) return 'active';
+  const parentUnknown = parentId !== null && alerts.some((a) => a.placeId === parentId && alertDisplayState(a) === 'unknown');
+  return own.length === 0 || own.includes('unknown') || parentUnknown ? 'unknown' : 'inactive';
+}
+
+/** Wording for an active oblast row: "whole oblast" only when every raion row is active too. */
+export function oblastActiveLabel(raionRows: readonly AlertStateDto[]): string {
+  const active = raionRows.filter((r) => alertDisplayState(r) === 'active').length;
+  return raionRows.length > 0 && active === raionRows.length ? 'Тривога в усій області' : 'Тривога в частині області';
 }
 
 /** Nearest area (itself or an ancestor) that `ids` contains, e.g. city -> its raion polygon. */
@@ -88,6 +94,9 @@ export const ALERT_LABEL: Record<AlertState, string> = {
   inactive: 'Тривоги немає',
   unknown: 'Невідомо',
 };
+/** NEPTUN alert level as text, so it never depends on colour alone. */
+export const levelLabel = (level: string) =>
+  ({ red: 'червоний рівень', yellow: 'жовтий рівень', unknown: 'рівень невідомий' })[level] ?? `рівень: ${level}`;
 
 export const FRESHNESS_LABEL: Record<Freshness, string> = {
   fresh: 'Дані актуальні',
