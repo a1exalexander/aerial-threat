@@ -100,5 +100,9 @@ export const isWater = (stop: RouteStop) => WATER.test(stop.name.trim());
 export const orderRoute = (route: RouteStop[]) => [...route.filter((s) => !isWater(s)), ...route.filter(isWater)];
 export const inRaion = (stop: RouteStop) => stop.inRaion === true;
 
+/** A fix within 2 min of posting (typos; exports mark nearly every post edited) is not worth a «змінено» badge. */
+export const meaningfullyEdited = (p: { publishedAt: string; editedAt: string | null }) =>
+  p.editedAt !== null && Date.parse(p.editedAt) - Date.parse(p.publishedAt) >= 2 * 60_000;
+
 /** Only real t.me post links become anchors; anything else from the server is dropped. */
 export const telegramLink = (link: string | null) => (link?.startsWith('https://t.me/') ? link : null);

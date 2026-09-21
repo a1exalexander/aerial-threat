@@ -1,6 +1,6 @@
 import type { SituationStatuses } from '@aerial/contracts';
 import { describe, expect, it } from 'vitest';
-import { statusViews } from './present';
+import { meaningfullyEdited, statusViews } from './present';
 
 const st = <T,>(value: T, confidence: 'high' | 'low' = 'low') => ({ value, confidence, evidenceMessageIds: [] });
 
@@ -34,5 +34,14 @@ describe('statusViews', () => {
       ['quantity', true],
       ['airDefense', true],
     ]);
+  });
+});
+
+describe('meaningfullyEdited', () => {
+  const at = '2026-09-21T13:00:00Z';
+  it('ignores quick fixes and flags later edits', () => {
+    expect(meaningfullyEdited({ publishedAt: at, editedAt: null })).toBe(false);
+    expect(meaningfullyEdited({ publishedAt: at, editedAt: '2026-09-21T13:00:10Z' })).toBe(false);
+    expect(meaningfullyEdited({ publishedAt: at, editedAt: '2026-09-21T13:05:00Z' })).toBe(true);
   });
 });

@@ -12,6 +12,7 @@ import {
   levelLabel,
   NEPTUN_URL,
   orderRoute,
+  meaningfullyEdited,
   statusViews,
   telegramLink,
   TILE,
@@ -236,7 +237,7 @@ function Post({ p, evidence }: { p: FeedItem; evidence: boolean }) {
         <time className="post-time" dateTime={p.publishedAt}>
           {time}
         </time>
-        {p.editedAt ? <span className="tag">змінено</span> : null}
+        {meaningfullyEdited(p) ? <span className="tag">змінено</span> : null}
         {evidence ? (
           <span className="tag tag--evidence" title="Використано для статусів">
             доказ
