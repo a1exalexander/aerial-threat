@@ -1,8 +1,11 @@
+import { RequireOperator } from '../auth/RequireOperator';
+import '../features/admin/admin.css';
+import { OpsScreen } from '../features/admin/OpsScreen';
+
 export default function Ops() {
   return (
-    <section>
-      <h1>Операційний стан</h1>
-      <p>Екран у розробці.</p>
-    </section>
+    <RequireOperator title="Операційний стан">
+      <OpsScreen />
+    </RequireOperator>
   );
 }
