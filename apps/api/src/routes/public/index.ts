@@ -1,11 +1,8 @@
-import { createHash } from 'node:crypto';
 import {
   AlertStateDto,
   AlertsQuery,
   AreaDto,
   AreasQuery,
-  type Envelope,
-  type Freshness,
   Id,
   IncidentDetail,
   IncidentListItem,
@@ -29,7 +26,8 @@ import {
   worstFreshness,
 } from '@aerial/db/repos/read';
 import { PLACES, byId } from '@aerial/geo';
-import type { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyPluginAsync } from 'fastify';
+import { httpError, send } from './respond';
 import { situationRoutes } from './situation';
 
 /** Longest from..to window of one /v1/incidents query. */
@@ -43,8 +41,6 @@ const pages = {
   areas: envelope(AreaDto.array()),
   sources: envelope(SourceDto.array()),
 };
-
-const httpError = (statusCode: number, message: string) => Object.assign(new Error(message), { statusCode });
 
 type SafeParser<T> = {
   safeParse(v: unknown): { success: true; data: T } | { success: false; error: { issues: { path: PropertyKey[] }[] } };
@@ -78,28 +74,6 @@ function decodeCursor(cursor: string): IncidentKey {
     // fall through: any undecodable cursor is the client's error
   }
   throw httpError(400, 'Invalid cursor');
-}
-
-/**
- * Validates the envelope against the contract, derives projectionVersion from its content (not from
- * generatedAt) and answers If-None-Match with 304 when the client already has this version.
- */
-function send<T>(
-  req: FastifyRequest,
-  reply: FastifyReply,
-  schema: { parse(v: unknown): Envelope<T> },
-  body: { data: T; freshness: Freshness; nextCursor?: string | null },
-  now: Date,
-) {
-  const out = schema.parse({ ...body, generatedAt: now.toISOString(), projectionVersion: '-' });
-  out.projectionVersion = createHash('sha256')
-    .update(JSON.stringify([out.data, out.freshness, out.nextCursor ?? null]))
-    .digest('base64url')
-    .slice(0, 22);
-  reply.header('etag', `W/"${out.projectionVersion}"`).header('cache-control', 'no-cache');
-  const known = req.headers['if-none-match']?.split(',').map((t) => t.trim().replace(/^W\//, ''));
-  if (known?.some((t) => t === '*' || t === `"${out.projectionVersion}"`)) return reply.code(304).send();
-  return out;
 }
 
 /** Mounted at /v1. Public read API: every response is an envelope; an empty list is never "all clear". */

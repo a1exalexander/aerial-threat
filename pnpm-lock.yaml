@@ -41,6 +41,9 @@ importers:
       '@aerial/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@aerial/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@aerial/geo':
         specifier: workspace:*
         version: link:../../packages/geo

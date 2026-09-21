@@ -16,6 +16,7 @@
     "@aerial/config": "workspace:*",
     "@aerial/contracts": "workspace:*",
     "@aerial/db": "workspace:*",
+    "@aerial/domain": "workspace:*",
     "@aerial/geo": "workspace:*",
     "@aerial/observability": "workspace:*",
     "@fastify/cors": "11.3.0",
