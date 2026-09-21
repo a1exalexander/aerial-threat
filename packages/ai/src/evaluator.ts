@@ -4,6 +4,9 @@ import { Probability, type Assessment } from '@aerial/contracts';
 import { z } from 'zod';
 import { QUESTIONS_VERSION, buildQuestions, type Question, type QuestionSelection } from './questions/v1';
 import { redact } from './redact';
+import { EvaluationError, type ErrorKind } from './errors';
+
+export { EvaluationError, type ErrorKind } from './errors';
 
 export type Post = { text: string; publishedAt: string };
 /** A rule-extracted place: dictionary ID and name, plus its literal span in `state.text`. */
@@ -46,9 +49,10 @@ export interface Evaluator {
 
 /** What a transport sends: channel text only inside `state`, trusted text only inside `questions`. */
 export type EvaluationState = ReturnType<typeof buildRequest>['state'];
-export type TransportRequest = {
+/** `S` is the state shape of a question set: the per-post EvaluationState by default. */
+export type TransportRequest<S = EvaluationState> = {
   model: string;
-  state: EvaluationState;
+  state: S;
   questions: Record<string, Question>;
   signal: AbortSignal;
 };
@@ -59,43 +63,17 @@ export type TransportResult = {
   providerRequestId?: string | null;
   model?: string;
 };
-export type Transport = (req: TransportRequest) => Promise<TransportResult>;
+export type Transport<S = EvaluationState> = (req: TransportRequest<S>) => Promise<TransportResult>;
 
-export type ErrorKind =
-  | 'credentials' // 401/403: needs an operator, never retried
-  | 'bad_request' // other 4xx: fix the request, never retried
-  | 'rate_limited'
-  | 'server'
-  | 'network'
-  | 'timeout'
-  | 'invalid_response' // unexpected keys, bad probabilities: fails the job (queue retry), never reaches UI
-  | 'circuit_open' // no request made
-  | 'budget_exhausted' // no request made
-  | 'aborted';
 const TRANSIENT: ReadonlySet<ErrorKind> = new Set(['rate_limited', 'server', 'network', 'timeout']);
-
-/** Carries no provider payload or request body, so it is safe to log. */
-export class EvaluationError extends Error {
-  override name = 'EvaluationError';
-  attempts = 0;
-  constructor(
-    readonly kind: ErrorKind,
-    message: string,
-    readonly status?: number,
-    /** Provider Retry-After, or the circuit cooldown left: when to reschedule the job. */
-    readonly retryAfterMs?: number,
-  ) {
-    super(message);
-  }
-}
 
 export type AiEvent =
   | { type: 'budget_warning'; percent: 50 | 80 | 100; used: number; limit: number }
   | { type: 'circuit'; state: 'open' | 'half_open' | 'closed' }
   | { type: 'credentials_error'; status: number };
 
-export type EvaluatorOptions = {
-  transport: Transport;
+export type EvaluatorOptions<S = EvaluationState> = {
+  transport: Transport<S>;
   model: string;
   timeoutMs?: number;
   maxRetries?: number;
@@ -221,7 +199,14 @@ function classify(error: unknown, abortedBy: 'caller' | 'timeout' | null, now: n
   return new EvaluationError(kind, `AI Gateway responded ${status}`, status, retryAfterMs(api?.responseHeaders?.['retry-after'], now));
 }
 
-export function createEvaluator(options: EvaluatorOptions): Evaluator {
+/** One question-set request through the transport: `state` is channel data, `questions` trusted text only. */
+export type EvaluationCall<S> = (req: { state: S; questions: Record<string, Question>; signal?: AbortSignal }) => Promise<EvaluationResult>;
+
+/**
+ * Budget, circuit breaker, concurrency cap, per-attempt timeout, retries and strict answer validation around a
+ * transport. Shared by every question set (per-post and situation); each call to this factory has its own counters.
+ */
+export function createEvaluationCall<S>(options: EvaluatorOptions<S>): EvaluationCall<S> {
   const {
     transport,
     model,
@@ -301,7 +286,7 @@ export function createEvaluator(options: EvaluatorOptions): Evaluator {
   };
 
   async function attemptOnce(
-    req: Omit<TransportRequest, 'signal'>,
+    req: Omit<TransportRequest<S>, 'signal'>,
     signal: AbortSignal | undefined,
     calls: { count: number },
   ): Promise<TransportResult> {
@@ -331,41 +316,47 @@ export function createEvaluator(options: EvaluatorOptions): Evaluator {
     }
   }
 
-  return {
-    model,
-    async evaluate(input) {
-      const { state, questions } = buildRequest(input);
-      const started = now();
-      const calls = { count: 0 };
-      const withAttempts = (e: unknown) => Object.assign(e as EvaluationError, { attempts: calls.count });
-      for (let attempt = 1; ; attempt++) {
-        let result: TransportResult;
-        try {
-          result = await attemptOnce({ model, state, questions }, input.signal, calls);
-        } catch (e) {
-          const error = withAttempts(e);
-          const delay = error.retryAfterMs ?? 1000 * 2 ** (attempt - 1) * (0.5 + random() / 2);
-          if (!TRANSIENT.has(error.kind) || attempt > maxRetries || delay > maxRetryDelayMs) throw error;
-          await sleep(delay, input.signal).catch(() => {
-            throw withAttempts(new EvaluationError('aborted', 'AI evaluation aborted by caller'));
-          });
-          continue;
-        }
-        let assessments: Assessment[];
-        try {
-          assessments = toAssessments(questions, result.answers);
-        } catch (e) {
-          throw withAttempts(e);
-        }
-        return {
-          assessments,
-          usage: { inputTokens: result.usage?.inputTokens ?? null, outputTokens: result.usage?.outputTokens ?? null },
-          providerRequestId: result.providerRequestId ?? null,
-          latencyMs: now() - started,
-          model: result.model ?? model,
-          attempts: calls.count,
-        };
+  return async ({ state, questions, signal }) => {
+    const started = now();
+    const calls = { count: 0 };
+    const withAttempts = (e: unknown) => Object.assign(e as EvaluationError, { attempts: calls.count });
+    for (let attempt = 1; ; attempt++) {
+      let result: TransportResult;
+      try {
+        result = await attemptOnce({ model, state, questions }, signal, calls);
+      } catch (e) {
+        const error = withAttempts(e);
+        const delay = error.retryAfterMs ?? 1000 * 2 ** (attempt - 1) * (0.5 + random() / 2);
+        if (!TRANSIENT.has(error.kind) || attempt > maxRetries || delay > maxRetryDelayMs) throw error;
+        await sleep(delay, signal).catch(() => {
+          throw withAttempts(new EvaluationError('aborted', 'AI evaluation aborted by caller'));
+        });
+        continue;
       }
+      let assessments: Assessment[];
+      try {
+        assessments = toAssessments(questions, result.answers);
+      } catch (e) {
+        throw withAttempts(e);
+      }
+      return {
+        assessments,
+        usage: { inputTokens: result.usage?.inputTokens ?? null, outputTokens: result.usage?.outputTokens ?? null },
+        providerRequestId: result.providerRequestId ?? null,
+        latencyMs: now() - started,
+        model: result.model ?? model,
+        attempts: calls.count,
+      };
+    }
+  };
+}
+
+export function createEvaluator(options: EvaluatorOptions): Evaluator {
+  const call = createEvaluationCall(options);
+  return {
+    model: options.model,
+    async evaluate(input) {
+      return call({ ...buildRequest(input), signal: input.signal });
     },
   };
 }
