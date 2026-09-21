@@ -1,20 +1,17 @@
-import { envelope, Overview } from '@aerial/contracts';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { expect, it } from 'vitest';
-import { buildOverview } from '../../mocks/public/data';
 import { server } from '../../mocks/node';
-import { useApi } from './api';
-
-const SCHEMA = envelope(Overview);
+import { buildSituation } from '../../mocks/situation/handlers';
+import { useSituation } from './api';
 
 function serveWithEtag(etag: string) {
   const seen: (string | null)[] = [];
   server.use(
-    http.get('*/v1/overview', ({ request }) => {
+    http.get('*/v1/situation', ({ request }) => {
       seen.push(request.headers.get('if-none-match'));
       if (request.headers.get('if-none-match') === etag) return new HttpResponse(null, { status: 304 });
-      return HttpResponse.json(buildOverview('fresh', null, null), { headers: { etag } });
+      return HttpResponse.json(buildSituation('alert-shahed'), { headers: { etag } });
     }),
   );
   return seen;
@@ -25,7 +22,7 @@ it('sends the ETag back and does not re-render on 304', async () => {
   let renders = 0;
   const { result } = renderHook(() => {
     renders++;
-    return useApi('/v1/overview', SCHEMA);
+    return useSituation();
   });
   await waitFor(() => expect(result.current.data).not.toBeNull());
   const first = result.current.data;
@@ -41,7 +38,7 @@ it('sends the ETag back and does not re-render on 304', async () => {
 
 it('does a full refresh without If-None-Match when the browser comes back online', async () => {
   const seen = serveWithEtag('"v1"');
-  const { result } = renderHook(() => useApi('/v1/overview', SCHEMA));
+  const { result } = renderHook(() => useSituation());
   await waitFor(() => expect(result.current.data).not.toBeNull());
 
   act(() => window.dispatchEvent(new Event('online')));
@@ -50,12 +47,12 @@ it('does a full refresh without If-None-Match when the browser comes back online
 
 it('keeps the last good data and reports the error when a refresh fails', async () => {
   serveWithEtag('"v1"');
-  const { result } = renderHook(() => useApi('/v1/overview', SCHEMA));
+  const { result } = renderHook(() => useSituation());
   await waitFor(() => expect(result.current.data).not.toBeNull());
   const first = result.current.data;
 
-  server.use(http.get('*/v1/overview', () => HttpResponse.json({ code: 'x', requestId: 'r', message: 'm' }, { status: 503 })));
-  act(() => result.current.reload());
+  server.use(http.get('*/v1/situation', () => HttpResponse.json({ code: 'x', requestId: 'r', message: 'm' }, { status: 503 })));
+  act(() => document.dispatchEvent(new Event('visibilitychange')));
   await waitFor(() => expect(result.current.error).toBeTruthy());
   expect(result.current.data).toBe(first);
 });
