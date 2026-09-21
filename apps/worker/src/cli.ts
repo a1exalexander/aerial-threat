@@ -6,6 +6,7 @@ const commands: Record<string, () => Promise<Command>> = {
   replay: () => import('./replay/index'),
   'eval-live': () => import('./eval/index'),
   'mint-dev-token': () => import('./cli/mint-dev-token'),
+  'telegram-login': () => import('./cli/telegram-login'),
 };
 
 const [name = '', ...args] = process.argv.slice(2);
