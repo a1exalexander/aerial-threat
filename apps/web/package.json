@@ -14,8 +14,6 @@
   "dependencies": {
     "@aerial/contracts": "workspace:*",
     "@aerial/geo": "workspace:*",
-    "maplibre-gl": "6.10.0",
-    "oidc-client-ts": "3.5.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-router": "7.18.4"
