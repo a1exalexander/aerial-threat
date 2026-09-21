@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { AMBIGUOUS_NAMES, PLACES, SUB_AREAS } from '../dictionary';
-import { byId } from '../index';
+import { ancestors, byId, isInKremenchukRaion } from '../index';
 import { extractPlaceCandidates, type PlaceCandidate } from './index';
 
 // All sentences are synthetic.
@@ -144,6 +144,84 @@ describe('extractPlaceCandidates', () => {
 
   it('splits hyphenated route names into both places', () => {
     expect(brief('Ремонт дороги Кременчук-Полтава').map(([, id]) => id)).toEqual(['ua-pl-c-kremenchuk', 'ua-pl-c-poltava']);
+  });
+});
+
+describe('Russian and surzhyk spellings (geo-v3)', () => {
+  const id = (text: string) => one(text).placeId;
+
+  it('resolves Russian names and their case forms', () => {
+    const forms: Record<string, string[]> = {
+      'ua-pl-c-kremenchuk': ['Кременчуг', 'Кременчуга', 'Кременчуге', 'Кременчугу'],
+      'ua-pl-v-kozelshchyna': ['Козелищина', 'Козельщины', 'Козелищине', 'Козельщиной', 'Козельщині'],
+      'ua-pl-v-manzheliia': ['Манежелия', 'Манжелию', 'Манжелии', 'Манжелії', 'Манжелією'],
+      'ua-pl-v-pohreby': ['Погребы', 'Погребам', 'Погребах', 'Погребів'],
+      'ua-pl-v-hradyzk': ['Градижск', 'Градижске', 'Градисжк', 'Градизьку'],
+      'ua-pl-c-horishni-plavni': ['Горишние Плавни', 'Горишних Плавней', 'Горишними Плавнями', 'Горишни Плавни', 'Горишним Плавням'],
+      'ua-pl-c-hlobyne': ['Глобино', 'Глобину', 'Глобиного'],
+      'ua-pl-v-semenivka': ['Семеновка', 'Семеновке', 'Семеновки', 'Семенівці'],
+      'ua-pl-v-lamane': ['Ламаное', 'Ламаного', 'Ламаному'],
+      'ua-pl-v-opishnia': ['Опошня', 'Опошню', 'Опошне', 'Опішні'],
+      'ua-pl-v-dykanka': ['Диканька', 'Диканьке', 'Диканьці'],
+      'ua-pl-v-chutove': ['Чутово', 'Чутового'],
+      'ua-pl-c-poltava': ['Полтавы', 'Полтаве', 'Полтавой'],
+      'ua-pl-v-kamiani-potoky': ['Каменные Потоки', 'Каменных Потоков'],
+      'ua-dp-c-dnipro': ['Днепр', 'Днепра', 'Днепре', 'Дніпрі'],
+      'ua-ck-c-cherkasy': ['Черкассы', 'Черкассам', 'Черкасах'],
+      'ua-kr-c-kropyvnytskyi': ['Кроп', 'Кропу', 'Кроп-р', 'Кропивницкий', 'Кропивницькому'],
+      'ua-ck-c-chyhyryn': ['Чигирину', 'Чигирине'],
+      'ua-kr-v-pavlysh': ['Павлыш', 'Павлыше', 'Павлышу', 'Павлиші'],
+      'ua-kr-v-onufriivka': ['Онуфриевка', 'Онуфриевке', 'Онуфріївку'],
+    };
+    for (const [placeId, list] of Object.entries(forms)) for (const f of list) expect(id(`Щось: ${f} сьогодні`), f).toBe(placeId);
+  });
+
+  it('matches Russian oblast and raion names', () => {
+    expect(id('Мопед в Черкасской обл')).toBe('ua-ck');
+    expect(id('Летит в Кировоградскую область')).toBe('ua-kr');
+    expect(id('Полтавская обл чисто')).toBe('ua-pl');
+    expect(id('В Кременчугском районе тихо')).toBe('ua-pl-r-kremenchutskyi');
+  });
+
+  it('folds ё, э and ы and keeps the capital-letter guard', () => {
+    expect(id('Ещё над Полтавoй')).toBe('ua-pl-c-poltava'); // Latin o
+    expect(extract('купили кроп і погреби')).toEqual([]);
+  });
+
+  it('reads Russian prepositions', () => {
+    expect(one('Летит к Кременчугу').relation).toBe('towards');
+    expect(one('Курс в сторону Кременчуга').relation).toBe('towards');
+    expect(one('Крутится возле Павлыша').relation).toBe('near');
+    expect(one('Прошёл мимо Полтавы').relation).toBe('past');
+    expect(one('Взрывы в Кременчуге').relation).toBe('in');
+    expect(one('Что-то в районе Кременчуга').relation).toBe('region_of');
+  });
+
+  it('leaves the Dnipro river unresolved', () => {
+    expect(one('Ціль над Дніпром')).toMatchObject({ placeId: null, ambiguous: true, alternatives: ['ua-dp-c-dnipro'] });
+    expect(one('Летит по руслу Днепра').placeId).toBeNull();
+    expect(one('Летить по Дніпру на північ').placeId).toBeNull();
+    expect(one('Перелетів через Дніпро').placeId).toBeNull();
+    expect(one('Вибухи у Дніпрі').placeId).toBe('ua-dp-c-dnipro');
+  });
+});
+
+describe('isInKremenchukRaion', () => {
+  it('holds for the raion and every place inside it', () => {
+    for (const p of ['ua-pl-r-kremenchutskyi', 'ua-pl-c-kremenchuk', 'ua-pl-v-kozelshchyna', 'ua-pl-v-hradyzk', 'ua-pl-v-omelnyk']) {
+      expect(isInKremenchukRaion(p), p).toBe(true);
+    }
+    for (const p of ['ua-pl', 'ua-pl-c-poltava', 'ua-pl-c-kobeliaky', 'ua-kr-v-pavlysh', 'ua-dp-v-tsarychanka', 'ua-nowhere']) {
+      expect(isInKremenchukRaion(p), p).toBe(false);
+    }
+  });
+
+  it('puts the cross-border stops in their own oblasts', () => {
+    const oblast = (id: string) => ancestors(id).at(-1)?.id;
+    expect(oblast('ua-kr-v-onufriivka')).toBe('ua-kr');
+    expect(oblast('ua-ck-c-chyhyryn')).toBe('ua-ck');
+    expect(oblast('ua-dp-v-tsarychanka')).toBe('ua-dp');
+    expect(oblast('ua-pl-v-dykanka')).toBe('ua-pl');
   });
 });
 

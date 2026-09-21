@@ -26,17 +26,18 @@ export type PlaceCandidate = {
 const ACC = 3;
 const LOC = 5;
 
-const LATIN_LOOKALIKES: Record<string, string> = { a: 'а', b: 'в', c: 'с', e: 'е', h: 'н', i: 'і', ï: 'ї', k: 'к', m: 'м', o: 'о', p: 'р', t: 'т', x: 'х', y: 'у' };
+// Latin look-alikes, plus Russian letters folded to their Ukrainian spelling (Погребы → Погреби, Павлыш → Павлиш).
+const FOLDS: Record<string, string> = { a: 'а', b: 'в', c: 'с', e: 'е', h: 'н', i: 'і', ï: 'ї', k: 'к', m: 'м', o: 'о', p: 'р', t: 'т', x: 'х', y: 'у', ы: 'и', э: 'е', ё: 'е' };
 const APOSTROPHES = /['’ʼ`‘ʹ]/g;
 
-/** Comparison key: NFC, lower case, one apostrophe, Latin look-alikes folded to Cyrillic, stress marks dropped. */
+/** Comparison key: NFC, lower case, one apostrophe, Latin look-alikes and ы/э/ё folded, stress marks dropped. */
 const key = (s: string) =>
   s
     .normalize('NFC')
     .toLowerCase()
     .replace(/\u0301/g, '')
     .replace(APOSTROPHES, "'")
-    .replace(/[abcehikmoptxyï]/g, (ch) => LATIN_LOOKALIKES[ch] ?? ch);
+    .replace(/[abcehikmoptxyïыэё]/g, (ch) => FOLDS[ch] ?? ch);
 
 const HUSHING = /[жчшщ]$/;
 const soften = (stem: string) => stem.replace(/к$/, 'ц').replace(/г$/, 'з').replace(/х$/, 'с');
@@ -50,33 +51,45 @@ const ABBREVIATIONS: Record<string, string[]> = {
 };
 
 /**
- * Case forms of one lower-case word. Over-generation is harmless: the result is only a lookup
- * set for whole tokens. Words before the last one of a name are adjectives agreeing with it.
+ * Case forms of one lower-case word, Ukrainian and Russian endings together (Полтаві/Полтаве,
+ * Градизьку/Градижске). Over-generation is harmless: the result is only a lookup set for whole
+ * tokens. Words before the last one of a name are adjectives agreeing with it.
  */
 function declineWord(w: string, adjective: boolean): string[][] {
   const s1 = w.slice(0, -1);
   const s2 = w.slice(0, -2);
-  if (w.endsWith('ий')) return [[w], [s2 + 'ого'], [s2 + 'ому'], [w], [s2 + 'им'], [s2 + 'ому', s2 + 'ім']];
+  // Russian adjectives (ы is already folded to и): Черкасская обл, Ламаное, Горишние Плавни.
+  if (w.endsWith('ая')) return [[w], [s2 + 'ой'], [s2 + 'ой'], [s2 + 'ую'], [s2 + 'ой', s2 + 'ою'], [s2 + 'ой']];
+  if (w.endsWith('ое')) return [[w], [s2 + 'ого'], [s2 + 'ому'], [w], [s2 + 'им'], [s2 + 'ом']];
+  if (adjective && w.endsWith('ие')) return [[w], [s2 + 'их'], [s2 + 'им'], [w], [s2 + 'ими'], [s2 + 'их']];
+  if (w.endsWith('ий')) return [[w], [s2 + 'ого'], [s2 + 'ому'], [w], [s2 + 'им'], [s2 + 'ому', s2 + 'ім', s2 + 'ом']];
   if (w.endsWith('е')) return [[w], [s1 + 'ого'], [s1 + 'ому'], [w], [s1 + 'им'], [s1 + 'ому', s1 + 'ім']];
   if (adjective && w.endsWith('а')) return [[w], [s1 + 'ої'], [s1 + 'ій'], [s1 + 'у'], [s1 + 'ою'], [s1 + 'ій']];
-  if (adjective && w.endsWith('і')) {
+  if (adjective && /[иі]$/.test(w)) {
     const hard = [s1 + 'их', s1 + 'іх'];
     return [[w], hard, [s1 + 'им', s1 + 'ім'], [w], [s1 + 'ими', s1 + 'іми'], hard];
   }
-  if (w.endsWith('ь')) return [[w], [s1 + 'і'], [s1 + 'і'], [w], [s1 + 'ю'], [s1 + 'і']];
+  if (w.endsWith('ь')) return [[w], [s1 + 'і', s1 + 'и'], [s1 + 'і', s1 + 'и'], [w], [s1 + 'ю'], [s1 + 'і', s1 + 'и']];
   if (w.endsWith('а')) {
     const h = HUSHING.test(s1);
-    return [[w], [s1 + (h ? 'і' : 'и')], [soften(s1) + 'і'], [s1 + 'у'], [s1 + (h ? 'ею' : 'ою')], [soften(s1) + 'і']];
+    const ins = [s1 + (h ? 'ею' : 'ою'), s1 + 'ой', s1 + 'ей'];
+    return [[w], [s1 + (h ? 'і' : 'и')], [soften(s1) + 'і', s1 + 'е'], [s1 + 'у'], ins, [soften(s1) + 'і', s1 + 'е']];
   }
-  if (w.endsWith('я')) return [[w], [s1 + 'і'], [s1 + 'і'], [s1 + 'ю'], [s1 + 'ею'], [s1 + 'і']];
-  if (w.endsWith('о')) return [[w], [s1 + 'а'], [s1 + 'у'], [w], [s1 + 'ом'], [s1 + 'у', soften(s1) + 'і']];
+  if (w.endsWith('я')) {
+    // After a vowel і/е turn into ї/є: Манжелія → Манжелії, Манжелією.
+    const v = /[аеєиіїоуюя']$/.test(s1);
+    const i = [s1 + (v ? 'ї' : 'і'), s1 + 'и'];
+    return [[w], i, [...i, s1 + 'е'], [s1 + 'ю'], [s1 + (v ? 'єю' : 'ею'), s1 + 'ей'], [...i, s1 + 'е']];
+  }
+  if (w.endsWith('о')) return [[w], [s1 + 'а'], [s1 + 'у'], [w], [s1 + 'ом'], [s1 + 'у', soften(s1) + 'і', s1 + 'е']];
   if (/[иі]$/.test(w)) {
-    const e = w.endsWith('і') ? 'я' : 'а';
-    return [[w], [s1, s1 + 'ів', ...fleeting(s1)], [s1 + e + 'м'], [w], [s1 + e + 'ми'], [s1 + e + 'х']];
+    const plural = (end: string) => [s1 + 'а' + end, s1 + 'я' + end];
+    return [[w], [s1, s1 + 'ів', s1 + 'ов', s1 + 'ей', ...fleeting(s1)], plural('м'), [w], plural('ми'), plural('х')];
   }
   // Masculine consonant stem; a final -ів/-їв turns into -ов/-єв in oblique cases (Крюків → Крюкові).
   const o = w.replace(/ів$/, 'ов').replace(/їв$/, 'єв');
-  return [[w], [o + 'а', o + 'у'], [o + 'у', o + 'ові'], [w], [o + (HUSHING.test(o) ? 'ем' : 'ом')], [soften(o) + 'і', o + 'у']];
+  const ins = HUSHING.test(o) ? [o + 'ем', o + 'ом'] : [o + 'ом'];
+  return [[w], [o + 'а', o + 'у'], [o + 'у', o + 'ові'], [w], ins, [soften(o) + 'і', o + 'у', o + 'е']];
 }
 
 /** Case forms of a whole name, per case slot. */
@@ -126,16 +139,16 @@ const MAX_WORDS = Math.max(...[...index.keys()].map((k) => k.split(/[ -]/).lengt
 const NOT_LETTER = '(?<!\\p{L})';
 const rule = (pattern: string) => new RegExp(`${NOT_LETTER}(?:${pattern})\\s*$`, 'u');
 const RELATION_RULES: [RegExp, PlaceRelation][] = [
-  [rule('район[іу]?|р-н[іу]?'), 'region_of'],
-  [rule('[ву]\\s+(?:напрям(?:ку|і)?|бік|сторону)|напрям(?:ок)?\\s+на|курс(?:ом)?(?:\\s+(?:на|в|у))?|до'), 'towards'],
+  [rule('район[іуе]?|р-н[іуе]?'), 'region_of'],
+  [rule('[ву]\\s+(?:напрям(?:ку|і)?|направлении|бік|сторону)|напрям(?:ок)?\\s+на|курс(?:ом)?(?:\\s+(?:на|в|у|к))?|до|к|ко'), 'towards'],
   [/(?:→|->|➡️?)\s*$/u, 'towards'],
   [rule('над'), 'over'],
-  [rule('повз'), 'past'],
-  [rule('біля|поблизу|поруч(?:\\s+з)?|поряд(?:\\s+з)?|неподалік(?:\\s+від)?|під|околиц[іяюь]|(?:північ|півден|схід|захід)ніше'), 'near'],
+  [rule('повз|мимо'), 'past'],
+  [rule('біля|поблизу|поруч(?:\\s+з)?|поряд(?:\\s+з)?|неподалік(?:\\s+від)?|під|околиц[іяюь]|(?:північ|півден|схід|захід)ніше|возле|около|вблизи|рядом(?:\\s+с)?|под'), 'near'],
   [rule('по'), 'in'],
 ];
 const CASE_GOVERNED = rule('на|в|у|ув|во');
-const DESIGNATOR = new RegExp(`${NOT_LETTER}(?:м|с|смт|м-н|міст[оаі]|сел[оаі]|селищ[еаі])\\.?\\s*$`, 'u');
+const DESIGNATOR = new RegExp(`${NOT_LETTER}(?:м|с|смт|пгт|г|м-н|міст[оаі]|сел[оаі]|селищ[еаі])\\.?\\s*$`, 'u');
 const LIST_SEPARATOR = /^\s*(?:[/,]|та|і|й|або|чи)\s*$/u;
 const PREPOSITION_PAIR = new RegExp(`${NOT_LETTER}(\\p{L}+)\\s*/\\s*(\\p{L}+)\\s*$`, 'u');
 
@@ -170,6 +183,10 @@ function relationOf(text: string, start: number, cases: Set<number>, prev: Previ
   return relationFromPrefix(prefix, cases);
 }
 
+// «над Дніпром», «по (руслу) Дніпру», «через Дніпро»: may be the river, so the city stays unresolved.
+const DNIPRO = 'ua-dp-c-dnipro';
+const RIVER = new RegExp(`${NOT_LETTER}(?:над|по|через|русл[оау]|вздовж|уздовж|вдоль|берег\\p{L}*|р\\.|річк\\p{L}*|рек\\p{L}*)\\s*$`, 'iu');
+
 // A token starts with a letter: emoji variation selectors (U+FE0F) are marks too.
 const TOKEN = /\p{L}[\p{L}\p{M}]*(?:['’ʼ`‘ʹ]\p{L}[\p{L}\p{M}]*)*/gu;
 const isUpper = (ch: string) => ch !== ch.toLowerCase();
@@ -196,7 +213,8 @@ export function extractPlaceCandidates(text: string): PlaceCandidate[] {
       if (!entries.length) continue;
       matched = n;
       const end = tokens[i + n - 1]!.end;
-      const ambiguous = entries.length > 1 || entries.some((e) => e.ambiguous);
+      const river = entries.some((e) => e.placeId === DNIPRO) && RIVER.test(text.slice(Math.max(0, start - 20), start));
+      const ambiguous = entries.length > 1 || entries.some((e) => e.ambiguous) || river;
       const cases = new Set(entries.flatMap((e) => [...e.cases]));
       const first = entries[0]!;
       const relation = relationOf(text, start, cases, prev);
