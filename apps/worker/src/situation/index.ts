@@ -10,7 +10,7 @@ import { createGatewaySituationEvaluator } from '@aerial/ai/situation/gateway';
 import type { WorkerEnv } from '@aerial/config';
 import { KREMENCHUK, type RouteStop, type SituationStatuses } from '@aerial/contracts';
 import { type Db, PROCESS_REVISION, claim, complete } from '@aerial/db';
-import { type SituationSnapshot, insertSnapshot, latestSnapshot } from '@aerial/db/repos/situation';
+import { type SituationSnapshot, insertSnapshot, latestSnapshot, touchSnapshot } from '@aerial/db/repos/situation';
 import { SITUATION_RULES_VERSION, type SituationMessage, rulesSituation } from '@aerial/domain/situation';
 import { extractRoute } from '@aerial/geo/match';
 import type { Logger } from '@aerial/observability';
@@ -175,11 +175,27 @@ async function writeRules(ctx: SituationContext, now: Date): Promise<SituationSn
   const from = new Date(now.getTime() - RECENT_WINDOW_MS);
   const window = await loadWindow(ctx.db, { sources: ctx.sources, from, to: now });
   const r = rulesSituation(window, now);
+  const route = routeOf(window, r.relevantRevisionIds);
+  // Unchanged picture: confirm the last rules row as current instead of writing a duplicate every minute.
+  const prev = await latestSnapshot(ctx.db, AREA_ID, { mode: 'rules', status: 'ok' });
+  const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+  if (
+    prev &&
+    prev.rulesVersion === SITUATION_RULES_VERSION &&
+    same(prev.revisionIds, window.map((m) => m.revisionId)) &&
+    same(prev.relevantRevisionIds, r.relevantRevisionIds) &&
+    same(prev.statuses, r.statuses) &&
+    same(prev.route, route)
+  ) {
+    const row = await touchSnapshot(ctx.db, prev.id, now);
+    Object.assign(ctx.state, { lastRulesAt: now.getTime(), newForRules: false, rulesWindowSize: window.length });
+    return row;
+  }
   const row = await insertSnapshot(ctx.db, {
     ...windowRow(window, from, now),
     relevantRevisionIds: r.relevantRevisionIds,
     statuses: r.statuses,
-    route: routeOf(window, r.relevantRevisionIds),
+    route,
     mode: 'rules',
     rulesVersion: SITUATION_RULES_VERSION,
     status: 'ok',
@@ -197,7 +213,8 @@ export async function runSituationTick(ctx: SituationContext, now: Date): Promis
   const alert = await ctx.alertActive(now);
   const out: TickResult = { alert, rules: null, ai: null };
 
-  if (since(s.lastRulesAt) >= ctx.intervals.rulesMs && (s.newForRules || s.lastRulesAt === null || s.rulesWindowSize > 0)) {
+  // Every interval: a changed picture writes a row, an unchanged one only re-confirms the last (cheap, no network).
+  if (since(s.lastRulesAt) >= ctx.intervals.rulesMs) {
     out.rules = await writeRules(ctx, now);
   }
 

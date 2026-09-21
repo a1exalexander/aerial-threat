@@ -2,7 +2,7 @@
 // shows the Kremenchuk channels' posts, minus what the snapshot (or, for newer posts, the noise rule) left out.
 import { KREMENCHUK, type SituationDto, SituationResponse, situationTile } from '@aerial/contracts';
 import { listSources, readSnapshot, worstFreshness } from '@aerial/db/repos/read';
-import { evaluationFreshness, kremenchukAlert, latestSnapshot, situationFeed, situationSourceIds } from '@aerial/db/repos/situation';
+import { currentSnapshot, evaluationFreshness, kremenchukAlert, situationFeed, situationSourceIds } from '@aerial/db/repos/situation';
 import { isNoise } from '@aerial/domain/situation';
 import { isInKremenchukRaion } from '@aerial/geo';
 import type { FastifyPluginAsync } from 'fastify';
@@ -17,8 +17,9 @@ export const situationRoutes: FastifyPluginAsync = async (app) => {
     const data = await readSnapshot(app.db.db, async (tx): Promise<SituationDto> => {
       const { state, level, since, freshness, lastSuccessfulFetchAt } = await kremenchukAlert(tx, now);
       const alert = { state, level, since, freshness, lastSuccessfulFetchAt };
-      const snap = await latestSnapshot(tx, KREMENCHUK.placeId, { status: 'ok' });
-      const evaluation = snap && { mode: snap.mode, evaluatedAt: snap.evaluatedAt.toISOString(), freshness: evaluationFreshness(snap.evaluatedAt, now) };
+      const current = await currentSnapshot(tx, KREMENCHUK.placeId, now);
+      const snap = current?.snapshot ?? null;
+      const evaluation = current && { mode: current.snapshot.mode, evaluatedAt: current.snapshot.evaluatedAt.toISOString(), freshness: evaluationFreshness(current.checkedAt, now) };
       // An expired evaluation cannot raise the tile to threat; a stale one marks the threat tile stale.
       const { tile, stale } = situationTile(alert, evaluation?.freshness === 'unknown' ? null : (snap?.statuses ?? null));
       const tileStale = stale || (tile === 'threat' && evaluation?.freshness === 'stale');

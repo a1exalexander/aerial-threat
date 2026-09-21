@@ -18,6 +18,16 @@ export async function insertSnapshot(db: Executor, row: NewSituationSnapshot): P
   return out!;
 }
 
+/** Re-confirms an unchanged snapshot as current (a heartbeat) instead of writing an identical row. */
+export async function touchSnapshot(db: Executor, id: string, now: Date): Promise<SituationSnapshot> {
+  const [out] = await db
+    .update(situationSnapshots)
+    .set({ evaluatedAt: now, windowTo: now })
+    .where(eq(situationSnapshots.id, id))
+    .returning();
+  return out!;
+}
+
 /** The newest snapshot of the area by evaluated_at, optionally of one mode and/or status; null when none. */
 export async function latestSnapshot(
   db: Executor,
@@ -71,6 +81,45 @@ export const isKremenchukAlertActive = async (db: Executor, now = new Date()): P
  * evaluation no longer feeds the tile, so an old threat never keeps the screen amber.
  */
 export const EVALUATION_FRESHNESS = { staleAfterMs: 3 * 60_000, unknownAfterMs: 15 * 60_000 } as const;
+
+/**
+ * The snapshot the screen shows. Rules run every minute and would otherwise overwrite the (better) AI result:
+ * the newest AI snapshot wins while it is not expired and has seen every post the newest rules snapshot saw;
+ * otherwise the newer of the two.
+ */
+export function pickSnapshot(
+  ai: SituationSnapshot | null,
+  rules: SituationSnapshot | null,
+  now: Date,
+): SituationSnapshot | null {
+  return pickCurrent(ai, rules, now)?.snapshot ?? null;
+}
+
+/**
+ * pickSnapshot plus `checkedAt`: when the AI result is kept because a newer rules run saw nothing new, the
+ * picture is confirmed as of that rules run, so quiet channels do not make the analysis look stale.
+ */
+export function pickCurrent(
+  ai: SituationSnapshot | null,
+  rules: SituationSnapshot | null,
+  now: Date,
+): { snapshot: SituationSnapshot; checkedAt: Date } | null {
+  if (ai && evaluationFreshness(ai.evaluatedAt, now) !== 'unknown' && (!rules || rules.revisionIds.every((id) => ai.revisionIds.includes(id)))) {
+    return { snapshot: ai, checkedAt: rules && rules.evaluatedAt > ai.evaluatedAt ? rules.evaluatedAt : ai.evaluatedAt };
+  }
+  const snapshot = !ai || !rules ? (ai ?? rules) : rules.evaluatedAt.getTime() >= ai.evaluatedAt.getTime() ? rules : ai;
+  return snapshot && { snapshot, checkedAt: snapshot.evaluatedAt };
+}
+
+export async function currentSnapshot(
+  db: Executor,
+  areaId: string,
+  now = new Date(),
+): Promise<{ snapshot: SituationSnapshot; checkedAt: Date } | null> {
+  const ai = await latestSnapshot(db, areaId, { mode: 'ai', status: 'ok' });
+  const rules = await latestSnapshot(db, areaId, { mode: 'rules', status: 'ok' });
+  return pickCurrent(ai, rules, now);
+}
 
 export function evaluationFreshness(evaluatedAt: Date, now: Date): Freshness {
   const age = now.getTime() - evaluatedAt.getTime();

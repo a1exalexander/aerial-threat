@@ -70,8 +70,8 @@ export const FORECAST_LABEL = {
 export type StatusView = { key: string; label: string; icon: IconName; value: string; low: boolean; danger: boolean };
 
 type Status = { value: unknown; confidence: Confidence };
-/** A confident "none"/"no" is left out instead of filling the screen with negatives. */
-const hidden = (s: Status) => (s.value === 'none' || s.value === false) && s.confidence === 'high';
+/** Facts only: "none", "unknown" and "no" are left out (at any confidence) instead of filling the screen with negatives. */
+const hidden = (s: Status) => s.value === 'none' || s.value === 'unknown' || s.value === false;
 
 /** Status tiles shown under the alert tile; `forecast` is rendered separately as a channel-attributed chip. */
 export function statusViews(s: SituationStatuses): StatusView[] {
