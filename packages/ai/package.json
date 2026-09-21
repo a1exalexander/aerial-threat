@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./situation": "./src/situation/index.ts"
+    "./situation": "./src/situation/index.ts",
+    "./situation/gateway": "./src/situation/gateway.ts"
   },
   "scripts": {
     "lint": "eslint .",
