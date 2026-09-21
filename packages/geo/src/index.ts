@@ -22,3 +22,6 @@ export function ancestors(id: string): Place[] {
   }
   return chain;
 }
+
+/** Кременчуцький район itself or any place inside it (Кременчук, Козельщина, Градизьк…): decides "passing near Kremenchuk". */
+export const isInKremenchukRaion = (id: string): boolean => [id, ...ancestors(id).map((p) => p.id)].includes('ua-pl-r-kremenchutskyi');
