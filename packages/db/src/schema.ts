@@ -51,6 +51,7 @@ export const importRuns = pgTable(
     fileHash: text('file_hash').notNull(),
     status: text('status').notNull().default('running'), // running | succeeded | failed
     counters: jsonb('counters').$type<Record<string, number>>().notNull().default({}),
+    report: jsonb('report').$type<Record<string, unknown>>().notNull().default({}),
     error: text('error'),
     startedAt: tstz('started_at').notNull().defaultNow(),
     finishedAt: tstz('finished_at'),
