@@ -1,0 +1,11 @@
+/Plans/
+node_modules/
+dist/
+.turbo/
+coverage/
+.env
+.env.*
+!.env.example
+**/result.json
+*.session
+.DS_Store

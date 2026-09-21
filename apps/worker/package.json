@@ -1,0 +1,38 @@
+{
+  "name": "@aerial/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx watch --env-file-if-exists=../../.env src/main.ts",
+    "start": "node dist/main.js",
+    "cli": "tsx --env-file-if-exists=../../.env src/cli.ts",
+    "import": "tsx --env-file-if-exists=../../.env src/cli.ts import",
+    "replay": "tsx --env-file-if-exists=../../.env src/cli.ts replay",
+    "eval:live": "tsx --env-file-if-exists=../../.env src/cli.ts eval-live",
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\"",
+    "test:integration": "vitest run --passWithNoTests int.test"
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "4.0.87",
+    "@aerial/ai": "workspace:*",
+    "@aerial/config": "workspace:*",
+    "@aerial/contracts": "workspace:*",
+    "@aerial/db": "workspace:*",
+    "@aerial/domain": "workspace:*",
+    "@aerial/geo": "workspace:*",
+    "@aerial/neptun": "workspace:*",
+    "@aerial/observability": "workspace:*",
+    "@aerial/telegram": "workspace:*",
+    "ai": "7.0.107",
+    "jose": "6.2.12",
+    "telegram": "2.26.22",
+    "tsx": "4.23.15"
+  },
+  "devDependencies": {
+    "tsup": "8.5.1"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@aerial/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx watch --env-file-if-exists=../../.env src/main.ts",
+    "start": "node dist/main.js",
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\"",
+    "test:integration": "vitest run --passWithNoTests int.test"
+  },
+  "dependencies": {
+    "@aerial/config": "workspace:*",
+    "@aerial/contracts": "workspace:*",
+    "@aerial/db": "workspace:*",
+    "@aerial/geo": "workspace:*",
+    "@aerial/observability": "workspace:*",
+    "@fastify/cors": "11.3.0",
+    "@fastify/rate-limit": "11.2.0",
+    "fastify": "5.12.5",
+    "jose": "6.2.12"
+  },
+  "devDependencies": {
+    "tsup": "8.5.1"
+  }
+}

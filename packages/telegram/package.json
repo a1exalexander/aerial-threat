@@ -1,0 +1,19 @@
+{
+  "name": "@aerial/telegram",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./export": "./src/export/index.ts",
+    "./live": "./src/live/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\""
+  },
+  "dependencies": {
+    "@aerial/contracts": "workspace:*",
+    "telegram": "2.26.22"
+  }
+}

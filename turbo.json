@@ -1,0 +1,49 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": [".nvmrc", "eslint.config.js", "packages/tooling/*.{js,json}"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/.env"],
+      "env": ["VITE_*"],
+      "outputs": ["dist/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "passThroughEnv": ["TEST_DATABASE_URL"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL", "API_PORT", "CORS_ORIGINS", "OIDC_*", "AI_*", "TELEGRAM_*", "NEPTUN_BASE_URL", "VITE_*"]
+    },
+    "db:migrate": {
+      "cache": false,
+      "passThroughEnv": ["DATABASE_URL"]
+    },
+    "import": {
+      "cache": false,
+      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL"]
+    },
+    "replay": {
+      "cache": false,
+      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL", "AI_*"]
+    },
+    "eval:live": {
+      "cache": false,
+      "passThroughEnv": ["DATABASE_URL", "APP_ENV", "LOG_LEVEL", "AI_*"]
+    }
+  }
+}

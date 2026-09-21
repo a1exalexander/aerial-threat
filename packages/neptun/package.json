@@ -1,0 +1,19 @@
+{
+  "name": "@aerial/neptun",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\""
+  },
+  "dependencies": {
+    "@aerial/contracts": "workspace:*",
+    "@aerial/geo": "workspace:*",
+    "zod": "4.6.5"
+  }
+}

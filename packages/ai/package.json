@@ -1,0 +1,20 @@
+{
+  "name": "@aerial/ai",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\""
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "4.0.87",
+    "@aerial/contracts": "workspace:*",
+    "ai": "7.0.107",
+    "zod": "4.6.5"
+  }
+}

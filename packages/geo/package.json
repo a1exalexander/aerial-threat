@@ -1,0 +1,20 @@
+{
+  "name": "@aerial/geo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./geometry": "./src/geometry.ts",
+    "./match": "./src/match/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\""
+  },
+  "dependencies": {
+    "@aerial/contracts": "workspace:*",
+    "@types/geojson": "7946.0.16"
+  }
+}

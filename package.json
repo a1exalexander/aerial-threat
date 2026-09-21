@@ -1,0 +1,27 @@
+{
+  "name": "aerial-threat",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": "^22.13.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "turbo run test:integration",
+    "dev": "turbo run dev",
+    "db:migrate": "turbo run db:migrate --filter=@aerial/db"
+  },
+  "devDependencies": {
+    "@aerial/tooling": "workspace:*",
+    "@types/node": "22.20.4",
+    "eslint": "10.11.0",
+    "tsx": "4.23.15",
+    "turbo": "2.9.18",
+    "typescript": "6.0.3",
+    "vitest": "5.0.1"
+  }
+}

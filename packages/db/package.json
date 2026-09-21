@@ -1,0 +1,29 @@
+{
+  "name": "@aerial/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts",
+    "./orm": "./src/orm.ts",
+    "./migrate": "./src/migrate.ts",
+    "./testing": "./src/testing.ts",
+    "./repos/alerts": "./src/repos/alerts.ts",
+    "./repos/read": "./src/repos/read/index.ts",
+    "./repos/admin": "./src/repos/admin/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "test:unit": "vitest run --passWithNoTests --exclude \"**/*.int.test.ts\"",
+    "test:integration": "vitest run --passWithNoTests int.test",
+    "db:migrate": "tsx --env-file-if-exists=../../.env src/migrate.ts"
+  },
+  "dependencies": {
+    "@aerial/contracts": "workspace:*",
+    "@aerial/geo": "workspace:*",
+    "drizzle-orm": "0.45.2",
+    "postgres": "3.4.9"
+  }
+}

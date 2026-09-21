@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: aerial
+          POSTGRES_PASSWORD: aerial
+          POSTGRES_DB: aerial
+        ports:
+          - 54329:5432
+        options: >-
+          --health-cmd "pg_isready -U aerial -d aerial"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Test-only throwaway database; no secrets and no live AI/Telegram in CI.
+      TEST_DATABASE_URL: postgres://aerial:aerial@localhost:54329/postgres
+      TURBO_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run lint typecheck test:unit
+      - run: pnpm turbo run build
+      - run: pnpm turbo run test:integration
