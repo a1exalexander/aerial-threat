@@ -9,3 +9,4 @@ coverage/
 **/result.json
 *.session
 .DS_Store
+.dev-jwt-key.json

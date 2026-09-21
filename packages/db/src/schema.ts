@@ -320,6 +320,10 @@ export const auditLog = pgTable(
     idempotencyKey: text('idempotency_key'),
     requestId: text('request_id'),
     createdAt: createdAt(),
+    /** 0002_u8: hash of (actor, action, body) so a reused key with another request is rejected. */
+    requestHash: text('request_hash'),
+    /** 0002_u8: the command's response, returned as-is on an idempotent replay. */
+    response: jsonb('response').$type<unknown>(),
   },
   (t) => [
     uniqueIndex('audit_log_idempotency_key').on(t.idempotencyKey),
