@@ -16,9 +16,11 @@ describe('telegram fixtures', () => {
   });
 
   it.each(names)('%s holds no card numbers, phones or payment links', (name) => {
-    const text = readFileSync(telegramExportPath(name), 'utf8');
+    // The only look-alikes allowed are the redaction placeholders (see manifest `redaction`).
+    const placeholders = ['0000 0000 0000 0001', 'https://send.monobank.ua/jar/REDACTED', '+380 00 000 00 00'];
+    const text = placeholders.reduce((t, p) => t.replaceAll(p, ''), readFileSync(telegramExportPath(name), 'utf8'));
     expect(text).not.toMatch(/\d{4}[ -]?\d{4}[ -]?\d{4}[ -]?\d{4}/);
-    expect(text).not.toMatch(/\+?380\d{9}|\b0\d{2}[ -]?\d{3}[ -]?\d{2}[ -]?\d{2}\b/);
+    expect(text).not.toMatch(/(?<!\d)(?:\+?38[ -]?\(?0\d{2}\)?|\+?380[ -]?\(?\d{2}\)?|\(?0\d{2}\)?)[ -]?\d{2,3}[ -]?\d{2}[ -]?\d{2,3}(?!\d)/);
     expect(text).not.toMatch(/privat24|monobank/i);
   });
 

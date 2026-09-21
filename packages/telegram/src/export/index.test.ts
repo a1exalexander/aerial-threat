@@ -116,7 +116,7 @@ describe('parseTelegramExport', () => {
     expect(parsed.records.map((r) => r.status)).toEqual(['message', 'invalid']);
   });
 
-  it.each(['energy', 'kremenchuk'] as TelegramFixture[])('parses every %s fixture record into one message', (name) => {
+  it.each(['energy', 'kremenchuk', 'kremenchuk-mykolai'] as TelegramFixture[])('parses every %s fixture record into one message', (name) => {
     const json = loadTelegramExport(name) as { messages: Array<{ id: number; text: unknown; text_entities: Array<{ text: string }> }> };
     const { source, records } = parseTelegramExport(json);
     expect(source.externalId).toBe(manifest.files[name].sourceExternalId);
@@ -143,5 +143,16 @@ describe('parseTelegramExport', () => {
       'Зафіксовано падіння ворожого БпЛА на відкритій території у Кременчуцькому районі. Виникло загоряння сухої рослинності. Люди не постраждали.\n\nПовідомляє Полтавська ОВА',
     );
     expect(text('kremenchuk', '101902')).toBe('🟡 Кременчуцький р-н\nРівень знижено до жовтого\nДронова загроза');
+  });
+
+  it('parses the reply-heavy kremenchuk-mykolai export: bare channel id, media-only posts, forwards', () => {
+    const { source, records } = parseTelegramExport(loadTelegramExport('kremenchuk-mykolai'));
+    expect(source).toEqual({ externalId: '2432204405', name: 'Кременчуцький Миколай' });
+    const byId = new Map(records.flatMap((r) => (r.status === 'message' ? [[r.message.externalMessageId, r.message] as const] : [])));
+    expect(byId.get('23998')).toMatchObject({ rawText: '', mediaFlags: ['sticker'], replyToExternalId: '23997' });
+    expect(byId.get('24068')).toMatchObject({ mediaFlags: ['voice'], replyToExternalId: '24067' });
+    expect(byId.get('24087')?.cleanedText).toBe('Кобеляки, Козельщина, Манжелія, Погреби, Градизьк)'); // forwarded post
+    expect(byId.get('24099')?.cleanedText).toMatch(/^Хочеш можеш подякувати-хочеш не дякуй ,або коХве чи ще щось🚬\n/); // custom emoji in place
+    expect(byId.get('24135')).toMatchObject({ cleanedText: 'По ним минус ➖', replyToExternalId: '24134' });
   });
 });

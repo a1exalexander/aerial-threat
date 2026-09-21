@@ -1,0 +1,2214 @@
+{
+ "name": "Кременчуцький Миколай",
+ "type": "public_channel",
+ "id": 2432204405,
+ "messages": [
+  {
+   "id": 23997,
+   "type": "message",
+   "date": "2026-09-19T18:05:23",
+   "date_unixtime": "1789830323",
+   "edited": "2026-09-19T18:05:37",
+   "edited_unixtime": "1789830337",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Тривогу замовляли ? \n\n",
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Тривогу замовляли ? \n\n"
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤨",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 209,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 63,
+     "emoji": "😭"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 13,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "💔"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "😁"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 23998,
+   "type": "message",
+   "date": "2026-09-19T18:14:10",
+   "date_unixtime": "1789830850",
+   "edited": "2026-09-19T18:14:20",
+   "edited_unixtime": "1789830860",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 23997,
+   "file": "(File not included. Change data exporting settings to download.)",
+   "file_name": "sticker.webm",
+   "file_size": 106736,
+   "thumbnail": "(File not included. Change data exporting settings to download.)",
+   "thumbnail_file_size": 7950,
+   "media_type": "sticker",
+   "sticker_emoji": "🌟",
+   "mime_type": "video/webm",
+   "width": 512,
+   "height": 384,
+   "text": "",
+   "text_entities": [],
+   "reactions": [
+    {
+     "type": "custom_emoji",
+     "count": 55,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 28,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 18,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 11,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "👀"
+    }
+   ]
+  },
+  {
+   "id": 23999,
+   "type": "message",
+   "date": "2026-09-19T18:16:41",
+   "date_unixtime": "1789831001",
+   "edited": "2026-09-19T18:16:50",
+   "edited_unixtime": "1789831010",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Коментувати кудой летять ? Чи самі поняли ",
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    "\n\nЯ вже не знаю, що писати…"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Коментувати кудой летять ? Чи самі поняли "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": "\n\nЯ вже не знаю, що писати…"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 279,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 41,
+     "emoji": "🤷‍♂"
+    },
+    {
+     "type": "emoji",
+     "count": 32,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 32,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "🥰"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 5,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24065,
+   "type": "message",
+   "date": "2026-09-20T13:10:50",
+   "date_unixtime": "1789899050",
+   "edited": "2026-09-20T13:14:37",
+   "edited_unixtime": "1789899277",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    {
+     "type": "strikethrough",
+     "text": "Все по стандарту, 1 реактивний біля Царичанка, далі Кобеляки/Козельщина/Манжелія/Погреби/Градизьск і на воду"
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "strikethrough",
+     "text": "Все по стандарту, 1 реактивний біля Царичанка, далі Кобеляки/Козельщина/Манжелія/Погреби/Градизьск і на воду"
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 367,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 23,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "💘"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "⚡"
+    }
+   ]
+  },
+  {
+   "id": 24066,
+   "type": "message",
+   "date": "2026-09-20T13:14:29",
+   "date_unixtime": "1789899269",
+   "edited": "2026-09-20T13:14:36",
+   "edited_unixtime": "1789899276",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24065,
+   "text": "Не вгадав, буде летіти біля Горішні Плавні/Онуфріївка/Павлиш/Чигирин.",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Не вгадав, буде летіти біля Горішні Плавні/Онуфріївка/Павлиш/Чигирин."
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 524,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 31,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 16,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "🫡"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 2,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "💘"
+    }
+   ]
+  },
+  {
+   "id": 24067,
+   "type": "message",
+   "date": "2026-09-20T13:24:19",
+   "date_unixtime": "1789899859",
+   "edited": "2026-09-20T13:24:28",
+   "edited_unixtime": "1789899868",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "2 бандероли залетают в Полтавскую обл с Сумской , курс Опошня/Диканька/Полтава",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "2 бандероли залетают в Полтавскую обл с Сумской , курс Опошня/Диканька/Полтава"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 368,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 37,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🍓"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "💋"
+    }
+   ]
+  },
+  {
+   "id": 24068,
+   "type": "message",
+   "date": "2026-09-20T13:26:24",
+   "date_unixtime": "1789899984",
+   "edited": "2026-09-20T13:27:37",
+   "edited_unixtime": "1789900057",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24067,
+   "file": "(File not included. Change data exporting settings to download.)",
+   "file_size": 45843,
+   "media_type": "voice_message",
+   "mime_type": "audio/ogg",
+   "duration_seconds": 12,
+   "text": "Если к нам то минут 15 и у нас будут\n\nНу пока Диканька/Полтавка следующие мы",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Если к нам то минут 15 и у нас будут\n\nНу пока Диканька/Полтавка следующие мы"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 490,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 30,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 17,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "💋"
+    }
+   ]
+  },
+  {
+   "id": 24069,
+   "type": "message",
+   "date": "2026-09-20T13:32:38",
+   "date_unixtime": "1789900358",
+   "edited": "2026-09-20T13:34:15",
+   "edited_unixtime": "1789900455",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24068,
+   "text": "Полтава зараз зʼїбе!",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Полтава зараз зʼїбе!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "paid",
+     "count": 2
+    },
+    {
+     "type": "emoji",
+     "count": 366,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 62,
+     "emoji": "😭"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥰"
+    }
+   ]
+  },
+  {
+   "id": 24071,
+   "type": "message",
+   "date": "2026-09-20T13:34:10",
+   "date_unixtime": "1789900450",
+   "edited": "2026-09-20T13:43:27",
+   "edited_unixtime": "1789901007",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    {
+     "type": "bold",
+     "text": "Позле Чигирина круги рисует 1 и все."
+    },
+    "\nКировоградская/Полтавская чисто."
+   ],
+   "text_entities": [
+    {
+     "type": "bold",
+     "text": "Позле Чигирина круги рисует 1 и все."
+    },
+    {
+     "type": "plain",
+     "text": "\nКировоградская/Полтавская чисто."
+    }
+   ],
+   "reactions": [
+    {
+     "type": "paid",
+     "count": 2
+    },
+    {
+     "type": "emoji",
+     "count": 404,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 28,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "💘"
+    }
+   ]
+  },
+  {
+   "id": 24073,
+   "type": "message",
+   "date": "2026-09-20T13:37:58",
+   "date_unixtime": "1789900678",
+   "edited": "2026-09-20T13:38:16",
+   "edited_unixtime": "1789900696",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24071,
+   "text": "Там і впаде(Матвіївка біля Чигирина) , крутится і знизив висоту.",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Там і впаде(Матвіївка біля Чигирина) , крутится і знизив висоту."
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 353,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 15,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 24074,
+   "type": "message",
+   "date": "2026-09-20T13:41:24",
+   "date_unixtime": "1789900884",
+   "edited": "2026-09-20T13:41:32",
+   "edited_unixtime": "1789900892",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24073,
+   "text": "Упав",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Упав"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 361,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 17,
+     "emoji": "❤"
+    }
+   ]
+  },
+  {
+   "id": 24075,
+   "type": "message",
+   "date": "2026-09-20T13:43:03",
+   "date_unixtime": "1789900983",
+   "edited": "2026-09-20T13:43:09",
+   "edited_unixtime": "1789900989",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Тепер точно буде відбій ",
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Тепер точно буде відбій "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 397,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 63,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 16,
+     "emoji": "💯"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "🤝"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🫡"
+    }
+   ]
+  },
+  {
+   "id": 24086,
+   "type": "message",
+   "date": "2026-09-20T16:49:30",
+   "date_unixtime": "1789912170",
+   "edited": "2026-09-20T16:49:34",
+   "edited_unixtime": "1789912174",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Опять новий з Донецька летить ",
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    " \n\nУгадайте куди ? ",
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Опять новий з Донецька летить "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": " \n\nУгадайте куди ? "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 251,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 129,
+     "emoji": "😢"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 16,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "👀"
+    }
+   ]
+  },
+  {
+   "id": 24087,
+   "type": "message",
+   "date": "2026-09-20T17:13:21",
+   "date_unixtime": "1789913601",
+   "edited": "2026-09-20T17:13:34",
+   "edited_unixtime": "1789913614",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "forwarded_from": "[ІМ'Я]",
+   "text": "Кобеляки, Козельщина, Манжелія, Погреби, Градизьк)",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Кобеляки, Козельщина, Манжелія, Погреби, Градизьк)"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 568,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 22,
+     "emoji": "😭"
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "❤"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 9,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "💋"
+    }
+   ]
+  },
+  {
+   "id": 24088,
+   "type": "message",
+   "date": "2026-09-20T17:36:40",
+   "date_unixtime": "1789915000",
+   "edited": "2026-09-20T17:37:01",
+   "edited_unixtime": "1789915021",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Буде відбій ",
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    " вже хрен знає який але він буде"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Буде відбій "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": " вже хрен знає який але він буде"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 358,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 55,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "💯"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 6,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24089,
+   "type": "message",
+   "date": "2026-09-20T17:46:57",
+   "date_unixtime": "1789915617",
+   "edited": "2026-09-20T17:47:03",
+   "edited_unixtime": "1789915623",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "Бублистика Курск",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Бублистика Курск"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 501,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 31,
+     "emoji": "😭"
+    },
+    {
+     "type": "emoji",
+     "count": 13,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🫡"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 6,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24090,
+   "type": "message",
+   "date": "2026-09-20T17:50:18",
+   "date_unixtime": "1789915818",
+   "edited": "2026-09-20T17:50:23",
+   "edited_unixtime": "1789915823",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24089,
+   "text": "В режиме ПЕВЕО",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "В режиме ПЕВЕО"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 461,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 58,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "⚡"
+    }
+   ]
+  },
+  {
+   "id": 24091,
+   "type": "message",
+   "date": "2026-09-20T18:00:40",
+   "date_unixtime": "1789916440",
+   "edited": "2026-09-20T18:01:24",
+   "edited_unixtime": "1789916484",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    {
+     "type": "strikethrough",
+     "text": "Ракета на Днепр с юга"
+    },
+    "\n\nБандероль на Днепр"
+   ],
+   "text_entities": [
+    {
+     "type": "strikethrough",
+     "text": "Ракета на Днепр с юга"
+    },
+    {
+     "type": "plain",
+     "text": "\n\nБандероль на Днепр"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 340,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "😢"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 6,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤝"
+    }
+   ]
+  },
+  {
+   "id": 24092,
+   "type": "message",
+   "date": "2026-09-20T18:02:46",
+   "date_unixtime": "1789916566",
+   "edited": "2026-09-20T18:02:53",
+   "edited_unixtime": "1789916573",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Будут отбои ",
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Будут отбои "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 311,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 22,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "🤗"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🤣"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 2,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24093,
+   "type": "message",
+   "date": "2026-09-20T18:15:01",
+   "date_unixtime": "1789917301",
+   "edited": "2026-09-20T18:15:08",
+   "edited_unixtime": "1789917308",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Там опять нові летять з Дніпропетровська до нас ",
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Там опять нові летять з Дніпропетровська до нас "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 374,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 64,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 20,
+     "emoji": "😱"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 15,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🤔"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 1,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24094,
+   "type": "message",
+   "date": "2026-09-20T18:23:04",
+   "date_unixtime": "1789917784",
+   "edited": "2026-09-20T18:23:11",
+   "edited_unixtime": "1789917791",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "file": "(File not included. Change data exporting settings to download.)",
+   "file_size": 669160,
+   "thumbnail": "(File not included. Change data exporting settings to download.)",
+   "thumbnail_file_size": 23124,
+   "media_type": "animation",
+   "mime_type": "video/mp4",
+   "duration_seconds": 3,
+   "width": 720,
+   "height": 720,
+   "text": [
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "😖",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 387,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 29,
+     "emoji": "👍"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 16,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 11,
+     "emoji": "😘"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "🙏"
+    }
+   ]
+  },
+  {
+   "id": 24095,
+   "type": "message",
+   "date": "2026-09-20T18:33:17",
+   "date_unixtime": "1789918397",
+   "edited": "2026-09-20T18:33:25",
+   "edited_unixtime": "1789918405",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24093,
+   "text": [
+    "Коментувати ? Чи ви поняли як до чого ",
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    "\n\nКозельщина/Манжелія/Погреби/Градижск і на воду"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Коментувати ? Чи ви поняли як до чого "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🙄",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": "\n\nКозельщина/Манжелія/Погреби/Градижск і на воду"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 643,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 24,
+     "emoji": "🤣"
+    },
+    {
+     "type": "emoji",
+     "count": 21,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 17,
+     "emoji": "🤷‍♂"
+    },
+    {
+     "type": "emoji",
+     "count": 14,
+     "emoji": "😭"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 13,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24096,
+   "type": "message",
+   "date": "2026-09-20T18:49:53",
+   "date_unixtime": "1789919393",
+   "edited": "2026-09-20T18:50:44",
+   "edited_unixtime": "1789919444",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 23886,
+   "photo": "(File not included. Change data exporting settings to download.)",
+   "photo_file_size": 36679,
+   "width": 1280,
+   "height": 642,
+   "text": [
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤷‍♂️",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 103,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 85,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 20,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "💋"
+    }
+   ]
+  },
+  {
+   "id": 24097,
+   "type": "message",
+   "date": "2026-09-20T18:53:18",
+   "date_unixtime": "1789919598",
+   "edited": "2026-09-20T18:53:28",
+   "edited_unixtime": "1789919608",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "Київ били без перерви , тепер Кроп-р цілими днями бʼють",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Київ били без перерви , тепер Кроп-р цілими днями бʼють"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 481,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 104,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "💯"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "🤗"
+    }
+   ]
+  },
+  {
+   "id": 24098,
+   "type": "message",
+   "date": "2026-09-20T19:03:45",
+   "date_unixtime": "1789920225",
+   "edited": "2026-09-20T19:03:55",
+   "edited_unixtime": "1789920235",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Та шо , тіпа буде відбій ",
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Та шо , тіпа буде відбій "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🤝",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 258,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 8,
+     "emoji": "🤗"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "👀"
+    }
+   ]
+  },
+  {
+   "id": 24099,
+   "type": "message",
+   "date": "2026-09-20T19:04:56",
+   "date_unixtime": "1789920296",
+   "edited": "2026-09-20T19:05:03",
+   "edited_unixtime": "1789920303",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    {
+     "type": "bold",
+     "text": "Хочеш можеш подякувати-хочеш не дякуй ,або коХве чи ще щось"
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    "\n\n🔗Посилання на Банку\n",
+    {
+     "type": "link",
+     "text": "https://send.monobank.ua/jar/REDACTED"
+    },
+    "\n💳Номер картки Банки\n",
+    {
+     "type": "bank_card",
+     "text": "0000 0000 0000 0001"
+    },
+    "\n💳Номер картки Приват:\n",
+    {
+     "type": "bank_card",
+     "text": "0000 0000 0000 0001"
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "bold",
+     "text": "Хочеш можеш подякувати-хочеш не дякуй ,або коХве чи ще щось"
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": "\n\n🔗Посилання на Банку\n"
+    },
+    {
+     "type": "link",
+     "text": "https://send.monobank.ua/jar/REDACTED"
+    },
+    {
+     "type": "plain",
+     "text": "\n💳Номер картки Банки\n"
+    },
+    {
+     "type": "bank_card",
+     "text": "0000 0000 0000 0001"
+    },
+    {
+     "type": "plain",
+     "text": "\n💳Номер картки Приват:\n"
+    },
+    {
+     "type": "bank_card",
+     "text": "0000 0000 0000 0001"
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 123,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 16,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤗"
+    }
+   ]
+  },
+  {
+   "id": 24110,
+   "type": "message",
+   "date": "2026-09-21T01:49:47",
+   "date_unixtime": "1789944587",
+   "edited": "2026-09-21T01:50:00",
+   "edited_unixtime": "1789944600",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "Козелищина/Манежелия/Ламаное/Погребы/Градижск и на воду \n\nПо нему будет идти работа , не пугаемся звука",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Козелищина/Манежелия/Ламаное/Погребы/Градижск и на воду \n\nПо нему будет идти работа , не пугаемся звука"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 581,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 63,
+     "emoji": "❤"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 11,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "⚡"
+    }
+   ]
+  },
+  {
+   "id": 24114,
+   "type": "message",
+   "date": "2026-09-21T03:04:12",
+   "date_unixtime": "1789949052",
+   "edited": "2026-09-21T03:04:45",
+   "edited_unixtime": "1789949085",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "Все теж саме , нічого нового 👆🏻 \nСпіть далі 🫡",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Все теж саме , нічого нового 👆🏻 \nСпіть далі 🫡"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "paid",
+     "count": 1
+    },
+    {
+     "type": "emoji",
+     "count": 672,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 71,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 22,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 10,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "⚡"
+    }
+   ]
+  },
+  {
+   "id": 24115,
+   "type": "message",
+   "date": "2026-09-21T07:31:28",
+   "date_unixtime": "1789965088",
+   "edited": "2026-09-21T07:31:49",
+   "edited_unixtime": "1789965109",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24110,
+   "text": "Щас будет тревога , и опять так же само 1 реактивный мопед 👆🏻",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Щас будет тревога , и опять так же само 1 реактивный мопед 👆🏻"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 898,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 80,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 31,
+     "emoji": "❤"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 14,
+     "document_id": ""
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤗"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "⚡"
+    }
+   ]
+  },
+  {
+   "id": 24116,
+   "type": "message",
+   "date": "2026-09-21T10:19:22",
+   "date_unixtime": "1789975162",
+   "edited": "2026-09-21T10:19:28",
+   "edited_unixtime": "1789975168",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": [
+    "Ничего не меняется ",
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    " все так же и летят по маршруту"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Ничего не меняется "
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "custom_emoji",
+     "text": "🚬",
+     "document_id": ""
+    },
+    {
+     "type": "plain",
+     "text": " все так же и летят по маршруту"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 403,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 14,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🤝"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 4,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24117,
+   "type": "message",
+   "date": "2026-09-21T10:31:04",
+   "date_unixtime": "1789975864",
+   "edited": "2026-09-21T10:31:27",
+   "edited_unixtime": "1789975887",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "photo": "(File not included. Change data exporting settings to download.)",
+   "photo_file_size": 107564,
+   "width": 1280,
+   "height": 720,
+   "text": [
+    {
+     "type": "bold",
+     "text": "Клінінгова компанія «АС ЧистоDim» надає спектр послуг по прибиранню  квартир, будинків, офісних приміщень."
+    },
+    "\n\nЩо ми пропонуємо: \n🟠підтримуюче прибирання\n🟠генеральне прибирання\n🟠післябудівельне прибирання\n🟠 миття вікон та фасадів\n🟠миття побутових приладів\n🟠озонування та дезінфекція\n🟠пакування речей\n🟠прибирання після померлого\n🟠ОЧИЩЕННЯ ПОВІТРЯ БУДЬ ЯКОЇ ПЛОЩІ(запах тютюну, гару, тварин, після померлого) професійними озоногенераторами\n\nУ нас:\n🔹досвідчені фахівці\n🔹екологічно безпечні хімічні засоби\n🔹швидкий результат\n🔹гарантія якості\n🔹доступні ціни\n\nЗамовте послуги та насолоджуйтесь бездоганною чистотою!💫\n\n📞 Телефон:\n+380 00 000 00 00 \n(Viber, Telegram)\n\n",
+    {
+     "type": "hashtag",
+     "text": "#реклама"
+    },
+    ""
+   ],
+   "text_entities": [
+    {
+     "type": "bold",
+     "text": "Клінінгова компанія «АС ЧистоDim» надає спектр послуг по прибиранню  квартир, будинків, офісних приміщень."
+    },
+    {
+     "type": "plain",
+     "text": "\n\nЩо ми пропонуємо: \n🟠підтримуюче прибирання\n🟠генеральне прибирання\n🟠післябудівельне прибирання\n🟠 миття вікон та фасадів\n🟠миття побутових приладів\n🟠озонування та дезінфекція\n🟠пакування речей\n🟠прибирання після померлого\n🟠ОЧИЩЕННЯ ПОВІТРЯ БУДЬ ЯКОЇ ПЛОЩІ(запах тютюну, гару, тварин, після померлого) професійними озоногенераторами\n\nУ нас:\n🔹досвідчені фахівці\n🔹екологічно безпечні хімічні засоби\n🔹швидкий результат\n🔹гарантія якості\n🔹доступні ціни\n\nЗамовте послуги та насолоджуйтесь бездоганною чистотою!💫\n\n📞 Телефон:\n+380 00 000 00 00 \n(Viber, Telegram)\n\n"
+    },
+    {
+     "type": "hashtag",
+     "text": "#реклама"
+    },
+    {
+     "type": "plain",
+     "text": ""
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 35,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🥰"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "💋"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "😭"
+    }
+   ]
+  },
+  {
+   "id": 24118,
+   "type": "message",
+   "date": "2026-09-21T10:40:07",
+   "date_unixtime": "1789976407",
+   "edited": "2026-09-21T10:41:11",
+   "edited_unixtime": "1789976471",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "photo": "(File not included. Change data exporting settings to download.)",
+   "photo_file_size": 98330,
+   "width": 1024,
+   "height": 1024,
+   "text": [
+    "Запрошуємо у команду SweeTale! \n\nШукаємо відповідальних колег, які люблять свою справу так само як ми. Якщо ви цінуєте стабільність, комфорт та професійний підхід до роботи — чекаємо на вас!\n\n📍 Відкриті вакансії:\n✅ Варник харчової сировини\n✅ Оператор лінії \n✅ Кондитер \n✅ Цукерник \n✅ Налагоджувальник обладнання \n\n🚀 Що ми пропонуємо:\n- Гідну та стабільну оплату праці\n- Сучасне виробництво та комфортні умови\n- Колектив, де кожен підтримує один одного\n\n📲 Дізнатися деталі або записатися на співбесіду: +380 00 000 00 00\n📧 Надсилайте резюме: ",
+    {
+     "type": "email",
+     "text": "[EMAIL]"
+    },
+    "\n\n SweeTale — у щастя є смак, а в роботі — стабільність!"
+   ],
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Запрошуємо у команду SweeTale! \n\nШукаємо відповідальних колег, які люблять свою справу так само як ми. Якщо ви цінуєте стабільність, комфорт та професійний підхід до роботи — чекаємо на вас!\n\n📍 Відкриті вакансії:\n✅ Варник харчової сировини\n✅ Оператор лінії \n✅ Кондитер \n✅ Цукерник \n✅ Налагоджувальник обладнання \n\n🚀 Що ми пропонуємо:\n- Гідну та стабільну оплату праці\n- Сучасне виробництво та комфортні умови\n- Колектив, де кожен підтримує один одного\n\n📲 Дізнатися деталі або записатися на співбесіду: +380 00 000 00 00\n📧 Надсилайте резюме: "
+    },
+    {
+     "type": "email",
+     "text": "[EMAIL]"
+    },
+    {
+     "type": "plain",
+     "text": "\n\n SweeTale — у щастя є смак, а в роботі — стабільність!"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 21,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 19,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤣"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "🥱"
+    }
+   ]
+  },
+  {
+   "id": 24130,
+   "type": "message",
+   "date": "2026-09-21T14:27:32",
+   "date_unixtime": "1789990052",
+   "edited": "2026-09-21T14:27:43",
+   "edited_unixtime": "1789990063",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "text": "2 бандероли пролетают Опошню курс Диканька/Полтава",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "2 бандероли пролетают Опошню курс Диканька/Полтава"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 312,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 26,
+     "emoji": "😱"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🤝"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "💋"
+    }
+   ]
+  },
+  {
+   "id": 24131,
+   "type": "message",
+   "date": "2026-09-21T14:32:14",
+   "date_unixtime": "1789990334",
+   "edited": "2026-09-21T14:32:22",
+   "edited_unixtime": "1789990342",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24130,
+   "text": "Подлетают к Полтаве !",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Подлетают к Полтаве !"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 337,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 21,
+     "emoji": "😭"
+    },
+    {
+     "type": "emoji",
+     "count": 5,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 24132,
+   "type": "message",
+   "date": "2026-09-21T14:33:47",
+   "date_unixtime": "1789990427",
+   "edited": "2026-09-21T14:33:54",
+   "edited_unixtime": "1789990434",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24131,
+   "text": "Полтава зараз вїбе",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Полтава зараз вїбе"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 433,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 44,
+     "emoji": "😢"
+    },
+    {
+     "type": "emoji",
+     "count": 22,
+     "emoji": "😭"
+    },
+    {
+     "type": "emoji",
+     "count": 12,
+     "emoji": "💔"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "❤"
+    },
+    {
+     "type": "custom_emoji",
+     "count": 7,
+     "document_id": ""
+    }
+   ]
+  },
+  {
+   "id": 24133,
+   "type": "message",
+   "date": "2026-09-21T14:36:16",
+   "date_unixtime": "1789990576",
+   "edited": "2026-09-21T14:36:24",
+   "edited_unixtime": "1789990584",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24132,
+   "text": "Дальше летят в сторону Машевки на восток",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Дальше летят в сторону Машевки на восток"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 393,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 9,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 4,
+     "emoji": "😢"
+    }
+   ]
+  },
+  {
+   "id": 24134,
+   "type": "message",
+   "date": "2026-09-21T14:38:50",
+   "date_unixtime": "1789990730",
+   "edited": "2026-09-21T14:39:00",
+   "edited_unixtime": "1789990740",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24133,
+   "text": "Развернулась в сторону Чутово/и в Харьковскую обл 🤷🏻‍♂️",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "Развернулась в сторону Чутово/и в Харьковскую обл 🤷🏻‍♂️"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 343,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 24,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 11,
+     "emoji": "🤔"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 2,
+     "emoji": "🫡"
+    },
+    {
+     "type": "emoji",
+     "count": 1,
+     "emoji": "💘"
+    }
+   ]
+  },
+  {
+   "id": 24135,
+   "type": "message",
+   "date": "2026-09-21T14:43:16",
+   "date_unixtime": "1789990996",
+   "edited": "2026-09-21T14:43:23",
+   "edited_unixtime": "1789991003",
+   "from": "Кременчуцький Миколай",
+   "from_id": "channel2432204405",
+   "reply_to_message_id": 24134,
+   "text": "По ним минус ➖",
+   "text_entities": [
+    {
+     "type": "plain",
+     "text": "По ним минус ➖"
+    }
+   ],
+   "reactions": [
+    {
+     "type": "emoji",
+     "count": 293,
+     "emoji": "🙏"
+    },
+    {
+     "type": "emoji",
+     "count": 82,
+     "emoji": "❤"
+    },
+    {
+     "type": "emoji",
+     "count": 19,
+     "emoji": "👍"
+    },
+    {
+     "type": "emoji",
+     "count": 7,
+     "emoji": "👀"
+    },
+    {
+     "type": "emoji",
+     "count": 6,
+     "emoji": "🔥"
+    },
+    {
+     "type": "emoji",
+     "count": 3,
+     "emoji": "😘"
+    }
+   ]
+  }
+ ]
+}

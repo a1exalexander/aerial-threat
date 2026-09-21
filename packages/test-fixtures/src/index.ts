@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-export type TelegramFixture = 'energy' | 'kremenchuk';
+export type TelegramFixture = 'energy' | 'kremenchuk' | 'kremenchuk-mykolai';
 
 export type Manifest = {
   version: number;
@@ -11,7 +11,8 @@ export type Manifest = {
     {
       path: string;
       channel: string;
-      username: string;
+      /** null: the channel's public username is not known yet. */
+      username: string | null;
       sourceExternalId: string;
       records: Array<{ id: string; sha256: string; replyTo?: string; case?: string }>;
     }
